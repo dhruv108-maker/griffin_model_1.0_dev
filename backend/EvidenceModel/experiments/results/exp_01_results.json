@@ -1,0 +1,43 @@
+{
+  "experiment_name": "Exp_01_Standard_Griffin",
+  "retrieval": {
+    "precision_at_k": {
+      "1": 0.0,
+      "3": 0.0,
+      "5": 0.0
+    },
+    "recall_at_k": {
+      "1": 0.0,
+      "3": 0.0,
+      "5": 0.0
+    },
+    "mrr": 0.0,
+    "ndcg_at_k": {
+      "1": 0.0,
+      "3": 0.0,
+      "5": 0.0
+    }
+  },
+  "validator": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0
+  },
+  "graph": {
+    "curriculum_coverage": 102.25,
+    "evidence_density": 2.0,
+    "duplicate_edge_rate": 0.0,
+    "hallucination_rate": 1.0,
+    "average_confidence": 0.0008445669159578414
+  },
+  "runtime": {
+    "total_runtime_seconds": 310.8200305000064,
+    "stage_runtimes": {
+      "GriffinCore.process": 310.81997240000055
+    },
+    "peak_memory_mb": 49.82921886444092,
+    "gpu_memory_mb": null
+  }
+}

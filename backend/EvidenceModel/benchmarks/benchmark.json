@@ -1,0 +1,26 @@
+{
+  "benchmark_name": "Griffin-DB-Curriculum-v1",
+  "curriculum_pdf": "backend/Tests/Database/Samples/curr_test.pdf",
+  "report_pages": [
+    {
+      "blocks": [
+        {
+          "text": "Relational algebra provides a formal foundation for SQL queries in relational database engines."
+        },
+        {
+          "text": "Normalization decomposes tables to remove insertion, update, and deletion anomalies."
+        }
+      ]
+    }
+  ],
+  "all_topic_ids": [1, 2, 3, 4],
+  "gold_retrieval": {
+    "1": ["p_0"],
+    "2": ["p_1"]
+  },
+  "gold_validator": {
+    "y_true": [1, 1, 0, 0],
+    "y_pred": [1, 1, 0, 0],
+    "y_prob": [0.95, 0.88, 0.12, 0.05]
+  }
+}

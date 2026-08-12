@@ -1,0 +1,2816 @@
+{
+  "metadata": {
+    "title": null,
+    "author": null,
+    "enrollment": null,
+    "mentor": null,
+    "industry_mentor": null,
+    "institution": null,
+    "department": null,
+    "semester": null,
+    "degree": null,
+    "submission_date": null,
+    "report_type": "Academic Report",
+    "total_pages": 67,
+    "raw_attributes": {}
+  },
+  "tokens": [
+    {
+      "token_id": "grt_345577b5a8c1",
+      "chapter": "for Automated Assessment and Curriculum Mapping”",
+      "section": "“BACHELOR OF SCIENCE IN DATA SCIENCE”",
+      "subsection": "Dhruv Verma",
+      "page": 1,
+      "heading": "Dhruv Verma",
+      "text": "Enrollment no: 23SC06007\nB.Sc. Data Science, Semester-VI",
+      "concepts": [],
+      "entities": [
+        "VI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2222,
+      "semantic_density": 0.8284,
+      "information_gain": 0.5663
+    },
+    {
+      "token_id": "grt_6adad7f016e5",
+      "chapter": "for Automated Assessment and Curriculum Mapping”",
+      "section": "“BACHELOR OF SCIENCE IN DATA SCIENCE”",
+      "subsection": "Submitted to",
+      "page": 1,
+      "heading": "Submitted to",
+      "text": "The Department of Data Science, School of Science,\nGSFC University, Vadodara-391750, Gujarat",
+      "concepts": [],
+      "entities": [
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1538,
+      "semantic_density": 0.7693,
+      "information_gain": 0.5183
+    },
+    {
+      "token_id": "grt_33952a05dca9",
+      "chapter": "for Automated Assessment and Curriculum Mapping”",
+      "section": "“BACHELOR OF SCIENCE IN DATA SCIENCE”",
+      "subsection": "Dr. Trupti K. Gajaria",
+      "page": 1,
+      "heading": "Dr. Trupti K. Gajaria",
+      "text": "Assistant Professor, School of Science\nGSFC University, Vadodara-391750, Gujarat",
+      "concepts": [],
+      "entities": [
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2,
+      "semantic_density": 0.8368,
+      "information_gain": 0.5604
+    },
+    {
+      "token_id": "grt_8ceced4e8437",
+      "chapter": "Declaration",
+      "section": "Main",
+      "subsection": "Alignment Model for Automated Assessment and Curriculum Mapping”",
+      "page": 2,
+      "heading": "Alignment Model for Automated Assessment and Curriculum Mapping”",
+      "text": "submitted in partial\nfulfilment of the requirements for the award of the degree of",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7994,
+      "information_gain": 0.4673
+    },
+    {
+      "token_id": "grt_1cca5477273e",
+      "chapter": "Declaration",
+      "section": "Main",
+      "subsection": "GSFC University, Vadodara",
+      "page": 2,
+      "heading": "GSFC University, Vadodara",
+      "text": ", is a record of the original work carried out by me under the\nguidance of",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8019,
+      "information_gain": 0.4682
+    },
+    {
+      "token_id": "grt_a6c461f6dadf",
+      "chapter": "Declaration",
+      "section": "Main",
+      "subsection": "Dr. Trupti K. Gajaria",
+      "page": 2,
+      "heading": "Dr. Trupti K. Gajaria",
+      "text": ", Assistant Professor, School of Science, GSFC University.\nI further declare that the work presented in this report has not been submitted, either in part or in\nfull, to any other University, Institution, or Organization for the award of any degree, diploma, or\ncertification.\nThe information and references used in this report have been duly acknowledged wherever\napplicable.",
+      "concepts": [],
+      "entities": [
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0351,
+      "semantic_density": 0.7813,
+      "information_gain": 0.475
+    },
+    {
+      "token_id": "grt_9bbcd24d8eaf",
+      "chapter": "Certificate by University",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 3,
+      "heading": "Certificate by University",
+      "text": "This is to certify that the Major Project Report entitled",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7957,
+      "information_gain": 0.466
+    },
+    {
+      "token_id": "grt_8d44a9df9560",
+      "chapter": "Certificate by University",
+      "section": "Main",
+      "subsection": "Alignment Model for Automated Assessment and Curriculum Mapping”",
+      "page": 3,
+      "heading": "Alignment Model for Automated Assessment and Curriculum Mapping”",
+      "text": "submitted by Mr. Dhruv\nVerma Enrolment No.: 23SC06007 in partial fulfilment of the requirements for the award of the degree of\nBachelor of Science in Data Science of GSFC University, Vadodara, is a Bonafide record of the work\ncarried out by him under my guidance and supervision during the academic year 2025–2026.\nTo the best of my knowledge, the work presented in this report is original and has not been submitted, either\nin part or in full, to any other University or Institution for the award of any degree, diploma, or other\nacademic qualification.\nDate: 10/06/2026\nPlace: Vadodara",
+      "concepts": [],
+      "entities": [
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0198,
+      "semantic_density": 0.7147,
+      "information_gain": 0.4456
+    },
+    {
+      "token_id": "grt_b6291eec8a3f",
+      "chapter": "Acknowledgement",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 4,
+      "heading": "Acknowledgement",
+      "text": "I would like to express my sincere gratitude to GSFC University, Vadodara, for providing an excellent\nacademic environment, resources, and opportunities that enabled me to undertake and successfully\ncomplete this Major Project.\nI extend my heartfelt thanks to Shri P. K. Taneja, Hon’ble President, GSFC University, and Prof. G. R.\nSinha, Provost, GSFC University, for their visionary leadership and continuous efforts toward fostering\nacademic excellence and innovation within the university.\nI am thankful to Dr. Santosh Kumar, Dean and Head, Department of Data Science, School of Science,\nGSFC University, for his encouragement, support, and for providing an environment conducive to academic\nand research activities.\nI am deeply grateful to Dr. Trupti K. Gajaria, Program Coordinator, B.Sc. Data Science and Faculty Mentor,\nSchool of Science, GSFC University, for her constant encouragement, valuable suggestions, and\nunwavering support throughout the course of this project. Her guidance and motivation played a significant\nrole in shaping this work and ensuring its successful completion.\nI would also like to express my sincere appreciation to Prof. Vishal Harith, Assistant Professor, School of\nScience, GSFC University, for his technical guidance, insightful discussions, and constructive feedback.\nHis expertise and suggestions greatly contributed to the development and refinement of this project.\nI am thankful to all the faculty members of the Department of Data Science for sharing their knowledge\nand providing a strong academic foundation throughout my undergraduate studies.\nFinally, I would like to acknowledge my family, friends, and well-wishers for their continuous support,\nencouragement, and belief in me throughout this journey.",
+      "concepts": [],
+      "entities": [
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0078,
+      "semantic_density": 0.6333,
+      "information_gain": 0.4123
+    },
+    {
+      "token_id": "grt_c666b2a969ef",
+      "chapter": "Acknowledgement",
+      "section": "Main",
+      "subsection": "Dhruv Verma",
+      "page": 4,
+      "heading": "Dhruv Verma",
+      "text": "Enrolment No.: 23SC06007\nB.Sc. Data Science, Semester VI\nGSFC University, Vadodara",
+      "concepts": [],
+      "entities": [
+        "VI",
+        "GSFC"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.3333,
+      "semantic_density": 0.8394,
+      "information_gain": 0.6146
+    },
+    {
+      "token_id": "grt_a83d51aad275",
+      "chapter": "ABSTRACT",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 5,
+      "heading": "ABSTRACT",
+      "text": "The increasing adoption of Outcome-Based Education (OBE), accreditation frameworks, and\ndigital learning environments has significantly increased the volume of academic documents\nrequiring evaluation, including internship reports, project reports, and technical submissions.\nTraditional assessment practices rely heavily on manual review, making the evaluation process\ntime-consuming, subjective, and difficult to scale while maintaining consistency across large\nstudent cohorts. Although recent advances in Artificial Intelligence (AI) and Natural Language\nProcessing (NLP) have enabled automated content analysis and feedback generation, existing\napproaches primarily focus on textual quality or generic document evaluation and often lack\ncurriculum awareness, educational context, and explainable assessment mechanisms. This project\npresents Digi Assessor: Griffin Model 1.0, a Semantic Learning Alignment Model designed to\nautomate curriculum-aware assessment of internship and academic reports. The proposed\nframework integrates curriculum intelligence generation, semantic topic extraction, curriculum\nmapping, semantic similarity analysis, significance assessment, format compliance evaluation, and\nbulk assessment capabilities within a unified assessment pipeline. Curriculum documents are\ntransformed into structured knowledge representations and semantically aligned with report\ncontent using transformer-based embedding models, enabling the evaluation of curriculum\ncoverage and learning relevance beyond traditional keyword-matching techniques. A machine\nlearning-based significance assessment module estimates the technical contribution and\neducational value of report content, while automated processing supports consistent evaluation\nacross multiple reports with reduced assessment effort. The framework was implemented using\nmodern NLP and machine learning technologies and evaluated on internship reports from the B.Sc.\nData Science program at GSFC University. Experimental results demonstrate the effectiveness of\nthe proposed approach in performing curriculum-aware document assessment, identifying\ncurriculum alignment, generating explainable evaluation outcomes, and supporting scalable\nacademic assessment. The proposed model contributes toward the development of intelligent\neducational assessment systems that improve evaluation consistency, reduce faculty workload, and\nstrengthen curriculum-driven quality assurance practices.",
+      "concepts": [
+        "pipeline",
+        "transformer",
+        "model",
+        "embedding"
+      ],
+      "entities": [
+        "OBE",
+        "AI",
+        "GSFC",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0743,
+      "semantic_density": 0.6394,
+      "information_gain": 0.4035
+    },
+    {
+      "token_id": "grt_c0792943aa05",
+      "chapter": "APPENDIX A – LIST OF FIGURES",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 8,
+      "heading": "APPENDIX A – LIST OF FIGURES",
+      "text": "Figure A 1 Course contribution chart ........................................................................................... 42",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7055,
+      "information_gain": 0.4344
+    },
+    {
+      "token_id": "grt_5bc75e5e6c1f",
+      "chapter": "APPENDIX A – LIST OF FIGURES",
+      "section": "APPENDIX B – LIST OF FIGURES",
+      "subsection": "Overview",
+      "page": 9,
+      "heading": "APPENDIX B – LIST OF FIGURES",
+      "text": "Figure B 1  Digi Assessor Griffin Model 1.0 handles document loading..................................... 44\nFigure B 2 Curriculum Assessment Dashboard ............................................................................ 45\nFigure B 3 Bulk Assessment Processing Framework ................................................................... 46",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1071,
+      "semantic_density": 0.7162,
+      "information_gain": 0.481
+    },
+    {
+      "token_id": "grt_480a970eb51f",
+      "chapter": "LIST OF EQUATIONS",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 10,
+      "heading": "LIST OF EQUATIONS",
+      "text": "Equation 3.1 Semantic Embedding Generation ............................................................................ 18\nEquation 3.2 Cosine Similarity Calculation.................................................................................. 18\nEquation 3.3 Curriculum Coverage Calculation ........................................................................... 19\nEquation 3.4 Weighted Alignment Score ..................................................................................... 20\nEquation 3.5 Significance Score Estimation ................................................................................. 21\nEquation 3.6 Mathematical Notations Used ................................................................................. 22\nEquation 3.7 Final Assessment Score Calculation ....................................................................... 22\nEquation 3.8 Weight selection for each assessment dimension .................................................... 23\nEquation 3.9 Confidence Factor of then model ............................................................................ 23\nEquation 3.10 Curriculum Alignment Score ................................................................................ 23\nEquation 4.1 Gustafson's Law ...................................................................................................... 30",
+      "concepts": [
+        "equation",
+        "model",
+        "embedding"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2289,
+      "semantic_density": 0.4973,
+      "information_gain": 0.4531
+    },
+    {
+      "token_id": "grt_71e86e415eed",
+      "chapter": "ABBREVIATIONS AND NOMENCLATURE",
+      "section": "Main",
+      "subsection": "Abbreviation / Symbol Description",
+      "page": 11,
+      "heading": "Abbreviation / Symbol Description",
+      "text": "AI\nArtificial Intelligence\nNLP\nNatural Language Processing\nLLM\nLarge Language Model\nOBE\nOutcome-Based Education\nCLO\nCourse Learning Outcome\nPLO\nProgram Learning Outcome\nOCR\nOptical Character Recognition\nML\nMachine Learning\nETL\nExtract, Transform and Load\nGPU\nGraphics Processing Unit\nCPU\nCentral Processing Unit\nAPI\nApplication Programming Interface\nSQL\nStructured Query Language\nPDF\nPortable Document Format\nTF-IDF\nTerm Frequency–Inverse Document Frequency\nCA\nCurriculum Alignment Score\nSC\nSemantic Coverage Score\nSG\nSignificance Score\nFC\nFormat Compliance Score\nTR\nTopic Relevance Score\nBS\nBloom's Taxonomy Score",
+      "concepts": [
+        "model"
+      ],
+      "entities": [
+        "ML",
+        "FC",
+        "ETL",
+        "GPU",
+        "AI",
+        "TF",
+        "IDF",
+        "CA",
+        "TR",
+        "CLO",
+        "OCR",
+        "SQL",
+        "API",
+        "CPU",
+        "BS",
+        "PDF",
+        "OBE",
+        "SG",
+        "PLO",
+        "SC",
+        "LLM",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.5465,
+      "semantic_density": 0.7203,
+      "information_gain": 0.6582
+    },
+    {
+      "token_id": "grt_79ed14547110",
+      "chapter": "ABBREVIATIONS AND NOMENCLATURE",
+      "section": "Main",
+      "subsection": "Abbreviation / Symbol Description",
+      "page": 12,
+      "heading": "Abbreviation / Symbol Description",
+      "text": "xi\nCC\nCurriculum Coverage\nCF\nConfidence Factor\nSQ\nSemantic Quality Score\nDI\nDomain Importance Score\nFS\nFinal Assessment Score\nSim(A,B)\nSemantic Similarity between concepts A and B\nM\nNumber of Matched Curriculum Topics\nT\nTotal Curriculum Topics\nN\nNumber of Valid Semantic Matches\nV\nSemantic Embedding Vector\nW\nWeight Factor\nGriffin Model 1.0\nSemantic Learning Alignment Model proposed in this study\nDigi Assessor\nCurriculum-Aware Academic Assessment Platform",
+      "concepts": [
+        "vector",
+        "model",
+        "embedding"
+      ],
+      "entities": [
+        "SQ",
+        "DI",
+        "CC",
+        "FS",
+        "CF"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2817,
+      "semantic_density": 0.6863,
+      "information_gain": 0.5404
+    },
+    {
+      "token_id": "grt_3eb37e0423b4",
+      "chapter": "Table of Content",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 13,
+      "heading": "Table of Content",
+      "text": "CHAPTER 1 ................................................................................................................................... 1\n1.1 Background and Motivation ................................................................................................. 2\n1.2 Problem Statement ................................................................................................................ 2\n1.3 Existing Solutions ................................................................................................................. 3\n1.4 Limitations of Existing Solutions ......................................................................................... 4\n1.5 Proposed Solution: Digi Assessor – Griffin Model 1.0 ........................................................ 5\n1.6 Research Gap ........................................................................................................................ 5\n1.7 Objectives ............................................................................................................................. 6\n1.8 Scope of the Study ................................................................................................................ 6\nCHAPTER 2 ................................................................................................................................... 7\n2.1 Introduction ........................................................................................................................... 8\n2.2 Artificial Intelligence in Educational Assessment ................................................................ 8\n2.3 Curriculum Mapping and Outcome-Based Education .......................................................... 9\n2.4 Semantic Similarity and NLP-Based Assessment ................................................................ 9\n2.5 Existing Assessment Systems and Research Gap Analysis ................................................ 10\nCHAPTER 3 ................................................................................................................................. 12\n3.1 Introduction ......................................................................................................................... 13\n3.2 Overall System Architecture ............................................................................................... 13\n3.3 System Components............................................................................................................ 14\n3.3.1 Curriculum Intelligence Generation ............................................................................ 15\n3.3.2 Document Processing Module ..................................................................................... 15\n3.3.3 Semantic Similarity Engine ......................................................................................... 17",
+      "concepts": [
+        "architecture",
+        "model"
+      ],
+      "entities": [
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0593,
+      "semantic_density": 0.5379,
+      "information_gain": 0.3995
+    },
+    {
+      "token_id": "grt_c1e88c2f64ad",
+      "chapter": "Table of Content",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 14,
+      "heading": "Table of Content",
+      "text": "xiii\n3.3.4 Curriculum Mapping Engine ....................................................................................... 19\n3.3.5 Significance Assessment Engine ................................................................................. 20\n3.3.6 Format Compliance Analysis ....................................................................................... 21\n3.3.7 Mathematical Notations ............................................................................................... 22\n3.4 Assessment Framework ...................................................................................................... 22\n3.5 Algorithm of Griffin Model 1.0 .......................................................................................... 24\n3.5.1 Algorithm Griffin Curriculum-Aware Assessment Framework .................................. 24\n3.6 Bloom's Taxonomy Evaluation ........................................................................................... 25\nCHAPTER 4 ................................................................................................................................. 27\n4.1 Introduction ......................................................................................................................... 28\n4.2 System Implementation ...................................................................................................... 28\n4.3 Bulk Assessment and Parallel Execution ............................................................................ 29\n4.4 Internship Report Assessment............................................................................................. 31\n4.5 Curriculum Mapping Results .............................................................................................. 32\n4.6 Semantic Assessment Results ............................................................................................. 32\n4.7 Significance Assessment ..................................................................................................... 33\n4.8 Comparative Evaluation...................................................................................................... 34\n4.9 Discussion ........................................................................................................................... 34\nCHAPTER 5 ................................................................................................................................. 35\n5.1 Conclusion .......................................................................................................................... 36\n5.2 Future Scope ....................................................................................................................... 36\nREFERENCES ............................................................................................................................. 37\nAPPENDIX A ............................................................................................................................... 39\nAPPENDIX B ............................................................................................................................... 43\nAPPENDIX C ............................................................................................................................... 47",
+      "concepts": [
+        "model",
+        "algorithm"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0522,
+      "semantic_density": 0.4833,
+      "information_gain": 0.3776
+    },
+    {
+      "token_id": "grt_204f78a6977e",
+      "chapter": "Table of Content",
+      "section": "1.1 Background and Motivation",
+      "subsection": "Overview",
+      "page": 16,
+      "heading": "1.1 Background and Motivation",
+      "text": "The increasing adoption of digital learning platforms, Outcome-Based Education (OBE)\nframeworks, and accreditation-driven academic processes has significantly increased the volume\nof educational documents generated within higher education institutions. Internship reports,\nproject reports, curriculum documents, and assessment records play a critical role in measuring\nstudent achievement, program effectiveness, and institutional quality assurance.\nTraditionally, these documents are evaluated manually by faculty members. Although manual\nassessment enables expert judgment, it is often time-consuming, resource-intensive, and prone to\ninconsistencies among evaluators. As student enrolments and document volumes continue to grow,\nmaintaining assessment quality and consistency becomes increasingly challenging. Recent studies\nhighlight the growing role of Artificial Intelligence (AI) in educational assessment and evaluation,\ndemonstrating its potential to improve efficiency, reduce workload, and support evidence-based\nacademic decision making [1], [2], [3]However, the integration of AI into assessment processes\nintroduces new challenges related to reliability, transparency, and contextual understanding.\nInternship report assessment represents a particularly complex task because evaluators must\nsimultaneously assess document structure, curriculum relevance, topic coverage, learning\noutcomes, technical quality, and educational significance. Such multidimensional evaluation\nrequires considerable expertise and effort, motivating the need for intelligent automated\nassessment systems capable of supporting educational institutions.",
+      "concepts": [],
+      "entities": [
+        "OBE",
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[3]",
+        "[2]",
+        "[1]"
+      ],
+      "technical_density": 0.0204,
+      "semantic_density": 0.7104,
+      "information_gain": 0.4443
+    },
+    {
+      "token_id": "grt_2004ae7e2be4",
+      "chapter": "Table of Content",
+      "section": "1.2 Problem Statement",
+      "subsection": "Overview",
+      "page": 16,
+      "heading": "1.2 Problem Statement",
+      "text": "Recent advancements in Generative Artificial Intelligence and Large Language Models (LLMs)\nhave enabled automated feedback generation, content evaluation, and scoring of educational\ndocuments. Systems such as ChatGPT, Gemini, and other AI-assisted educational tools can\nanalyze textual content and generate assessment-related outputs with considerable accuracy [2],\n[4].\nHowever, existing AI-based assessment systems often lack curriculum awareness, explainability,\ninstitutional customization, and consistent evaluation mechanisms. Most systems primarily focus\non linguistic quality or content generation rather than assessing curriculum alignment, educational",
+      "concepts": [
+        "accuracy"
+      ],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[4]",
+        "[2]"
+      ],
+      "technical_density": 0.0617,
+      "semantic_density": 0.7268,
+      "information_gain": 0.4666
+    },
+    {
+      "token_id": "grt_96325a5e6e50",
+      "chapter": "Table of Content",
+      "section": "1.2 Problem Statement",
+      "subsection": "Overview",
+      "page": 17,
+      "heading": "1.2 Problem Statement",
+      "text": "3\nsignificance, and learning outcome attainment. Consequently, educational institutions still face\ndifficulties in adopting AI-based assessment systems for reliable academic evaluation.\nTherefore, there is a need for a curriculum-aware assessment framework capable of integrating\ndocument analysis, curriculum mapping, semantic understanding, and explainable evaluation\nwithin a unified system.",
+      "concepts": [],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0408,
+      "semantic_density": 0.7699,
+      "information_gain": 0.4733
+    },
+    {
+      "token_id": "grt_6939e0516d90",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "Overview",
+      "page": 17,
+      "heading": "1.3 Existing Solutions",
+      "text": "Several approaches have been adopted for educational assessment and curriculum evaluation.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8037,
+      "information_gain": 0.4688
+    },
+    {
+      "token_id": "grt_e69e05b9e73b",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "Manual Faculty Assessment",
+      "page": 17,
+      "heading": "Manual Faculty Assessment",
+      "text": "The most widely used approach remains manual assessment conducted by faculty members. This\nmethod benefits from human expertise and contextual understanding but suffers from scalability,\nconsistency, and time-efficiency limitations.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8154,
+      "information_gain": 0.4729
+    },
+    {
+      "token_id": "grt_6648782a353d",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "Generative AI Systems",
+      "page": 17,
+      "heading": "Generative AI Systems",
+      "text": "Modern generative AI systems such as ChatGPT and Gemini are capable of generating feedback,\nsummaries, evaluations, and recommendations. These systems leverage large-scale language\nmodels to process educational content and provide automated responses [1], [2], [3]",
+      "concepts": [],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[3]",
+        "[2]",
+        "[1]"
+      ],
+      "technical_density": 0.0556,
+      "semantic_density": 0.7995,
+      "information_gain": 0.4895
+    },
+    {
+      "token_id": "grt_6c7aa0a52207",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "Curriculum Mapping Systems",
+      "page": 17,
+      "heading": "Curriculum Mapping Systems",
+      "text": "Curriculum mapping tools are widely used to establish relationships between Course Learning\nOutcomes (CLOs) and Program Learning Outcomes (PLOs). These systems support accreditation,\nquality assurance, and curriculum review activities [5], [6], [7]",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[5]",
+        "[7]",
+        "[6]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.7518,
+      "information_gain": 0.4506
+    },
+    {
+      "token_id": "grt_1457beb40480",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "NLP-Based Educational Assessment Systems",
+      "page": 17,
+      "heading": "NLP-Based Educational Assessment Systems",
+      "text": "Recent research has introduced Natural Language Processing (NLP) approaches for automated\ngrading, curriculum mapping, and educational evaluation. NLP-based systems can identify\nsemantic relationships, evaluate content relevance, and improve assessment efficiency while\nreducing manual effort [8], [9].\nSemantic Similarity Systems",
+      "concepts": [],
+      "entities": [
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[8]",
+        "[9]"
+      ],
+      "technical_density": 0.05,
+      "semantic_density": 0.7735,
+      "information_gain": 0.4782
+    },
+    {
+      "token_id": "grt_58d52194e726",
+      "chapter": "Table of Content",
+      "section": "1.3 Existing Solutions",
+      "subsection": "NLP-Based Educational Assessment Systems",
+      "page": 18,
+      "heading": "NLP-Based Educational Assessment Systems",
+      "text": "4\nSemantic similarity techniques have become fundamental in educational document analysis,\nenabling systems to measure conceptual relationships between documents, learning outcomes, and\ncurriculum components. Modern approaches leverage word embeddings and transformer-based\nrepresentations to improve contextual understanding [10], [11], [12], [13], [14].",
+      "concepts": [
+        "transformer"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[10]",
+        "[11]",
+        "[14]",
+        "[13]",
+        "[12]"
+      ],
+      "technical_density": 0.0714,
+      "semantic_density": 0.8259,
+      "information_gain": 0.5051
+    },
+    {
+      "token_id": "grt_134ecd06b3c4",
+      "chapter": "Table of Content",
+      "section": "1.4 Limitations of Existing Solutions",
+      "subsection": "Overview",
+      "page": 18,
+      "heading": "1.4 Limitations of Existing Solutions",
+      "text": "Although existing solutions have improved educational assessment processes, several limitations\nremain.\nTable 1.1 Existing Assessment Approaches and Limitations",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 1.1"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.6862,
+      "information_gain": 0.4277
+    },
+    {
+      "token_id": "grt_f1a6f206f522",
+      "chapter": "Table of Content",
+      "section": "1.4 Limitations of Existing Solutions",
+      "subsection": "Major Limitation",
+      "page": 18,
+      "heading": "Major Limitation",
+      "text": "Manual Assessment\nTime-consuming and evaluator-dependent\nChatGPT and Similar LLMs\nGeneric scoring without curriculum awareness\nCurriculum Mapping Tools\nFocus only on outcome alignment\nNLP-Based Assessment Systems\nLimited explainability and significance evaluation\nRubric-Based Systems\nRestricted adaptability to diverse report formats\nSemantic Similarity Systems\nDifficulty handling educational context and curriculum-specific\ninterpretation\nFurthermore, curriculum mapping remains a complex and labour-intensive process requiring\nexpert intervention and validation [5], [6]. Recent studies also report that AI-generated mappings\nmay lack contextual understanding and require human oversight for accurate interpretation [5].\nSimilarly, semantic similarity systems often struggle with domain-specific educational\nterminology and curriculum-dependent context [11], [14]",
+      "concepts": [],
+      "entities": [
+        "AI",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[14]",
+        "[5]",
+        "[6]",
+        "[11]"
+      ],
+      "technical_density": 0.0374,
+      "semantic_density": 0.7122,
+      "information_gain": 0.4517
+    },
+    {
+      "token_id": "grt_df29e1b42977",
+      "chapter": "Table of Content",
+      "section": "1.5 Proposed Solution: Digi Assessor – Griffin Model 1.0",
+      "subsection": "Overview",
+      "page": 19,
+      "heading": "1.5 Proposed Solution: Digi Assessor – Griffin Model 1.0",
+      "text": "To address the identified limitations, this project proposes Digi Assessor – Griffin Model 1.0, an\nintelligent educational document assessment framework designed specifically for curriculum-\naware internship report evaluation.\nThe proposed framework integrates multiple assessment components within a unified architecture:\n1.\nCurriculum Mapping Engine\n2.\nTopic Extraction Module\n3.\nSemantic Similarity Analysis\n4.\nCurriculum Coverage Assessment\n5.\nMulti-Factor Evaluation Framework\n6.\nExplainable Feedback Generation\n7.\nSignificance Testing Mechanism\nUnlike conventional assessment systems, Griffin Model 1.0 evaluates both document quality and\neducational relevance, enabling curriculum-aware and explainable assessment of internship and\nacademic reports. The framework combines curriculum intelligence, semantic analysis, and\neducational significance evaluation within a single automated pipeline.",
+      "concepts": [
+        "pipeline",
+        "architecture",
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0909,
+      "semantic_density": 0.6499,
+      "information_gain": 0.4513
+    },
+    {
+      "token_id": "grt_a92261803916",
+      "chapter": "Table of Content",
+      "section": "1.6 Research Gap",
+      "subsection": "Overview",
+      "page": 19,
+      "heading": "1.6 Research Gap",
+      "text": "Existing educational assessment systems primarily focus on isolated tasks such as rubric-based\ngrading, content evaluation, feedback generation, curriculum mapping, or semantic similarity\nanalysis. Research efforts have successfully automated CLO-PLO alignment, semantic grading,\nand curriculum analysis using rule-based and NLP-based approaches [5], [6], [8], [9]\nHowever, limited research exists on an integrated assessment framework capable of\nsimultaneously performing curriculum mapping, topic extraction, semantic similarity analysis,\ncurriculum coverage assessment, significance testing, and explainable scoring. Current systems\ngenerally address only a subset of these functionalities and do not provide a comprehensive\neducational document intelligence framework.",
+      "concepts": [],
+      "entities": [
+        "CLO",
+        "NLP",
+        "PLO"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[5]",
+        "[8]",
+        "[6]",
+        "[9]"
+      ],
+      "technical_density": 0.0625,
+      "semantic_density": 0.6824,
+      "information_gain": 0.4513
+    },
+    {
+      "token_id": "grt_ada7e88d1e66",
+      "chapter": "Table of Content",
+      "section": "1.6 Research Gap",
+      "subsection": "Overview",
+      "page": 20,
+      "heading": "1.6 Research Gap",
+      "text": "6\nFurthermore, existing semantic similarity and curriculum mapping systems operate independently\nand rarely incorporate educational significance evaluation within the assessment workflow [10],\n[11], [14]. This research gap motivates the development of Digi Assessor – Griffin Model 1.0.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[14]",
+        "[10]",
+        "[11]"
+      ],
+      "technical_density": 0.0811,
+      "semantic_density": 0.8307,
+      "information_gain": 0.5107
+    },
+    {
+      "token_id": "grt_66a8aa246c1b",
+      "chapter": "Table of Content",
+      "section": "1.7 Objectives",
+      "subsection": "Overview",
+      "page": 20,
+      "heading": "1.7 Objectives",
+      "text": "The objectives of this project are:\n1.\nTo design an automated internship report assessment framework.\n2.\nTo develop curriculum-aware topic extraction and mapping mechanisms.\n3.\nTo evaluate report quality using multiple assessment dimensions.\n4.\nTo generate explainable and interpretable assessment feedback.\n5.\nTo reduce assessment effort while improving consistency and reliability.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7633,
+      "information_gain": 0.4872
+    },
+    {
+      "token_id": "grt_180b4fb6ffbb",
+      "chapter": "Table of Content",
+      "section": "1.8 Scope of the Study",
+      "subsection": "Overview",
+      "page": 20,
+      "heading": "1.8 Scope of the Study",
+      "text": "The scope of the proposed system includes:\n1.\nInternship Report Assessment\n2.\nAcademic Report Evaluation\n3.\nCurriculum-Based Assessment\n4.\nTopic and Outcome Mapping\n5.\nSemantic Similarity Analysis\n6.\nEducational Quality Assurance Support\nThe system is intended for higher education institutions and focuses on curriculum-aware\nacademic document evaluation.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7366,
+      "information_gain": 0.4453
+    },
+    {
+      "token_id": "grt_ef16912d9910",
+      "chapter": "Table of Content",
+      "section": "2.1 Introduction",
+      "subsection": "Overview",
+      "page": 22,
+      "heading": "2.1 Introduction",
+      "text": "The increasing adoption of Artificial Intelligence (AI), Natural Language Processing (NLP), and\ndata-driven educational technologies has transformed the field of academic assessment.\nEducational institutions are increasingly seeking automated solutions capable of improving\nassessment efficiency, consistency, and scalability while maintaining educational quality. Recent\nresearch has explored AI-assisted grading, curriculum mapping, semantic similarity analysis, and\nautomated feedback generation as mechanisms to support educational evaluation processes.\nThis chapter reviews the existing literature related to AI-based assessment systems, curriculum\nmapping methodologies, semantic similarity techniques, and NLP-driven educational evaluation\nframeworks. The reviewed studies provide the theoretical and technical foundation for the\ndevelopment of Digi Assessor – Griffin Model 1.0.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [
+        "AI",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0648,
+      "semantic_density": 0.7107,
+      "information_gain": 0.4497
+    },
+    {
+      "token_id": "grt_5b2c02aa7743",
+      "chapter": "Table of Content",
+      "section": "2.2 Artificial Intelligence in Educational Assessment",
+      "subsection": "Overview",
+      "page": 22,
+      "heading": "2.2 Artificial Intelligence in Educational Assessment",
+      "text": "Artificial Intelligence has emerged as a significant technological advancement in educational\nassessment and evaluation. Recent studies indicate that AI technologies can support automated\ngrading, assessment analytics, adaptive feedback generation, and educational decision-making\nprocesses .[1]\nTanberkan et al. [1] reported that AI-driven assessment systems can improve evaluation\nconsistency, reduce faculty workload, and enhance educational quality assurance processes.\nSimilarly, Karadag [2] highlighted the growing role of AI in online assessment environments,\nemphasizing its ability to automate evaluation activities while improving scalability and\naccessibility.\nA systematic review conducted by González-Calatayud et al. [3] examined the application of AI\nin student assessment and concluded that AI-based systems are increasingly used for formative\nevaluation, automatic grading, and educational analytics. However, the study also identified\nconcerns related to explainability, pedagogical transparency, and educational interpretation.\nRecent advancements in Generative AI have further expanded assessment capabilities. Mekheimer\n[4] demonstrated that AI-assisted feedback systems can improve writing quality and learner\nperformance through iterative feedback generation. Despite these benefits, most existing AI-based",
+      "concepts": [],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[4]",
+        "[3]",
+        "[2]",
+        "[1]"
+      ],
+      "technical_density": 0.0119,
+      "semantic_density": 0.6593,
+      "information_gain": 0.423
+    },
+    {
+      "token_id": "grt_800615a2d12f",
+      "chapter": "Table of Content",
+      "section": "2.2 Artificial Intelligence in Educational Assessment",
+      "subsection": "Overview",
+      "page": 23,
+      "heading": "2.2 Artificial Intelligence in Educational Assessment",
+      "text": "9\nassessment systems focus primarily on textual quality and feedback generation rather than\ncurriculum-aware evaluation.\nThese findings suggest that AI possesses significant potential for educational assessment but\nrequires stronger integration with curriculum intelligence and explainable evaluation mechanisms.",
+      "concepts": [],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0526,
+      "semantic_density": 0.7534,
+      "information_gain": 0.4723
+    },
+    {
+      "token_id": "grt_b885827db3f3",
+      "chapter": "Table of Content",
+      "section": "2.3 Curriculum Mapping and Outcome-Based Education",
+      "subsection": "Overview",
+      "page": 23,
+      "heading": "2.3 Curriculum Mapping and Outcome-Based Education",
+      "text": "Outcome-Based Education (OBE) emphasizes the alignment of educational activities,\nassessments, and learning outcomes. Curriculum mapping serves as a fundamental process for\nestablishing relationships between Course Learning Outcomes (CLOs), Program Learning\nOutcomes (PLOs), and educational objectives.\nAlshanqiti et al. [5] proposed a rule-based framework for automating curriculum mapping\nactivities. Their study demonstrated the feasibility of reducing manual effort while maintaining\nmapping accuracy through structured rule-based approaches.\nZaki et al. [6]  further extended curriculum mapping research through Natural Language\nProcessing techniques capable of automatically identifying semantic relationships between CLOs\nand PLOs. Their findings indicate that NLP-based curriculum mapping can significantly improve\neducational program evaluation and accreditation support.\nMore recently, Quince [7] investigated the use of Generative AI for scalable curriculum mapping\nand compared AI-generated mappings with human expert evaluations. The study revealed\npromising results while emphasizing the continued importance of contextual interpretation and\nhuman validation.\nAlthough these studies demonstrate substantial progress in curriculum mapping automation, most\nexisting approaches focus primarily on learning outcome alignment and do not evaluate curriculum\ncoverage within student-generated academic documents.",
+      "concepts": [
+        "accuracy"
+      ],
+      "entities": [
+        "OBE",
+        "AI",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[5]",
+        "[7]",
+        "[6]"
+      ],
+      "technical_density": 0.0506,
+      "semantic_density": 0.6636,
+      "information_gain": 0.44
+    },
+    {
+      "token_id": "grt_f7b5b48306b7",
+      "chapter": "Table of Content",
+      "section": "2.4 Semantic Similarity and NLP-Based Assessment",
+      "subsection": "Overview",
+      "page": 23,
+      "heading": "2.4 Semantic Similarity and NLP-Based Assessment",
+      "text": "Semantic similarity represents one of the most important concepts in Natural Language Processing\nand educational document analysis. Semantic similarity techniques attempt to determine the\ndegree of conceptual similarity between textual entities beyond simple keyword matching.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7471,
+      "information_gain": 0.449
+    },
+    {
+      "token_id": "grt_d20edd44e2b2",
+      "chapter": "Table of Content",
+      "section": "2.4 Semantic Similarity and NLP-Based Assessment",
+      "subsection": "Overview",
+      "page": 24,
+      "heading": "2.4 Semantic Similarity and NLP-Based Assessment",
+      "text": "10\nEarly research by Miller and Charles [13] established foundational principles for measuring\nsemantic relationships between linguistic concepts. Subsequently, Kandola et al. [12] introduced\nmachine learning approaches for semantic similarity estimation, demonstrating improved\ncontextual understanding compared to traditional methods.\nChandrasekaran and Mago [11] presented a comprehensive survey of semantic similarity\ntechniques and highlighted the evolution from lexical approaches toward embedding-based and\ntransformer-based methods. Their findings indicate that modern semantic representations\nsignificantly improve contextual understanding and semantic interpretation.\nRecent advancements in embedding technologies have further enhanced semantic analysis\ncapabilities. Szymanski et al. [10]  demonstrated that improved word embedding architectures can\nsignificantly strengthen semantic alignment performance across NLP applications.\nChandrasekaran and Mago [14] conducted a comparative analysis of word embedding techniques\nfor semantic similarity assessment and reported that contextual language models outperform\ntraditional embedding approaches, particularly for complex textual content.\nThese developments have enabled the use of semantic similarity techniques in educational\nassessment, curriculum mapping, automated grading, and document evaluation systems.",
+      "concepts": [
+        "transformer",
+        "embedding"
+      ],
+      "entities": [
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[10]",
+        "[11]",
+        "[14]",
+        "[13]",
+        "[12]"
+      ],
+      "technical_density": 0.0745,
+      "semantic_density": 0.6574,
+      "information_gain": 0.4474
+    },
+    {
+      "token_id": "grt_e0849dddda76",
+      "chapter": "Table of Content",
+      "section": "2.5 Existing Assessment Systems and Research Gap Analysis",
+      "subsection": "Overview",
+      "page": 24,
+      "heading": "2.5 Existing Assessment Systems and Research Gap Analysis",
+      "text": "Numerous studies have explored automated grading and AI-assisted educational evaluation.\nAyaan and Ng [8] proposed an automated grading framework utilizing Natural Language\nProcessing and semantic analysis to evaluate student responses. Their results demonstrated the\neffectiveness of semantic evaluation techniques in assessment automation.\nSimilarly, Agrawal et al.  [9] introduced a comprehensive NLP and deep learning-based\nassessment framework capable of evaluating subjective responses through multiple assessment\ndimensions. Their approach improved grading consistency and reduced evaluator dependency.\nWhile existing assessment systems have successfully incorporated semantic analysis, automated\ngrading, curriculum mapping, and AI-generated feedback, these capabilities are generally\nimplemented as isolated components. Current systems rarely integrate curriculum intelligence\ngeneration, curriculum mapping, semantic similarity analysis, curriculum coverage assessment,",
+      "concepts": [],
+      "entities": [
+        "AI",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[8]",
+        "[9]"
+      ],
+      "technical_density": 0.0345,
+      "semantic_density": 0.674,
+      "information_gain": 0.4372
+    },
+    {
+      "token_id": "grt_d56fd58e6031",
+      "chapter": "Table of Content",
+      "section": "2.5 Existing Assessment Systems and Research Gap Analysis",
+      "subsection": "Overview",
+      "page": 25,
+      "heading": "2.5 Existing Assessment Systems and Research Gap Analysis",
+      "text": "11\nsignificance evaluation, and explainable feedback generation within a unified assessment\nframework.\nTable 2.1 Summarizes the major findings of the reviewed literature.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 2.1"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8213,
+      "information_gain": 0.475
+    },
+    {
+      "token_id": "grt_d72ff001696a",
+      "chapter": "Table of Content",
+      "section": "2.5 Existing Assessment Systems and Research Gap Analysis",
+      "subsection": "Limitation",
+      "page": 25,
+      "heading": "Limitation",
+      "text": "AI Assessment Systems\nAutomated grading and feedback\ngeneration\nLimited curriculum awareness\nCurriculum Mapping\nCLO-PLO alignment automation\nLimited document assessment\ncapability\nSemantic Similarity\nImproved contextual\nunderstanding\nEducational interpretation challenges\nNLP-Based Assessment\nAutomated evaluation and\nscoring\nLimited explainability\nGenerative AI Systems\nIntelligent feedback generation\nGeneric assessment outputs\nBased on the reviewed literature, a significant research gap exists in the development of a\ncomprehensive curriculum-aware assessment framework capable of integrating curriculum\nmapping, semantic similarity analysis, educational significance evaluation, curriculum coverage\nassessment, and explainable assessment generation.\nThis research gap forms the primary motivation behind the development of Digi Assessor – Griffin\nModel 1.0.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [
+        "CLO",
+        "NLP",
+        "AI",
+        "PLO"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1078,
+      "semantic_density": 0.6367,
+      "information_gain": 0.4535
+    },
+    {
+      "token_id": "grt_c3a33534ca61",
+      "chapter": "Table of Content",
+      "section": "3.1 Introduction",
+      "subsection": "Overview",
+      "page": 27,
+      "heading": "3.1 Introduction",
+      "text": "Digi Assessor: Griffin Model 1.0 is a curriculum-aware academic assessment framework developed to\nautomate the evaluation of internship and academic reports through semantic analysis, curriculum mapping,\nsignificance assessment, and format compliance verification. The framework integrates Natural Language\nProcessing (NLP), machine learning, and semantic similarity techniques to assess curriculum alignment,\ntopic relevance, and educational significance while generating explainable assessment outcomes. This\nchapter presents the overall system architecture, core modules, mathematical formulations, assessment\nmethodology, and algorithmic workflow adopted in the proposed framework\n.",
+      "concepts": [
+        "architecture",
+        "model"
+      ],
+      "entities": [
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0976,
+      "semantic_density": 0.7261,
+      "information_gain": 0.4682
+    },
+    {
+      "token_id": "grt_60c70ce22c60",
+      "chapter": "Table of Content",
+      "section": "3.2 Overall System Architecture",
+      "subsection": "Overview",
+      "page": 28,
+      "heading": "3.2 Overall System Architecture",
+      "text": "Figure 3.1 Overall Architecture of Digi Assessor – Griffin Model 1.0",
+      "concepts": [
+        "model",
+        "architecture"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [
+        "Figure 3.1"
+      ],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.5,
+      "semantic_density": 0.8236,
+      "information_gain": 0.7333
+    },
+    {
+      "token_id": "grt_0eac6f29a503",
+      "chapter": "Table of Content",
+      "section": "3.3.1 Curriculum Intelligence Generation",
+      "subsection": "Overview",
+      "page": 29,
+      "heading": "3.3.1 Curriculum Intelligence Generation",
+      "text": "Purpose:\nTransform curriculum documents into machine-readable curriculum knowledge.\nInput:\n1.\nCourse syllabus\n2.\nCurriculum framework\n3.\nSubject descriptions\nOutput:\n1.\nCurriculum knowledge base\n2.\nTopic vectors\n3.\nLearning outcome repository\nTable 3.1Curriculum Intelligence Components",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 3.1"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7411,
+      "information_gain": 0.4469
+    },
+    {
+      "token_id": "grt_5ff756252246",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "Overview",
+      "page": 29,
+      "heading": "3.3.2 Document Processing Module",
+      "text": "Describe:\n1.\nPDF parsing\n2.\nDOCX parsing\n3.\nText extraction\n4.\nCleaning\n5.\nNormalization",
+      "concepts": [],
+      "entities": [
+        "DOCX",
+        "PDF"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2857,
+      "semantic_density": 0.7651,
+      "information_gain": 0.5696
+    },
+    {
+      "token_id": "grt_f595cebd9948",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "Function",
+      "page": 29,
+      "heading": "Function",
+      "text": "Curriculum Parser\nExtract curriculum text\nTopic Extractor\nIdentify curriculum concepts\nEmbedding Generator\nGenerate semantic vectors\nKnowledge Repository\nStore curriculum intelligence",
+      "concepts": [
+        "embedding"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.15,
+      "semantic_density": 0.7293,
+      "information_gain": 0.5028
+    },
+    {
+      "token_id": "grt_768b10ade314",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "Function",
+      "page": 30,
+      "heading": "Function",
+      "text": "16\nFigure 3.2 Curriculum Intelligence Generation Workflow",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [
+        "Figure 3.2"
+      ],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8202,
+      "information_gain": 0.4746
+    },
+    {
+      "token_id": "grt_11af656b375f",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "3.3.3 Semantic Similarity Engine",
+      "page": 31,
+      "heading": "3.3.3 Semantic Similarity Engine",
+      "text": "This is one of Griffin's core contributions.\nUse literature from Chapter 2.\nDiscuss:\n1.\nSentence Transformers\n2.\nEmbeddings\n3.\nCosine Similarity\nCite:\n[10], [11], [12], [13] , [14]\nFigure 3.3 Semantic Similarity Pipeline",
+      "concepts": [
+        "pipeline"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [
+        "Figure 3.3"
+      ],
+      "table_refs": [],
+      "citations": [
+        "[10]",
+        "[11]",
+        "[14]",
+        "[13]",
+        "[12]"
+      ],
+      "technical_density": 0.0882,
+      "semantic_density": 0.8046,
+      "information_gain": 0.5044
+    },
+    {
+      "token_id": "grt_044322d8d6b1",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "3.3.3 Semantic Similarity Engine",
+      "page": 32,
+      "heading": "3.3.3 Semantic Similarity Engine",
+      "text": "18\nEach curriculum topic and report concept is transformed into a dense semantic vector\nrepresentation using Sentence Transformer embeddings.\n𝑽= 𝑬𝒎𝒃𝒆𝒅𝒅𝒊𝒏𝒈(𝑻)",
+      "concepts": [
+        "transformer",
+        "vector"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2727,
+      "semantic_density": 0.8383,
+      "information_gain": 0.59
+    },
+    {
+      "token_id": "grt_1b9b4957b4b1",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "Equation 3.1 Semantic Embedding Generation",
+      "page": 32,
+      "heading": "Equation 3.1 Semantic Embedding Generation",
+      "text": "where:\n𝑽\n= semantic embedding vector\n𝑻\n= input text concept\nThe generated embeddings capture contextual meaning and semantic relationships between\ncurriculum topics and report content.\nCosine Similarity Computation\nThe similarity between curriculum concepts and extracted report concepts is computed using\ncosine similarity.\n𝑆𝑖𝑚(𝐴, 𝐵) =\n𝐴⋅𝐵\n∣∣𝐴∣∣∣∣𝐵∣∣",
+      "concepts": [
+        "vector",
+        "embedding"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.125,
+      "semantic_density": 0.7034,
+      "information_gain": 0.4837
+    },
+    {
+      "token_id": "grt_0ce1de11a59e",
+      "chapter": "Table of Content",
+      "section": "3.3.2 Document Processing Module",
+      "subsection": "Equation 3.2 Cosine Similarity Calculation",
+      "page": 32,
+      "heading": "Equation 3.2 Cosine Similarity Calculation",
+      "text": "where:\n𝐴\n= curriculum embedding vector\n𝐵\n= report embedding vector\nThe similarity score ranges from 0 to 1, where higher values indicate stronger semantic\nrelationships.",
+      "concepts": [
+        "vector",
+        "embedding"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.3333,
+      "semantic_density": 0.7143,
+      "information_gain": 0.5709
+    },
+    {
+      "token_id": "grt_43f626ce44a7",
+      "chapter": "Table of Content",
+      "section": "3.3.4 Curriculum Mapping Engine",
+      "subsection": "Overview",
+      "page": 33,
+      "heading": "3.3.4 Curriculum Mapping Engine",
+      "text": "This section is very important.\nDiscuss:\n1.\nTopic-to-topic alignment\n2.\nCurriculum coverage calculation\n3.\nCLO relevance estimation\nUse citations:\n[5], [6], [8]\nTable 3.2 Curriculum Mapping Metrics\nMetric\nDescription\nTopic Coverage\nPercentage of curriculum addressed\nAlignment Score\nSemantic match quality\nCurriculum Relevance\nEducational relevance\nCoverage Gap\nMissing curriculum areas\nCurriculum Coverage Calculation\nCurriculum coverage measures the proportion of curriculum topics addressed within the internship\nreport.\n𝑪𝑪=\n𝑴\n𝑻",
+      "concepts": [],
+      "entities": [
+        "CLO"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 3.2"
+      ],
+      "citations": [
+        "[5]",
+        "[8]",
+        "[6]"
+      ],
+      "technical_density": 0.0282,
+      "semantic_density": 0.6273,
+      "information_gain": 0.4183
+    },
+    {
+      "token_id": "grt_21d10b262cf8",
+      "chapter": "Table of Content",
+      "section": "3.3.4 Curriculum Mapping Engine",
+      "subsection": "Equation 3.3 Curriculum Coverage Calculation",
+      "page": 33,
+      "heading": "Equation 3.3 Curriculum Coverage Calculation",
+      "text": "where:\n𝑴\n= matched curriculum topics\n𝑻\n= total curriculum topics",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.6458,
+      "information_gain": 0.4135
+    },
+    {
+      "token_id": "grt_69e7d272d42c",
+      "chapter": "Table of Content",
+      "section": "3.3.4 Curriculum Mapping Engine",
+      "subsection": "Equation 3.3 Curriculum Coverage Calculation",
+      "page": 34,
+      "heading": "Equation 3.3 Curriculum Coverage Calculation",
+      "text": "20\nWeighted Alignment Score\nTo prioritize stronger semantic matches, Griffin assigns weighted importance to matched concepts.\n𝐴𝑆= ∑(\n𝑛\n𝑖=1\n𝑆\n𝑖\n× 𝑊\n𝑖\n)",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7991,
+      "information_gain": 0.4672
+    },
+    {
+      "token_id": "grt_8a1d15cc00fe",
+      "chapter": "Table of Content",
+      "section": "3.3.4 Curriculum Mapping Engine",
+      "subsection": "Equation 3.4 Weighted Alignment Score",
+      "page": 34,
+      "heading": "Equation 3.4 Weighted Alignment Score",
+      "text": "where:\n•\n𝑆\n𝑖\n= semantic similarity score\n•\n𝑊\n𝑖\n= importance weight",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8303,
+      "information_gain": 0.4781
+    },
+    {
+      "token_id": "grt_09830d94d8d7",
+      "chapter": "Table of Content",
+      "section": "3.3.5 Significance Assessment Engine",
+      "subsection": "Overview",
+      "page": 34,
+      "heading": "3.3.5 Significance Assessment Engine",
+      "text": "This is Griffin's unique feature.\nExplain: Not all reports with high curriculum alignment are equally valuable.\nThe significance engine estimates:\n1.\nTechnical depth\n2.\nInnovation\n3.\nProject complexity\n4.\nPractical impact\n5.\nLearning value\nTable 3.3 Significance Assessment Criteria",
+      "concepts": [
+        "complexity"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 3.3"
+      ],
+      "citations": [],
+      "technical_density": 0.0732,
+      "semantic_density": 0.8108,
+      "information_gain": 0.5005
+    },
+    {
+      "token_id": "grt_d851ab099ff5",
+      "chapter": "Table of Content",
+      "section": "3.3.5 Significance Assessment Engine",
+      "subsection": "Weight",
+      "page": 34,
+      "heading": "Weight",
+      "text": "Technical Depth\n25%\nCurriculum Relevance\n25%\nProject Complexity\n20%\nPractical Impact\n15%\nDocumentation Quality\n15%\nThe significance assessment engine utilizes machine learning techniques to estimate the\neducational and technical value of internship work.\nSignificance Prediction Model\n𝑆𝐺= 𝑓(𝑇𝐷, 𝐶𝑅, 𝑃𝐶, 𝑃𝐼, 𝐷𝑄)",
+      "concepts": [
+        "complexity",
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1395,
+      "semantic_density": 0.8046,
+      "information_gain": 0.5249
+    },
+    {
+      "token_id": "grt_a4a60f826cdc",
+      "chapter": "Table of Content",
+      "section": "3.3.5 Significance Assessment Engine",
+      "subsection": "Equation 3.5Significance Score Estimation",
+      "page": 35,
+      "heading": "Equation 3.5Significance Score Estimation",
+      "text": "where:\n•\nTD = Technical Depth\n•\nCR = Curriculum Relevance\n•\nPC = Project Complexity\n•\nPI = Practical Impact\n•\nDQ = Documentation Quality\nThe significance score is generated using a trained Extra Trees Regression model that predicts the\noverall educational significance of the submitted report.",
+      "concepts": [
+        "complexity",
+        "regression",
+        "model"
+      ],
+      "entities": [
+        "PC",
+        "TD",
+        "CR",
+        "PI",
+        "DQ"
+      ],
+      "formula_refs": [
+        "DQ = Documentation",
+        "TD = Technical",
+        "PC = Project",
+        "PI = Practical",
+        "CR = Curriculum"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.8947,
+      "semantic_density": 0.8129,
+      "information_gain": 0.8299
+    },
+    {
+      "token_id": "grt_fd0315724b77",
+      "chapter": "Table of Content",
+      "section": "3.3.6 Format Compliance Analysis",
+      "subsection": "Overview",
+      "page": 35,
+      "heading": "3.3.6 Format Compliance Analysis",
+      "text": "Assessment of:\n1.\nChapter structure\n2.\nFigure numbering\n3.\nTable numbering\n4.\nCitation presence\n5.\nReferences\n6.\nFormatting consistency",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7645,
+      "information_gain": 0.4551
+    },
+    {
+      "token_id": "grt_a6d02c4b6e6d",
+      "chapter": "Table of Content",
+      "section": "3.3.7 Mathematical Notations",
+      "subsection": "Overview",
+      "page": 36,
+      "heading": "3.3.7 Mathematical Notations",
+      "text": "Equation 3.6 Mathematical Notations Used",
+      "concepts": [
+        "equation"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.5,
+      "semantic_density": 0.8077,
+      "information_gain": 0.6702
+    },
+    {
+      "token_id": "grt_359058322508",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Overview",
+      "page": 36,
+      "heading": "3.4 Assessment Framework",
+      "text": "The final assessment process integrates curriculum alignment, semantic coverage, significance\nassessment, format compliance, and topic relevance into a unified evaluation framework.\nThe overall assessment score is computed using Equation (3.6).\n𝐹𝑆= 𝑤\n1\n𝐶𝐴+ 𝑤\n2\n𝑆𝐶+ 𝑤\n3\n𝑆𝐺+ 𝑤\n4\n𝐹𝐶+ 𝑤\n5\n𝑇𝑅",
+      "concepts": [
+        "equation"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0638,
+      "semantic_density": 0.79,
+      "information_gain": 0.4895
+    },
+    {
+      "token_id": "grt_5bd12579c70e",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Equation 3.7 Final Assessment Score Calculation",
+      "page": 36,
+      "heading": "Equation 3.7 Final Assessment Score Calculation",
+      "text": "where:\n1.\nFS = Final Assessment Score\n2.\nCA = Curriculum Alignment Score\n3.\nSC = Semantic Coverage Score\n4.\nSG = Significance Score",
+      "concepts": [],
+      "entities": [
+        "SC",
+        "FS",
+        "SG",
+        "CA"
+      ],
+      "formula_refs": [
+        "FS = Final",
+        "SC = Semantic",
+        "SG = Significance",
+        "CA = Curriculum"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 1.0,
+      "semantic_density": 0.7125,
+      "information_gain": 0.8369
+    },
+    {
+      "token_id": "grt_3a0716e66330",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Description",
+      "page": 36,
+      "heading": "Description",
+      "text": "CA\nCurriculum Alignment\nSC\nSemantic Coverage\nSG\nSignificance Score\nFC\nFormat Compliance\nTR\nTopic Relevance\nFS\nFinal Assessment Score\nM\nMatched Topics\nT\nTotal Topics\nSim\nSemantic Similarity\nW\nWeight Factor",
+      "concepts": [],
+      "entities": [
+        "FS",
+        "FC",
+        "SG",
+        "SC",
+        "CA",
+        "TR"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.3871,
+      "semantic_density": 0.7607,
+      "information_gain": 0.6086
+    },
+    {
+      "token_id": "grt_15292df7a15d",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Description",
+      "page": 37,
+      "heading": "Description",
+      "text": "23\n5.\nFC = Format Compliance Score\n6.\nTR = Topic Relevance Score\n7.\nw₁, w₂, w₃, w₄, w₅ = Weight coefficients assigned to each assessment dimension\nThe weights are selected such that:\n[𝑤\n1\n+ 𝑤\n2\n+ 𝑤\n3\n+ 𝑤\n4\n+ 𝑤\n5\n= 1]\nEquation 3.8 Weight selection for each assessment dimension\nConfidence Score Estimation\nTo improve reliability, Griffin incorporates a confidence estimation mechanism based on the\nnumber of valid curriculum matches.\n𝐶𝐹= 1 −𝑒\n−𝑁/3",
+      "concepts": [
+        "equation"
+      ],
+      "entities": [
+        "FC",
+        "TR"
+      ],
+      "formula_refs": [
+        "FC = Format",
+        "w₅ = Weight",
+        "TR = Topic"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2133,
+      "semantic_density": 0.7273,
+      "information_gain": 0.5274
+    },
+    {
+      "token_id": "grt_6f32da1636ef",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Equation 3.9 Confidence Factor of then model",
+      "page": 37,
+      "heading": "Equation 3.9 Confidence Factor of then model",
+      "text": "Confidence Factor\nwhere:\n•\nCF = Confidence Factor\n•\nN = Number of Valid Semantic Matches\nAs the number of supporting matches increases, confidence gradually approaches unity.\nFinal Curriculum Alignment Score\nThe curriculum alignment score is computed using semantic quality, curriculum coverage,\nconfidence, and domain importance.\n𝐶𝐴= 0.45𝑆𝑄+ 0.35𝐶𝐶+ 0.15𝐶𝐹+ 0.05𝐷𝐼",
+      "concepts": [],
+      "entities": [
+        "CF"
+      ],
+      "formula_refs": [
+        "N = Number",
+        "CF = Confidence"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1569,
+      "semantic_density": 0.6575,
+      "information_gain": 0.4804
+    },
+    {
+      "token_id": "grt_bde25e0c2412",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Equation 3.10 Curriculum Alignment Score",
+      "page": 37,
+      "heading": "Equation 3.10 Curriculum Alignment Score",
+      "text": "Curriculum Alignment Score\nwhere:\n•\nSQ = Semantic Quality\n•\nCC = Curriculum Coverage\n•\nCF = Confidence Factor\n•\nDI = Domain Importance",
+      "concepts": [],
+      "entities": [
+        "SQ",
+        "CC",
+        "DI",
+        "CF"
+      ],
+      "formula_refs": [
+        "SQ = Semantic",
+        "CC = Curriculum",
+        "DI = Domain",
+        "CF = Confidence"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 1.0,
+      "semantic_density": 0.7951,
+      "information_gain": 0.8658
+    },
+    {
+      "token_id": "grt_19068c7452f8",
+      "chapter": "3.4 Assessment Framework",
+      "section": "Main",
+      "subsection": "Equation 3.10 Curriculum Alignment Score",
+      "page": 38,
+      "heading": "Equation 3.10 Curriculum Alignment Score",
+      "text": "24\nThe weighting scheme adopted in Griffin Model 1.0 is shown in Table 3.4.\nTable 3.4 Assessment Weight distribution across dimensions\nAs shown in Table 3.4, Curriculum Alignment receives the highest weight (35%) due to its direct\ncontribution toward evaluating curriculum attainment and learning outcome coverage. Semantic\nCoverage contributes 25% of the overall assessment score, while Significance Assessment\ncontributes 20% by evaluating the technical depth and practical relevance of the report. Format\nCompliance and Topic Relevance contribute 10% each, ensuring adherence to academic standards\nand domain-specific relevance.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 3.4"
+      ],
+      "citations": [],
+      "technical_density": 0.0326,
+      "semantic_density": 0.7271,
+      "information_gain": 0.455
+    },
+    {
+      "token_id": "grt_392f0c1f4582",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.5 Algorithm of Griffin Model 1.0",
+      "subsection": "Input:",
+      "page": 38,
+      "heading": "Input:",
+      "text": "Curriculum Document C\nInternship Report R\nSelected Subjects S\nProgram Branch B\nStrictness Level L\nFormat Check Flag F",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8281,
+      "information_gain": 0.4773
+    },
+    {
+      "token_id": "grt_d5b5a150721a",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.5 Algorithm of Griffin Model 1.0",
+      "subsection": "Weight (%)",
+      "page": 38,
+      "heading": "Weight (%)",
+      "text": "Curriculum Alignment\nCA\n35\nSemantic Coverage\nSC\n25\nSignificance Assessment\nSG\n20\nFormat Compliance\nFC\n10\nTopic Relevance\nTR\n10\nTotal\n—\n100",
+      "concepts": [],
+      "entities": [
+        "FC",
+        "SG",
+        "SC",
+        "CA",
+        "TR"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.4545,
+      "semantic_density": 0.8337,
+      "information_gain": 0.6611
+    },
+    {
+      "token_id": "grt_af98b4b6f2a2",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.5 Algorithm of Griffin Model 1.0",
+      "subsection": "BEGIN",
+      "page": 39,
+      "heading": "BEGIN",
+      "text": "1.\nLoad curriculum knowledge base and assessment parameters.\n2.\nPreprocess internship report and perform significance analysis.\n3.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8182,
+      "information_gain": 0.4739
+    },
+    {
+      "token_id": "grt_53a50bac569c",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.5 Algorithm of Griffin Model 1.0",
+      "subsection": "DO",
+      "page": 39,
+      "heading": "DO",
+      "text": "a. Extract curriculum and report topics\nb. Perform semantic alignment and curriculum mapping\nc. Identify gaps and generate recommendations",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7618,
+      "information_gain": 0.4541
+    },
+    {
+      "token_id": "grt_04395eda384b",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.5 Algorithm of Griffin Model 1.0",
+      "subsection": "END FOR",
+      "page": 39,
+      "heading": "END FOR",
+      "text": "4.\nAggregate subject-wise assessment results.\n5.\nPerform format compliance evaluation.\n6.\nCompute final alignment and significance scores.\n7.\nGenerate final assessment report.\n8.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7506,
+      "information_gain": 0.4502
+    },
+    {
+      "token_id": "grt_5ded8022980e",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.6 Bloom's Taxonomy Evaluation",
+      "subsection": "Overview",
+      "page": 39,
+      "heading": "3.6 Bloom's Taxonomy Evaluation",
+      "text": "Bloom's Taxonomy provides a hierarchical framework for evaluating cognitive learning outcomes\nand educational achievement. Since internship reports often demonstrate varying levels of\nknowledge acquisition and practical application, Griffin Model 1.0 incorporates Bloom's\nTaxonomy evaluation to estimate the cognitive depth reflected within report content.\nThe proposed framework analyzes extracted report concepts and textual descriptions to identify\nevidence of learning activities corresponding to Bloom's six cognitive levels: Remember,\nUnderstand, Apply, Analyze, Evaluate, and Create. By examining contextual indicators, action\nverbs, technical explanations, implementation details, and problem-solving approaches, the system\nestimates the cognitive complexity demonstrated by a student throughout the internship report.",
+      "concepts": [
+        "complexity",
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0577,
+      "semantic_density": 0.7437,
+      "information_gain": 0.4709
+    },
+    {
+      "token_id": "grt_f1befc03a12d",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.6 Bloom's Taxonomy Evaluation",
+      "subsection": "Overview",
+      "page": 40,
+      "heading": "3.6 Bloom's Taxonomy Evaluation",
+      "text": "26\nTable 3.3.4 Bloom's Taxonomy Levels\nThe identification of Bloom's levels enables the framework to differentiate between reports that\nmerely describe concepts and reports that demonstrate higher-order cognitive abilities such as\nanalysis, evaluation, and creation.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 3.3.4"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7507,
+      "information_gain": 0.4503
+    },
+    {
+      "token_id": "grt_96b341fd5636",
+      "chapter": "3.4 Assessment Framework",
+      "section": "3.6 Bloom's Taxonomy Evaluation",
+      "subsection": "Representative Activities",
+      "page": 40,
+      "heading": "Representative Activities",
+      "text": "Remember\nKnowledge Recall\nDefine, Identify, List\nUnderstand\nConceptual Understanding\nExplain, Summarize, Describe\nApply\nPractical Application\nImplement, Execute, Use\nAnalyze\nAnalytical Reasoning\nCompare, Categorize, Investigate\nEvaluate\nCritical Assessment\nAssess, Justify, Validate\nCreate\nKnowledge Creation\nDesign, Develop, Construct",
+      "concepts": [
+        "recall"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0833,
+      "semantic_density": 0.8163,
+      "information_gain": 0.5065
+    },
+    {
+      "token_id": "grt_8455da47b431",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.1 Introduction",
+      "subsection": "Overview",
+      "page": 42,
+      "heading": "4.1 Introduction",
+      "text": "Following the design and development of Digi Assessor – Griffin Model 1.0, the proposed\nframework was implemented and evaluated using internship reports from the B.Sc. Data Science\ncurriculum. The primary objective of the implementation phase was to validate the capability of\nthe proposed system in performing curriculum-aware assessment through semantic analysis,\ncurriculum mapping, significance evaluation, and automated report assessment. This chapter\npresents the implementation process, experimental observations, and assessment outcomes\nobtained from the developed framework.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.039,
+      "semantic_density": 0.7353,
+      "information_gain": 0.448
+    },
+    {
+      "token_id": "grt_c0ac7a6f1236",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.2 System Implementation",
+      "subsection": "Overview",
+      "page": 42,
+      "heading": "4.2 System Implementation",
+      "text": "Digi Assessor – Griffin Model 1.0 was implemented as a web-based assessment platform using\nPython and Flask. The system integrates curriculum intelligence generation, topic extraction,\nsemantic similarity analysis, curriculum mapping, significance prediction, and report generation\ninto a unified workflow.\nThe implementation process begins with curriculum ingestion, where curriculum documents are\ntransformed into structured curriculum intelligence repositories. Internship reports are\nsubsequently processed through document parsing and semantic analysis modules, enabling the\nidentification of curriculum-relevant concepts and educational outcomes.\nTable 4.1 Development Environment used for model",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.1"
+      ],
+      "citations": [],
+      "technical_density": 0.046,
+      "semantic_density": 0.7239,
+      "information_gain": 0.5093
+    },
+    {
+      "token_id": "grt_58317f1501cc",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.2 System Implementation",
+      "subsection": "Technology",
+      "page": 42,
+      "heading": "Technology",
+      "text": "Programming Language\nPython 3.12\nBackend Framework\nFlask\nDatabase\nSQLite\nNLP Framework\nspaCy\nEmbedding Model\nSentence Transformers\nMachine Learning Library\nScikit-Learn\nFrontend\nHTML, CSS, JavaScript\nVisualization\nPlotly",
+      "concepts": [
+        "model",
+        "embedding"
+      ],
+      "entities": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.5,
+      "semantic_density": 0.8216,
+      "information_gain": 0.6751
+    },
+    {
+      "token_id": "grt_78b6906a2a18",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.3 Bulk Assessment and Parallel Execution",
+      "subsection": "Overview",
+      "page": 43,
+      "heading": "4.3 Bulk Assessment and Parallel Execution",
+      "text": "One of the primary objectives of Griffin Model 1.0 is to support scalable academic assessment\nthrough automated processing of multiple reports. Unlike conventional assessment approaches that\nevaluate reports individually, the proposed framework incorporates batch processing mechanisms\nthat enable simultaneous assessment of large document collections while maintaining evaluation\nconsistency. To evaluate scalability, experiments were conducted using different assessment\nworkloads, including single-report assessment, medium-scale batch assessment, and large-scale\nbatch assessment. The processing time required for each workload was recorded and analyzed\nThe experimental results indicate that Griffin Model 1.0 maintains efficient processing\nperformance as workload size increases. While the assessment of a single report required\napproximately 1.5 minutes, batch assessment of 25 reports required an average of only 0.60\nminutes per report. Similarly, during the evaluation of 48 reports, the average processing time\nfurther decreased to approximately 0.54 minutes per report.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0272,
+      "semantic_density": 0.6119,
+      "information_gain": 0.4126
+    },
+    {
+      "token_id": "grt_34f459c440d5",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.3 Bulk Assessment and Parallel Execution",
+      "subsection": "Overview",
+      "page": 44,
+      "heading": "4.3 Bulk Assessment and Parallel Execution",
+      "text": "30\nThese observations demonstrate that the framework benefits from parallelized processing and\nshared computational operations performed during curriculum loading, semantic embedding\ngeneration, and assessment execution. As workload size increases, the computational overhead\nassociated with initialization and resource allocation is distributed across a larger number of\nreports, resulting in improved processing efficiency.\nThe observed performance trend aligns with the principles of",
+      "concepts": [
+        "embedding"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.05,
+      "semantic_density": 0.7872,
+      "information_gain": 0.483
+    },
+    {
+      "token_id": "grt_3b5348a388c2",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.3 Bulk Assessment and Parallel Execution",
+      "subsection": "Gustafson's Law",
+      "page": 44,
+      "heading": "Gustafson's Law",
+      "text": ", which states that\nthe effective computational speedup of a system increases as the problem size grows while\nutilizing available processing resources more efficiently.\n𝑆(𝑁) = 𝑁−𝛼(𝑁−1)\nEquation 4.1 Gustafson's Law\nFigure 4.1 Assessment Processing Performance Across Different Workloads",
+      "concepts": [
+        "equation"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [
+        "Figure 4.1"
+      ],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0682,
+      "semantic_density": 0.822,
+      "information_gain": 0.5025
+    },
+    {
+      "token_id": "grt_f498490cebd0",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.3 Bulk Assessment and Parallel Execution",
+      "subsection": "Gustafson's Law",
+      "page": 45,
+      "heading": "Gustafson's Law",
+      "text": "31\nwhere:\n•\n𝑆(𝑁)\n= Scaled Speedup\n•\n𝑁\n= Number of Processing Units\n•\n𝛼\n= Serial Fraction of the Workload\nIn the context of Griffin Model 1.0, semantic analysis, curriculum mapping, and report evaluation\ntasks can be executed independently for multiple reports, allowing workload distribution across\navailable CPU resources. Consequently, larger assessment batches achieve better computational\nefficiency compared to isolated report evaluation.\nThe results suggest that Griffin Model 1.0 is well-suited for institutional deployment scenarios\ninvolving large numbers of internship reports, project reports, and academic submissions. The\nability to perform bulk assessment with decreasing average processing time highlights the\nframework's potential for supporting large-scale academic evaluation while reducing faculty\nworkload and improving assessment throughput.",
+      "concepts": [
+        "throughput",
+        "model"
+      ],
+      "entities": [
+        "CPU"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0776,
+      "semantic_density": 0.7397,
+      "information_gain": 0.4774
+    },
+    {
+      "token_id": "grt_30390d0c986e",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.4 Internship Report Assessment",
+      "subsection": "Overview",
+      "page": 45,
+      "heading": "4.4 Internship Report Assessment",
+      "text": "The developed system was evaluated using internship reports representing different domains\nincluding Machine Learning, Data Analytics, Business Intelligence, Web Development, and\nArtificial Intelligence applications.\nDuring assessment, the system extracted key concepts from report content and compared them\nagainst curriculum knowledge representations. Semantic similarity analysis enabled the\nidentification of curriculum-relevant topics even when different terminologies were used within\nreports.\nTable 4.2 Sample Topic Extraction Results based on semantic domian relavance",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.2"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7563,
+      "information_gain": 0.4522
+    },
+    {
+      "token_id": "grt_f1655d91ebf4",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.4 Internship Report Assessment",
+      "subsection": "Representative Topics Extracted",
+      "page": 45,
+      "heading": "Representative Topics Extracted",
+      "text": "Machine Learning\nRandom Forest, Classification, Model Evaluation\nData Analytics\nData Cleaning, Dashboarding, ETL\nBusiness Intelligence\nPower BI, Visualization, Reporting\nWeb Development\nFlask, Authentication, Database Design",
+      "concepts": [
+        "classification",
+        "model"
+      ],
+      "entities": [
+        "ETL",
+        "BI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.4,
+      "semantic_density": 0.8078,
+      "information_gain": 0.6302
+    },
+    {
+      "token_id": "grt_d1b035625849",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.4 Internship Report Assessment",
+      "subsection": "Representative Topics Extracted",
+      "page": 46,
+      "heading": "Representative Topics Extracted",
+      "text": "32\nArtificial Intelligence\nNLP, Semantic Analysis, Automation\nThe extracted concepts provided the basis for curriculum mapping and educational relevance\nanalysis.",
+      "concepts": [],
+      "entities": [
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1,
+      "semantic_density": 0.7864,
+      "information_gain": 0.5028
+    },
+    {
+      "token_id": "grt_b3a54ba313e3",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.5 Curriculum Mapping Results",
+      "subsection": "Overview",
+      "page": 46,
+      "heading": "4.5 Curriculum Mapping Results",
+      "text": "Curriculum mapping analysis was performed to determine the degree of alignment between\ninternship activities and curriculum objectives. The proposed framework successfully identified\nrelationships between report concepts and curriculum topics through semantic matching\ntechniques.\nTable 4.3 Curriculum Mapping Results Achieved\nThe results indicate that the framework is capable of identifying curriculum coverage across diverse\ninternship\ndomains\nwhile\nproviding\nquantitative\nmeasures\nof\ncurriculum\nalignment.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.3"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.6752,
+      "information_gain": 0.4663
+    },
+    {
+      "token_id": "grt_5e69cf0295eb",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.6 Semantic Assessment Results",
+      "subsection": "Overview",
+      "page": 46,
+      "heading": "4.6 Semantic Assessment Results",
+      "text": "Semantic similarity analysis enabled the system to evaluate conceptual relationships between\ncurriculum concepts and report content beyond simple keyword matching. Transformer-based\nembeddings facilitated contextual understanding of technical concepts and educational\nterminology.",
+      "concepts": [
+        "transformer"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0938,
+      "semantic_density": 0.7916,
+      "information_gain": 0.5446
+    },
+    {
+      "token_id": "grt_d80d3358f263",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.6 Semantic Assessment Results",
+      "subsection": "Curriculum Coverage (%)",
+      "page": 46,
+      "heading": "Curriculum Coverage (%)",
+      "text": "Report 1\n23\n46\nReport 2\n25\n50\nReport 3\n21\n42\nReport 4\n15\n30\nReport 5\n24\n48",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.0,
+      "information_gain": 0.1875
+    },
+    {
+      "token_id": "grt_16b9fc0bcc01",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.6 Semantic Assessment Results",
+      "subsection": "Curriculum Coverage (%)",
+      "page": 47,
+      "heading": "Curriculum Coverage (%)",
+      "text": "33\nTable 4.4 Sample of Semantic similarity Results of  topics vectors relative to curriculum",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.4"
+      ],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8128,
+      "information_gain": 0.472
+    },
+    {
+      "token_id": "grt_44ef434e7a5d",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.6 Semantic Assessment Results",
+      "subsection": "Similarity Score",
+      "page": 47,
+      "heading": "Similarity Score",
+      "text": "Random Forest\nMachine Learning\n0.91\nDashboarding\nData Visualization\n0.87\nETL Pipeline\nData Engineering\n0.89\nAuthentication\nWeb Security\n0.84\nNLP Analysis\nNatural Language Processing\n0.93\nThe observed similarity scores demonstrate the ability of Griffin Model 1.0 to capture semantic\nrelationships between educational concepts and practical internship activities.",
+      "concepts": [
+        "model",
+        "pipeline"
+      ],
+      "entities": [
+        "ETL",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1923,
+      "semantic_density": 0.8191,
+      "information_gain": 0.5511
+    },
+    {
+      "token_id": "grt_f6aab12f1b3f",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.7 Significance Assessment",
+      "subsection": "Overview",
+      "page": 47,
+      "heading": "4.7 Significance Assessment",
+      "text": "Beyond curriculum alignment, the proposed framework incorporates significance assessment to\nestimate the educational and technical value of internship work. This module evaluates factors\nsuch as technical depth, curriculum relevance, project complexity, and practical contribution.\nTable 4.5 Significance assessment results for the reports according to the scope of work demonstrated by\nrespective\nThe results suggest that curriculum alignment alone does not necessarily indicate educational\nsignificance. Reports demonstrating higher technical complexity and broader curriculum coverage\ngenerally achieved higher significance scores.",
+      "concepts": [
+        "complexity"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.5"
+      ],
+      "citations": [],
+      "technical_density": 0.0506,
+      "semantic_density": 0.6517,
+      "information_gain": 0.4359
+    },
+    {
+      "token_id": "grt_b3327aebdf81",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.7 Significance Assessment",
+      "subsection": "Interpretation",
+      "page": 47,
+      "heading": "Interpretation",
+      "text": "Report 1\n36\nNormal\nReport 2\n56\nHigher\nReport 3\n38\nNormal\nReport 4\n29\nLower\nReport 5\n47\nHigher",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.5742,
+      "information_gain": 0.3885
+    },
+    {
+      "token_id": "grt_a373415429ee",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.8 Comparative Evaluation",
+      "subsection": "Overview",
+      "page": 48,
+      "heading": "4.8 Comparative Evaluation",
+      "text": "A comparative analysis was performed to evaluate the capabilities of Griffin Model 1.0 against\nexisting assessment approaches.\nTable 4.6 Comparative analysis of current used Assessment Approaches",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [
+        "Table 4.6"
+      ],
+      "citations": [],
+      "technical_density": 0.1071,
+      "semantic_density": 0.6701,
+      "information_gain": 0.4649
+    },
+    {
+      "token_id": "grt_542df7374d01",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.8 Comparative Evaluation",
+      "subsection": "Griffin Model 1.0",
+      "page": 48,
+      "heading": "Griffin Model 1.0",
+      "text": "Curriculum Awareness\nLow\nModerate\nModerate\nHigh\nSemantic Understanding\nHuman Dependent\nHigh\nHigh\nHigh\nCurriculum Mapping\nNo\nPartial\nPartial\nYes\nSignificance Evaluation\nNo\nNo\nNo\nYes\nExplainable Assessment\nModerate\nModerate\nModerate\nHigh\nAssessment Consistency\nVariable\nHigh\nHigh\nHigh\nThe comparison highlights that Griffin Model 1.0 extends beyond conventional AI-assisted\nassessment by integrating curriculum intelligence, semantic analysis, and significance evaluation\nwithin a unified framework.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0781,
+      "semantic_density": 0.5911,
+      "information_gain": 0.4256
+    },
+    {
+      "token_id": "grt_b6e6222499e0",
+      "chapter": "3.4 Assessment Framework",
+      "section": "4.9 Discussion",
+      "subsection": "Overview",
+      "page": 48,
+      "heading": "4.9 Discussion",
+      "text": "The experimental findings demonstrate that Griffin Model 1.0 successfully performs curriculum-\naware internship report assessment through the integration of semantic analysis, curriculum\nmapping, and significance evaluation. The framework effectively identifies curriculum coverage,\nevaluates educational relevance, and generates interpretable assessment outcomes.\nUnlike conventional assessment approaches that primarily focus on content quality or textual\nsimilarity, the proposed framework evaluates both educational alignment and technical\ncontribution. The observed results indicate that curriculum-aware assessment can improve\nevaluation consistency while reducing manual effort required during academic assessment\nprocesses.",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0353,
+      "semantic_density": 0.7103,
+      "information_gain": 0.4752
+    },
+    {
+      "token_id": "grt_533836b5cd70",
+      "chapter": "3.4 Assessment Framework",
+      "section": "5.1 Conclusion",
+      "subsection": "Overview",
+      "page": 50,
+      "heading": "5.1 Conclusion",
+      "text": "1.\nThe Digi Assessor: Griffin system successfully demonstrates the application of Artificial\nIntelligence, Machine Learning, and Optical Character Recognition technologies for\nautomated internship and academic report assessment.\n2.\nThe proposed framework effectively extracts, processes, and evaluates report content while\nreducing manual effort and assessment time.\n3.\nIntegration of OCR, curriculum mapping, plagiarism detection, and AI-driven evaluation\nprovides a comprehensive assessment solution.\n4.\nThe system improves consistency, efficiency, and objectivity in report evaluation\ncompared to conventional manual assessment methods.\n5.\nExperimental results indicate that the proposed approach can support educators in\nmanaging large volumes of reports while maintaining assessment quality.\n6.\nThe project establishes a foundation for future intelligent educational assessment systems\ncapable of handling diverse document types and academic evaluation requirements.\n7.\nOverall, Digi Assessor: Griffin contributes towards the digital transformation of\neducational assessment processes by providing an accurate, scalable, and practical AI-\nassisted evaluation platform.",
+      "concepts": [],
+      "entities": [
+        "OCR",
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0272,
+      "semantic_density": 0.7109,
+      "information_gain": 0.4597
+    },
+    {
+      "token_id": "grt_b108f2fb290f",
+      "chapter": "3.4 Assessment Framework",
+      "section": "5.2 Future Scope",
+      "subsection": "Overview",
+      "page": 50,
+      "heading": "5.2 Future Scope",
+      "text": "1.\nImprove handwriting recognition accuracy for highly complex and overlapping cursive\nwriting styles.\n2.\nExpand support for multilingual handwritten documents, including regional and non-\nEnglish languages.\n3.\nIntegrate advanced deep learning architectures and transformer-based OCR models for\nenhanced text extraction.\n4.\nDevelop real-time document assessment capabilities for instant evaluation and feedback.\n5.\nIncorporate cloud-based deployment to improve scalability, accessibility, and processing\nperformance.\n6.\nEnhance curriculum mapping through automated learning outcome analysis and intelligent\nrecommendations.\n7.\nIntroduce explainable AI features to provide transparent assessment decisions and\nconfidence scores.\n8.\nExtend compatibility to support additional document formats and educational assessment\nframeworks.\n9.\nImplement continuous learning mechanisms to improve model performance using newly\nassessed documents.\n10.\nDevelop a comprehensive analytics dashboard for educators to monitor assessment trends\nand student performance.",
+      "concepts": [
+        "transformer",
+        "accuracy",
+        "model"
+      ],
+      "entities": [
+        "OCR",
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1,
+      "semantic_density": 0.7389,
+      "information_gain": 0.4861
+    },
+    {
+      "token_id": "grt_1a9e666fbb9d",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Policy",
+      "page": 51,
+      "heading": "Policy",
+      "text": ", vol. 5, no. 2, pp. 139–152, 2024.\n[2]\nN. Karadag, ‘The Impact of Artificial Intelligence on Online Assessment: A Preliminary\nReview’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[2]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8494,
+      "information_gain": 0.4848
+    },
+    {
+      "token_id": "grt_c32743be424f",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Journal of Educational Technology and Online Learning",
+      "page": 51,
+      "heading": "Journal of Educational Technology and Online Learning",
+      "text": ", vol. 6, no. 4, pp. 822–\n837, 2023.\n[3]\nV. Gonz’alez-Calatayud, P. Prendes-Espinosa, and R. Roig-Vila, ‘Artificial Intelligence for\nStudent Assessment: A Systematic Review’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[3]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8547,
+      "information_gain": 0.4867
+    },
+    {
+      "token_id": "grt_ccff57c7de9f",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Applied Sciences",
+      "page": 51,
+      "heading": "Applied Sciences",
+      "text": ", vol. 11, no. 12, p. 5467,\n2021.\n[4]\nM. Mekheimer, ‘Generative AI-Assisted Feedback and EFL Writing: A Study on\nProficiency, Revision Frequency and Writing Quality’,",
+      "concepts": [],
+      "entities": [
+        "AI",
+        "EFL"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[4]"
+      ],
+      "technical_density": 0.1538,
+      "semantic_density": 0.8147,
+      "information_gain": 0.5342
+    },
+    {
+      "token_id": "grt_b50cf587ef91",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Discover Education",
+      "page": 51,
+      "heading": "Discover Education",
+      "text": ", vol. 4, p. 170,\n2025.\n[5]\nA. Alshanqiti, T. Alam, M. Benaida, A. Namoun, and A. Taleb, ‘A Rule-Based Approach\ntoward Automating the Assessments of Academic Curriculum Mapping’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[5]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8451,
+      "information_gain": 0.4833
+    },
+    {
+      "token_id": "grt_0378ab1ac996",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Journal of Advanced Computer Science and Applications",
+      "page": 51,
+      "heading": "Journal of Advanced Computer Science and Applications",
+      "text": ", vol. 11, no. 12, pp. 747–754,\n2020.\n[6]\nN. Zaki, S. Turaev, K. Shuaib, A. Krishnan, and E. Mohamed, ‘Automating the Mapping\nof Course Learning Outcomes to Program Learning Outcomes Using Natural Language\nProcessing for Accurate Educational Program Evaluation’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[6]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.7707,
+      "information_gain": 0.4572
+    },
+    {
+      "token_id": "grt_36e16703a818",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Educ. Inf. Technol. (Dordr).",
+      "page": 51,
+      "heading": "Educ. Inf. Technol. (Dordr).",
+      "text": ",\nvol. 28, pp. 16723–16742, 2023.\n[7]\nZ. Quince, ‘Towards Scalable Curriculum Mapping: Comparing Human and GenAI\nAlignment of CLOs to Professional Standards’, in",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[7]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8586,
+      "information_gain": 0.488
+    },
+    {
+      "token_id": "grt_1605b208645e",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "ASCILITE Conference Proceedings",
+      "page": 51,
+      "heading": "ASCILITE Conference Proceedings",
+      "text": ",\n2025, pp. 374–379.\n[8]\nA. Ayaan and K.-W. Ng, ‘Automated Grading Using Natural Language Processing and\nSemantic Analysis’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[8]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8503,
+      "information_gain": 0.4851
+    },
+    {
+      "token_id": "grt_89f7bd4defd1",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "MethodsX",
+      "page": 51,
+      "heading": "MethodsX",
+      "text": ", vol. 14, p. 103395, 2025.\n[9]\nR. Agrawal, H. Mishra, I. Kandasamy, S. R. Terni, and V. WB, ‘Revolutionizing Subjective\nAssessments: A Three-Pronged Comprehensive Approach with NLP and Deep Learning’,",
+      "concepts": [],
+      "entities": [
+        "WB",
+        "NLP"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[9]"
+      ],
+      "technical_density": 0.129,
+      "semantic_density": 0.8572,
+      "information_gain": 0.5391
+    },
+    {
+      "token_id": "grt_072cc48c6d71",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Expert Syst. Appl.",
+      "page": 51,
+      "heading": "Expert Syst. Appl.",
+      "text": ", vol. 239, p. 122470, 2024.\n[10] J. Szymański, M. Operlejn, and P. Weichbroth, ‘Enhancing Word Embeddings for\nImproved Semantic Alignment’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[10]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8572,
+      "information_gain": 0.4875
+    },
+    {
+      "token_id": "grt_7fdb2e6f58df",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Applied Sciences",
+      "page": 51,
+      "heading": "Applied Sciences",
+      "text": ", vol. 14, no. 24, p. 11519, 2024.\n[11] D. Chandrasekaran and V. Mago, ‘Evolution of Semantic Similarity—A Survey’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[11]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8462,
+      "information_gain": 0.4837
+    },
+    {
+      "token_id": "grt_fe9707dd8c47",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Comput. Surv.",
+      "page": 51,
+      "heading": "Comput. Surv.",
+      "text": ", vol. 54, no. 2, pp. 1–37, 2021.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7902,
+      "information_gain": 0.4641
+    },
+    {
+      "token_id": "grt_82d00d70d128",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Comput. Surv.",
+      "page": 52,
+      "heading": "Comput. Surv.",
+      "text": "38\n[12] J. Kandola, N. Cristianini, and J. Shawe-Taylor, ‘Learning Semantic Similarity’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[12]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8372,
+      "information_gain": 0.4805
+    },
+    {
+      "token_id": "grt_25ec073bb1fe",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Neural Inf. Process. Syst.",
+      "page": 52,
+      "heading": "Neural Inf. Process. Syst.",
+      "text": ", vol. 15, 2002.\n[13] G. A. Miller and W. G. Charles, ‘Contextual Correlates of Semantic Similarity’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[13]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.839,
+      "information_gain": 0.4811
+    },
+    {
+      "token_id": "grt_485ade464add",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "Cogn. Process.",
+      "page": 52,
+      "heading": "Cogn. Process.",
+      "text": ", vol. 6, no. 1, pp. 1–28, 1991.\n[14] D. Chandrasekaran and V. Mago, ‘Comparative Analysis of Word Embeddings in\nAssessing Semantic Similarity of Complex Sentences’,",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [
+        "[14]"
+      ],
+      "technical_density": 0.0,
+      "semantic_density": 0.8455,
+      "information_gain": 0.4834
+    },
+    {
+      "token_id": "grt_290652babcaa",
+      "chapter": "REFERENCES",
+      "section": "Main",
+      "subsection": "IEEE Access",
+      "page": 52,
+      "heading": "IEEE Access",
+      "text": ", vol. 9, pp. 166395–\n166408, 2021.",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.8039,
+      "information_gain": 0.4689
+    },
+    {
+      "token_id": "grt_880e458125d6",
+      "chapter": "REFERENCES",
+      "section": "CURRICULUM MAPPING MATRIX",
+      "subsection": "Overview",
+      "page": 54,
+      "heading": "CURRICULUM MAPPING MATRIX",
+      "text": "40\nTable - A: Curriculum Mapping respect to the project",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.819,
+      "information_gain": 0.4741
+    },
+    {
+      "token_id": "grt_1a40f4d56138",
+      "chapter": "REFERENCES",
+      "section": "CURRICULUM MAPPING MATRIX",
+      "subsection": "(%)",
+      "page": 54,
+      "heading": "(%)",
+      "text": "1\nII\nWeb\nDevelopment\n& Application\nUnit 5\nWeb Application\nDevelopment,\nJavaScript\nImplemented web-based assessment\ninterfaces and integrated multi-\nthreaded report evaluation\nworkflows.\n4\n2\nIII\nProgramming\nusing Python\nUnit 4\nFunctions, OOPs,\nLibraries and\nPackages\nDeveloped curriculum processing\nmodules, semantic analysis pipelines,\nand automation scripts.\n6\n3\nIV\nData Mining &\nWarehousing\nUnit 2\nData\nPreprocessing\nApplied preprocessing techniques for\ncurriculum cleaning and report\ncontent preparation.\n1\n4\nIV\nData Mining &\nWarehousing\nUnit 4\nAssociation Rules\nUtilized semantic relationship\ndiscovery and concept association\nmechanisms.\n1\n5\nIV\nFundamental\nof Machine\nLearning\nUnit 4\nSupervised\nLearning Models\nDesigned and implemented the\nGriffin assessment workflow and\nevaluation framework.\n6\n6\nIV\nLinear Algebra Unit 3\nLinear Equations\nand Vector\nRepresentation\nSupported semantic embedding\ngeneration and curriculum alignment\ncomputations.\n7\n7\nV\nOptimization\nTechniques\nUnit 1\nMathematical\nOptimization\nMethods and\nModeling\nDeveloped assessment analytics and\nevaluation visualizations.\n3\n8\nVI\nNatural\nLanguage\nProcessing\nUnit 1\nNLP Pipeline and\nTokenization\nMethods\nDeveloped curriculum parser, text\npreprocessing pipeline, and concept\nextraction modules.\n12\n9\nVI\nNatural\nLanguage\nProcessing\nUnit 3\nWord\nEmbeddings\nTechniques and\nSemantic\nRepresentation\nGenerated SBERT/MiniLM\nembeddings and implemented\nsemantic similarity analysis.\n13",
+      "concepts": [
+        "vector",
+        "pipeline",
+        "embedding"
+      ],
+      "entities": [
+        "NLP",
+        "JavaScript",
+        "VI",
+        "III",
+        "IV",
+        "SBERT",
+        "II"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1257,
+      "semantic_density": 0.61,
+      "information_gain": 0.4513
+    },
+    {
+      "token_id": "grt_a9ef86d5f08d",
+      "chapter": "REFERENCES",
+      "section": "CURRICULUM MAPPING MATRIX",
+      "subsection": "(%)",
+      "page": 55,
+      "heading": "(%)",
+      "text": "41\n10\nVI\nNatural\nLanguage\nProcessing\nUnit 4\nText Analysis and\nInformation\nExtraction\nPerformed curriculum mapping,\ntopic extraction, and report\nassessment.\n12\n11\nVI\nDeep Learning\n& Application\nUnit 2\nNeural Network\nApplications and\nAlgorithms\nTrained and evaluated the Extra\nTrees Regression model for\nsignificance prediction.\n15\n12\nVI\nParallel\nComputing\nUnit 2\nConcurrent\nProcessing and\nMultithreading\nProgramming\nImplemented bulk report processing,\nworkload distribution, and scalability\nevaluation.\n15\n13\nVI\nBig Data\nAnalytics\nUnit 3\nLarge Data\nProcessing,\nAnalytics and\nNormalization\nDeveloped backend processing\nmodules and integrated large-scale\nassessment workflows.\n5",
+      "concepts": [
+        "network",
+        "neural",
+        "regression",
+        "model"
+      ],
+      "entities": [
+        "VI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1538,
+      "semantic_density": 0.7017,
+      "information_gain": 0.4946
+    },
+    {
+      "token_id": "grt_a7131562fbe9",
+      "chapter": "REFERENCES",
+      "section": "CURRICULUM MAPPING MATRIX",
+      "subsection": "100 %",
+      "page": 55,
+      "heading": "100 %",
+      "text": "The curriculum mapping matrix demonstrates the relationship between internship activities and\nthe concepts studied throughout the B.Sc. Data Science curriculum. The contribution percentages\nrepresent the estimated curriculum coverage achieved through the development of Griffin Model\n1.0.",
+      "concepts": [
+        "matrix",
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1579,
+      "semantic_density": 0.7685,
+      "information_gain": 0.5196
+    },
+    {
+      "token_id": "grt_35afa7e86cf1",
+      "chapter": "REFERENCES",
+      "section": "CURRICULUM MAPPING MATRIX",
+      "subsection": "100 %",
+      "page": 56,
+      "heading": "100 %",
+      "text": "42\nFigure 4.6 illustrates the curriculum contribution distribution associated with the development of\nGriffin Model 1.0. Natural Language Processing contributed the largest share (37%), followed by\nDeep Learning & Applications (15%) and Parallel Computing (15%). The results demonstrate the\ninterdisciplinary nature of the proposed framework, integrating concepts from machine learning,\nsemantic analysis, parallel computing, web development, big data analytics, and mathematical\nfoundations.\nFigure A 1 Course contribution chart",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [
+        "Figure 4.6"
+      ],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0435,
+      "semantic_density": 0.764,
+      "information_gain": 0.4723
+    },
+    {
+      "token_id": "grt_0f74d9e2ccda",
+      "chapter": "REFERENCES",
+      "section": "SAMPLE ASSESSMENT OUTPUTS",
+      "subsection": "Curriculum and Report Loading Interface",
+      "page": 58,
+      "heading": "Curriculum and Report Loading Interface",
+      "text": "The interface lets users upload both the curriculum document and the internship report at the same\ntime. This way, they can double-check the files before starting an assessment. It marks the\nbeginning the beginning of the curriculum mapping process and helps make sure only the right\ndocuments go forward for evaluation.\nFigure B 1  Digi Assessor Griffin Model 1.0 handles document loading",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0469,
+      "semantic_density": 0.7747,
+      "information_gain": 0.4774
+    },
+    {
+      "token_id": "grt_17dfca81b09e",
+      "chapter": "REFERENCES",
+      "section": "SAMPLE ASSESSMENT OUTPUTS",
+      "subsection": "Assessment Analytics Dashboard",
+      "page": 59,
+      "heading": "Assessment Analytics Dashboard",
+      "text": "Figure B.2 gives a look at the analytics dashboard Griffin produces after it finishes its assessment.\nOn this dashboard, you’ll find details like semantic curriculum alignment, confidence scores,\ncoverage metrics, matched topics, and format compliance checks. All these metrics come together\nto offer a big-picture summary of how well the submitted report fits with the curriculum and how\nstrong its structure is.\nFigure B 2 Curriculum Assessment Dashboard",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7287,
+      "information_gain": 0.4425
+    },
+    {
+      "token_id": "grt_cebc3c06f4de",
+      "chapter": "REFERENCES",
+      "section": "SAMPLE ASSESSMENT OUTPUTS",
+      "subsection": "Bulk Assessment Processing Engine",
+      "page": 60,
+      "heading": "Bulk Assessment Processing Engine",
+      "text": "Figure B.3 captures the bulk assessment engine from Digi Assessor Griffin Model 1.0. It’s\ndesigned for speed and efficiency, letting users evaluate several internship reports at once through\nconcurrent processing. Each report passes through steps like curriculum mapping, checking\nrelevance, and ensuring format compliance. In the end, all results merge into one comprehensive\nassessment. This kind of batch processing supports large-scale academic evaluation without\nsacrificing consistency or speed.\nFigure B 3  Bulk Assessment Processing Framework",
+      "concepts": [
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.038,
+      "semantic_density": 0.756,
+      "information_gain": 0.4673
+    },
+    {
+      "token_id": "grt_728b82a0aa45",
+      "chapter": "REFERENCES",
+      "section": "LOGBOOK",
+      "subsection": "Overview",
+      "page": 62,
+      "heading": "LOGBOOK",
+      "text": "48\nStudent’s Name: Dhruv Verma Enrolment No.: 23sc06007\nSchool: School of Science\nPlace of Major Project :",
+      "concepts": [],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0,
+      "semantic_density": 0.7834,
+      "information_gain": 0.4617
+    },
+    {
+      "token_id": "grt_45192f18a1be",
+      "chapter": "REFERENCES",
+      "section": "University",
+      "subsection": "Overview",
+      "page": 62,
+      "heading": "University",
+      "text": "3 months\nSemester / Year: VI/3\nrd",
+      "concepts": [],
+      "entities": [
+        "VI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.2857,
+      "semantic_density": 0.8026,
+      "information_gain": 0.5827
+    },
+    {
+      "token_id": "grt_e495c9666495",
+      "chapter": "REFERENCES",
+      "section": "mentor",
+      "subsection": "Overview",
+      "page": 62,
+      "heading": "mentor",
+      "text": "10/03/2026\nDevelopment for Major Project  initiated. Conducted literature survey on AI-based academic\nassessment, OCR, and handwritten answer evaluation. Studied OCR technologies, handwriting\nrecognition techniques, and semantic answer evaluation approaches. Also started with initial\narchitecture for automated handwritten answer sheet assessment system.\n11/03/2026\nData collection : Collected handwritten and cursive answer sheet samples for experimentation\nand testing using Hugging-face datasets\n14/03/2026\nDeveloped the initial OCR Pipeline experimented on handwritten text and analyzed text\nextraction.\n17/03/2026\nDeveloped image preprocessing pipeline for preprocessing and OCR improvements.\n20/03/2026\nConducted multiple OCR sampling on cursive handwriting samples and evaluated achieved\naccuracy.",
+      "concepts": [
+        "pipeline",
+        "accuracy",
+        "architecture"
+      ],
+      "entities": [
+        "OCR",
+        "AI"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.1308,
+      "semantic_density": 0.6554,
+      "information_gain": 0.4692
+    },
+    {
+      "token_id": "grt_326ab8c57b31",
+      "chapter": "REFERENCES",
+      "section": "mentor",
+      "subsection": "Overview",
+      "page": 63,
+      "heading": "mentor",
+      "text": "23/03/2026\nImproving OCR workflow, fine tuning parameters and piloting various approaches\n26/03/2026\nEvaluated semantic answer assessment using OCR-generated text and identified error\npropagation issues.\n30/03/2026\nInvestigated limitations of cursive handwriting evaluation including ambiguity, OCR\ninaccuracies, and scalability concerns.\n03/04/2026\nContinued optimization of OCR pipeline and performed comparative testing on handwritten\nsamples.\n07/04/2026\nAnalyzed feasibility of large-scale handwritten answer evaluation and documented project\nlimitations.\n11/04/2026\nDiscussed findings with mentor and explored alternative approaches for academic assessment.\nAchieved approximately 70% accuracy on single-line cursive handwriting recognition which isn’t\nscalable yet.\n15/04/2026\nFinalized project transition from handwritten answer assessment to curriculum-aware internship\nreport assessment.\n19/04/2026\nProposed Digi Assessor Griffin Model 1.0 and designed overall academic assessment framework.\n23/04/2026\nDeveloped Curriculum Parser for extracting subjects, units, and topics from curriculum\ndocuments.",
+      "concepts": [
+        "model",
+        "accuracy",
+        "pipeline"
+      ],
+      "entities": [
+        "OCR"
+      ],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0728,
+      "semantic_density": 0.722,
+      "information_gain": 0.4693
+    },
+    {
+      "token_id": "grt_37b3352c36b9",
+      "chapter": "REFERENCES",
+      "section": "mentor",
+      "subsection": "Overview",
+      "page": 64,
+      "heading": "mentor",
+      "text": "01 /04/2026\nImplemented curriculum indexing module, caching, and structured curriculum repository\ngeneration and developed NLP-based concept extraction and curriculum intelligence pipeline.\n05/05/2026\nIntegrated Sentence Transformer (MiniLM) embeddings for semantic representation of\ncurriculum and reports.\n09/05/2026\nDeveloped semantic similarity computation and curriculum alignment framework.\n13/05/2026\nImplemented weighted semantic scoring, curriculum coverage, and confidence estimation\nmodules. Implemented parallel processing and bulk assessment framework for large-scale report\nevaluation for updated flow .\n26/05/2026\nDeveloped Bulk assessment Module and tested bulk mapping assessment of testing sample report\nfor sample size  = 24 reports of Bac Data Science\n28/05/2026\nPresented the curriculum semantic assessment module to Mentor, with tested results of 24 reports\nfrom data science program\n29/05/2026\nPresented Curriculum Mapping Module and semantic assessment workflow to Provost Prof. GR\nSinha for suggestions and feedback.",
+      "concepts": [
+        "transformer",
+        "pipeline"
+      ],
+      "entities": [
+        "GR",
+        "NLP"
+      ],
+      "formula_refs": [
+        "size  = 24"
+      ],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0909,
+      "semantic_density": 0.6241,
+      "information_gain": 0.4423
+    },
+    {
+      "token_id": "grt_96b62677a02d",
+      "chapter": "REFERENCES",
+      "section": "mentor",
+      "subsection": "Overview",
+      "page": 65,
+      "heading": "mentor",
+      "text": "02/06/2026\nDeveloped significance assessment dataset generation framework research literature. Presented\nto Mentor, Conducted testing and validation using internship reports and generated assessment\nanalytics. Trained and evaluated significance prediction model using Extra Trees Regressor.\nDeveloped format compliance analysis module and integrated assessment workflow.\n04/06/2026\nCompiled results, observations, performance metrics, and experimental findings.\n05/06/2026\nCompleted project report, presentation preparation, documentation, and final project submission.",
+      "concepts": [
+        "dataset",
+        "model"
+      ],
+      "entities": [],
+      "formula_refs": [],
+      "figure_refs": [],
+      "table_refs": [],
+      "citations": [],
+      "technical_density": 0.0882,
+      "semantic_density": 0.7744,
+      "information_gain": 0.4938
+    }
+  ],
+  "excluded_pages": [
+    2,
+    6,
+    7,
+    8,
+    51
+  ],
+  "total_raw_blocks": 1481,
+  "retained_evidence_blocks": 128
+}
