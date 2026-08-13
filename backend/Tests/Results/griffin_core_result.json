@@ -1,0 +1,86 @@
+{
+  "nodes": {
+    "unit_2": {
+      "id": "unit_2",
+      "label": "Unit 1: Relational Model and Algebra",
+      "node_type": "UNIT",
+      "attributes": {
+        "type": "UNIT"
+      }
+    },
+    "evidence_0": {
+      "id": "evidence_0",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Unit 1: Relational Model and Algebra'. Cross-encoder confidence=0.231, dense similarity=0.819.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.23132650554180145,
+        "reasoning_score": 0.4662337571382523,
+        "similarity": 0.8185946345329285
+      }
+    },
+    "grt_7dfa9a677862": {
+      "id": "grt_7dfa9a677862",
+      "label": "John Doe\nRelational algebra provides the mathematical foundation of SQL.",
+      "node_type": "TOKEN",
+      "attributes": {
+        "page": 1,
+        "chapter": "General",
+        "section": "Main",
+        "subsection": "Content",
+        "heading": "Overview",
+        "category": "CONTENT",
+        "token_type": "SECTION",
+        "confidence": 1.0,
+        "priority": 0.0,
+        "concepts": [],
+        "entities": [
+          "SQL"
+        ],
+        "keywords": [
+          "algebra",
+          "foundation",
+          "john",
+          "mathematical",
+          "provides",
+          "relational"
+        ],
+        "citations": [],
+        "figure_refs": [],
+        "table_refs": [],
+        "equation_refs": [],
+        "semantic_density": 0.8172,
+        "technical_density": 0.2,
+        "information_gain": 0.5535,
+        "embedding_model": "BAAI/bge-large-en-v1.5",
+        "embedding_dimension": 1024,
+        "full_text": "John Doe\nRelational algebra provides the mathematical foundation of SQL."
+      }
+    },
+    "page_1": {
+      "id": "page_1",
+      "label": "Page 1",
+      "node_type": "PAGE",
+      "attributes": {
+        "page_number": 1
+      }
+    }
+  },
+  "edges": [
+    {
+      "source": "evidence_0",
+      "target": "grt_7dfa9a677862",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.8185946345329285,
+      "confidence": 0.23132650554180145,
+      "reasoning_score": 0.4662337571382523
+    },
+    {
+      "source": "grt_7dfa9a677862",
+      "target": "page_1",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    }
+  ]
+}

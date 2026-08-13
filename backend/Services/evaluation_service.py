@@ -50,6 +50,7 @@ class EvaluationService:
                 
                 metadata = {
                     "title": report.title if report else "Report",
+                    "student": report.student_name if (report and report.student_name) else "Student",
                     "student_name": report.student_name if report else "Student",
                     "total_pages": report.total_pages if report else 1
                 }
