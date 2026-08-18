@@ -1,104 +1,63 @@
-# React + TypeScript + Vite
+# Griffin — OBL Evaluation AI v1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Griffin is an explainable academic evaluation platform for outcome-based learning (OBL). It maps curriculum topics to evidence in student reports and presents the stored GriffinResult for review.
 
-Currently, two official plugins are available:
+## Product flow
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Curriculum PDF + Student Report(s)
+            ↓
+      Griffin Core (frozen)
+            ↓
+        GriffinResult
+            ↓
+      Persisted evaluation
+            ↓
+      Griffin Console / Report
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The product layer deliberately does not reimplement Griffin evaluation logic. Curriculum parsing, tokenization, encoding, retrieval, validation, evidence graph construction, and result generation remain in Griffin Core.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Backend: FastAPI, SQLAlchemy, PostgreSQL-compatible database, Pydantic, existing Griffin Core.
 
+Frontend: React, Vite, TypeScript build tooling, Tailwind CSS, React Router.
+
+## Backend configuration
+
+Copy `.env.example` to the deployment environment and set a real `DATABASE_URL` and `CORS_ORIGINS`.
+
+`GRIFFIN_ALLOW_LOCAL_SQLITE=true` is intended only for local development. Production must provide `DATABASE_URL` and must not rely on the SQLite fallback.
+
+Uploaded PDFs are stored under `STORAGE_DIR` using generated filenames. Original filenames are retained only as report/curriculum metadata.
+
+## Run locally
+
+```bash
+python -m venv .venv
+# activate the virtual environment
+pip install -r requirements.txt
+uvicorn backend.main:app --host 0.0.0.0 --port 8001
 ```
 
+In a second terminal:
 
+```bash
+npm install
+npm run dev
+```
 
+The Vite development proxy sends `/api/*` to the FastAPI service.
 
+## Evaluation contract
 
+A completed evaluation stores one `GriffinResult` for each submitted report. Opening an existing evaluation reads the stored result; it does not rerun Griffin Core.
 
+Processing state comes from the backend job record. The UI does not fabricate completion percentages, model thoughts, evaluation verdicts, or evidence.
 
+## Release boundary
 
+This branch is the Griffin v1.0 release candidate. The frozen Griffin Core is treated as the source of truth; release work is limited to the product wrapper, persistence, API lifecycle, uploads, and presentation integration.
 
-
-
-
-
-
-
-Read griffin_project_finalisation.md first.
-Treat it as the strict product contract.
-Do not modify existing Griffin model/evaluation code.
-Your scope is ONLY:
-existing Griffin backend
-→ product services/routes/database
-→ frontend.
-Do not add features outside the document.
-Do not use mock/fake data.
-Do not redesign architecture unless required for integration.
-Do not add mock workflow, strictly integrate real workflow
-Implement only the task I specify below.
+See `griffin_project_final_stage.md` for the product finalisation contract.
