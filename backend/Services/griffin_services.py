@@ -1,6 +1,6 @@
 import time
 from typing import Dict, Any
-from backend.EvidenceModel.pipeline import GriffinCore 
+from backend.EvidenceModel.pipeline_main import GriffinCore
 from backend.EvidenceModel.presentation.builder import GriffinResultBuilder
 
 class GriffinService:
@@ -13,11 +13,15 @@ class GriffinService:
         """
         start_time = time.time()
         
-        griffin = GriffinCore()
+        # Define progress_callback to bridge to on_stage_update
+        def progress_callback(stage, percent, message=""):
+            if on_stage_update:
+                on_stage_update(f"Stage: {stage} ({percent}%) - {message}", percent)
+
+        griffin = GriffinCore(progress_callback=progress_callback)
         evidence_graph = griffin.process(
             curriculum_pdf_path=curriculum_file_path,
-            report_input=report_file_path,
-            on_stage_update=on_stage_update
+            report_input=report_file_path
         )
         
         processing_time = round(time.time() - start_time, 2)

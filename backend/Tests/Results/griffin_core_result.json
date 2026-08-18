@@ -1,0 +1,536 @@
+{
+  "nodes": {
+    "unit_4": {
+      "id": "unit_4",
+      "label": "Unit 1: Relational Model and algebra",
+      "node_type": "UNIT",
+      "attributes": {
+        "type": "UNIT"
+      }
+    },
+    "topic_5": {
+      "id": "topic_5",
+      "label": "Relational Database Architecture and Concepts Relational Algebra Selection and Projection Operators SQL Select Queries and Joins Normalization and Functional Dependencies",
+      "node_type": "TOPIC",
+      "attributes": {
+        "type": "TOPIC"
+      }
+    },
+    "evidence_0": {
+      "id": "evidence_0",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Unit 1: Relational Model and algebra'. Cross-encoder confidence=0.006, dense similarity=0.754.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.006163676735013723,
+        "reasoning_score": 0.30540990838781,
+        "similarity": 0.7542792558670044
+      }
+    },
+    "grt_10f48036c5ed": {
+      "id": "grt_10f48036c5ed",
+      "label": "FACULTY OF TECHNOLOGY\nDEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING\nA MAJOR PROJECT REPORT ON\nDATABASE ENGINE IMPLEMENT...",
+      "node_type": "TOKEN",
+      "attributes": {
+        "page": 1,
+        "chapter": "General",
+        "section": "Main",
+        "subsection": "Content",
+        "heading": "Overview",
+        "category": "CONTENT",
+        "token_type": "SECTION",
+        "confidence": 1.0,
+        "priority": 0.0,
+        "concepts": [],
+        "entities": [
+          "AND",
+          "ENGINE",
+          "MAJOR",
+          "OF",
+          "ON",
+          "REPORT"
+        ],
+        "keywords": [
+          "algebra",
+          "august",
+          "compiler",
+          "computer",
+          "database",
+          "department",
+          "diagnostic",
+          "engine",
+          "engineering",
+          "enrollment",
+          "faculty",
+          "guidance",
+          "implementation",
+          "jane",
+          "major",
+          "prof",
+          "project",
+          "relational",
+          "report",
+          "science",
+          "student",
+          "submitted",
+          "technology",
+          "under"
+        ],
+        "citations": [],
+        "figure_refs": [],
+        "table_refs": [],
+        "equation_refs": [],
+        "semantic_density": 0.8254,
+        "technical_density": 0.3158,
+        "information_gain": 0.6027,
+        "embedding_model": "BAAI/bge-large-en-v1.5",
+        "embedding_dimension": 1024,
+        "full_text": "FACULTY OF TECHNOLOGY\nDEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING\nA MAJOR PROJECT REPORT ON\nDATABASE ENGINE IMPLEMENTATION AND RELATIONAL ALGEBRA COMPILER\nSubmitted by:\nDIAGNOSTIC STUDENT\nEnrollment No: CSE2026-004\nUnder the Guidance of:\nProf. Jane Guidance\nAugust 2026"
+      }
+    },
+    "page_1": {
+      "id": "page_1",
+      "label": "Page 1",
+      "node_type": "PAGE",
+      "attributes": {
+        "page_number": 1
+      }
+    },
+    "evidence_1": {
+      "id": "evidence_1",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Unit 1: Relational Model and algebra'. Cross-encoder confidence=0.009, dense similarity=0.743.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.008976210840046406,
+        "reasoning_score": 0.3024246392771602,
+        "similarity": 0.7425972819328308
+      }
+    },
+    "grt_b575b55d17c7": {
+      "id": "grt_b575b55d17c7",
+      "label": "1.1 Introduction\nThe design and implementation of relational databases forms the core of modern software\narchitecture.\nO...",
+      "node_type": "TOKEN",
+      "attributes": {
+        "page": 2,
+        "chapter": "General",
+        "section": "Main",
+        "subsection": "Content",
+        "heading": "Overview",
+        "category": "CONTENT",
+        "token_type": "SECTION",
+        "confidence": 1.0,
+        "priority": 0.0,
+        "concepts": [
+          "architecture",
+          "optimizer"
+        ],
+        "entities": [],
+        "keywords": [
+          "algebra",
+          "architecture",
+          "cleanly",
+          "concurrency",
+          "consists",
+          "controller",
+          "core",
+          "data",
+          "database",
+          "databases",
+          "definitions",
+          "design",
+          "efficiently",
+          "elements",
+          "engine",
+          "forms",
+          "guarantees",
+          "implementation",
+          "indexes",
+          "integrity",
+          "introduction",
+          "manage",
+          "modern",
+          "optimizer",
+          "organized",
+          "parser",
+          "provide",
+          "query",
+          "relational",
+          "relations",
+          "represent",
+          "schema",
+          "software",
+          "storage",
+          "structured",
+          "system",
+          "tables",
+          "transactional",
+          "tuples",
+          "utilizes"
+        ],
+        "citations": [],
+        "figure_refs": [],
+        "table_refs": [],
+        "equation_refs": [],
+        "semantic_density": 0.6732,
+        "technical_density": 0.1235,
+        "information_gain": 0.4725,
+        "embedding_model": "BAAI/bge-large-en-v1.5",
+        "embedding_dimension": 1024,
+        "full_text": "1.1 Introduction\nThe design and implementation of relational databases forms the core of modern software\narchitecture.\nOur database system utilizes a structured relational database architecture where data is organized into\ntables or relations.\n1.2 System Architecture\nThe system consists of a query parser, relational algebra optimizer, storage engine, and a concurrency\ncontroller.\nThis architecture guarantees that the database engine can manage tables, indexes, and tuples\nefficiently.\nWe represent schema definitions and database architecture elements cleanly to provide transactional\nintegrity."
+      }
+    },
+    "page_2": {
+      "id": "page_2",
+      "label": "Page 2",
+      "node_type": "PAGE",
+      "attributes": {
+        "page_number": 2
+      }
+    },
+    "evidence_2": {
+      "id": "evidence_2",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Unit 1: Relational Model and algebra'. Cross-encoder confidence=0.011, dense similarity=0.731.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.010538161732256413,
+        "reasoning_score": 0.2988445168361068,
+        "similarity": 0.7313040494918823
+      }
+    },
+    "grt_23f1e3d24b68": {
+      "id": "grt_23f1e3d24b68",
+      "label": "2.1 Formal Definition of Operators\nRelational Algebra Selection and Projection Operators are the principal operators uti...",
+      "node_type": "TOKEN",
+      "attributes": {
+        "page": 3,
+        "chapter": "General",
+        "section": "Main",
+        "subsection": "Content",
+        "heading": "Overview",
+        "category": "CONTENT",
+        "token_type": "SECTION",
+        "confidence": 1.0,
+        "priority": 0.0,
+        "concepts": [],
+        "entities": [
+          "SQL"
+        ],
+        "keywords": [
+          "algebra",
+          "algebraic",
+          "attributes",
+          "based",
+          "before",
+          "columns",
+          "combining",
+          "compiler",
+          "construct",
+          "containing",
+          "data",
+          "definition",
+          "direct",
+          "efficient",
+          "equivalent",
+          "executing",
+          "execution",
+          "expression",
+          "expressions",
+          "filters",
+          "formal",
+          "forms",
+          "given",
+          "involves",
+          "more",
+          "only",
+          "operator",
+          "operators",
+          "optimization",
+          "optimized",
+          "predicate",
+          "principal",
+          "projection",
+          "prune",
+          "queries",
+          "query",
+          "relation",
+          "relational",
+          "requested",
+          "retrieve",
+          "rewriting",
+          "rows",
+          "select",
+          "selection",
+          "translates",
+          "trees",
+          "utilized",
+          "whereas"
+        ],
+        "citations": [],
+        "figure_refs": [],
+        "table_refs": [],
+        "equation_refs": [],
+        "semantic_density": 0.6679,
+        "technical_density": 0.0213,
+        "information_gain": 0.4298,
+        "embedding_model": "BAAI/bge-large-en-v1.5",
+        "embedding_dimension": 1024,
+        "full_text": "2.1 Formal Definition of Operators\nRelational Algebra Selection and Projection Operators are the principal operators utilized to prune and\nretrieve data.\nThe selection operator filters rows based on a given predicate, whereas the projection operator filters\ncolumns.\nBy executing projection, we construct a new relation containing only the requested attributes.\nBy combining selection and projection operators, queries can be optimized before execution.\n2.2 Algebraic Optimization\nQuery optimization involves rewriting relational algebra expressions into equivalent and more efficient\nforms.\nThis compiler translates SQL Select Queries into relational algebra expression trees for direct\noptimization."
+      }
+    },
+    "page_3": {
+      "id": "page_3",
+      "label": "Page 3",
+      "node_type": "PAGE",
+      "attributes": {
+        "page_number": 3
+      }
+    },
+    "evidence_3": {
+      "id": "evidence_3",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Relational Database Architecture and Concepts Relational Algebra Selection and Projection Operators SQL Select Queries and Joins Normalization and Functional Dependencies'. Cross-encoder confidence=0.996, dense similarity=0.880.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.9964637160301208,
+        "reasoning_score": 0.9497654795646667,
+        "similarity": 0.8797181248664856
+      }
+    },
+    "grt_57b215b991d7": {
+      "id": "grt_57b215b991d7",
+      "label": "3.1 SQL Query Parsing\nModern database systems process SQL Select Queries and Joins by parsing text strings into abstract...",
+      "node_type": "TOKEN",
+      "attributes": {
+        "page": 4,
+        "chapter": "General",
+        "section": "Main",
+        "subsection": "Content",
+        "heading": "Overview",
+        "category": "CONTENT",
+        "token_type": "SECTION",
+        "confidence": 1.0,
+        "priority": 0.0,
+        "concepts": [],
+        "entities": [
+          "BCNF",
+          "SQL"
+        ],
+        "keywords": [
+          "abstract",
+          "analyze",
+          "anomalies",
+          "bcnf",
+          "boyce",
+          "cartesian",
+          "codd",
+          "compiler",
+          "consistency",
+          "cross",
+          "database",
+          "dependencies",
+          "design",
+          "designing",
+          "each",
+          "ensure",
+          "equivalent",
+          "followed",
+          "form",
+          "functional",
+          "guarantees",
+          "implemented",
+          "inner",
+          "join",
+          "joins",
+          "left",
+          "mapped",
+          "modern",
+          "normal",
+          "normalization",
+          "normalized",
+          "operator",
+          "parsing",
+          "prevent",
+          "process",
+          "product",
+          "products",
+          "prunes",
+          "queries",
+          "query",
+          "redundancy",
+          "relational",
+          "schema",
+          "schemas",
+          "select",
+          "selection",
+          "strings",
+          "support",
+          "syntax",
+          "systems",
+          "tables",
+          "text",
+          "third",
+          "trees",
+          "within"
+        ],
+        "citations": [],
+        "figure_refs": [],
+        "table_refs": [],
+        "equation_refs": [],
+        "semantic_density": 0.7154,
+        "technical_density": 0.0404,
+        "information_gain": 0.454,
+        "embedding_model": "BAAI/bge-large-en-v1.5",
+        "embedding_dimension": 1024,
+        "full_text": "3.1 SQL Query Parsing\nModern database systems process SQL Select Queries and Joins by parsing text strings into abstract\nsyntax trees.\nWe have implemented support for inner joins, left joins, and cross products within our relational\ncompiler.\nEach join is mapped into an equivalent cartesian product followed by a selection operator.\n3.2 Schema Design and Normalization\nTo prevent anomalies, tables are normalized using Functional Dependencies.\nWe analyze functional dependencies to ensure the schema is in Third Normal Form (3NF) or\nBoyce-Codd Normal Form (BCNF).\nDesigning relational schemas using functional dependencies guarantees schema consistency and\nprunes redundancy."
+      }
+    },
+    "page_4": {
+      "id": "page_4",
+      "label": "Page 4",
+      "node_type": "PAGE",
+      "attributes": {
+        "page_number": 4
+      }
+    },
+    "evidence_4": {
+      "id": "evidence_4",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Relational Database Architecture and Concepts Relational Algebra Selection and Projection Operators SQL Select Queries and Joins Normalization and Functional Dependencies'. Cross-encoder confidence=0.993, dense similarity=0.855.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.9929320812225342,
+        "reasoning_score": 0.9376714944839477,
+        "similarity": 0.8547806143760681
+      }
+    },
+    "evidence_5": {
+      "id": "evidence_5",
+      "label": "Evidence token demonstrates semantic alignment with curriculum topic 'Relational Database Architecture and Concepts Relational Algebra Selection and Projection Operators SQL Select Queries and Joins Normalization and Functional Dependencies'. Cross-encoder confidence=0.268, dense similarity=0.798.",
+      "node_type": "EVIDENCE",
+      "attributes": {
+        "confidence": 0.2677101492881775,
+        "reasoning_score": 0.4799575209617615,
+        "similarity": 0.7983285784721375
+      }
+    }
+  },
+  "edges": [
+    {
+      "source": "evidence_0",
+      "target": "grt_10f48036c5ed",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.7542792558670044,
+      "confidence": 0.006163676735013723,
+      "reasoning_score": 0.30540990838781
+    },
+    {
+      "source": "grt_10f48036c5ed",
+      "target": "page_1",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    },
+    {
+      "source": "evidence_1",
+      "target": "grt_b575b55d17c7",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.7425972819328308,
+      "confidence": 0.008976210840046406,
+      "reasoning_score": 0.3024246392771602
+    },
+    {
+      "source": "grt_b575b55d17c7",
+      "target": "page_2",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    },
+    {
+      "source": "evidence_2",
+      "target": "grt_23f1e3d24b68",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.7313040494918823,
+      "confidence": 0.010538161732256413,
+      "reasoning_score": 0.2988445168361068
+    },
+    {
+      "source": "grt_23f1e3d24b68",
+      "target": "page_3",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    },
+    {
+      "source": "topic_5",
+      "target": "evidence_3",
+      "relation": "HAS_EVIDENCE",
+      "similarity": 0.8797181248664856,
+      "confidence": 0.9964637160301208,
+      "reasoning_score": 0.9497654795646667
+    },
+    {
+      "source": "evidence_3",
+      "target": "grt_57b215b991d7",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.8797181248664856,
+      "confidence": 0.9964637160301208,
+      "reasoning_score": 0.9497654795646667
+    },
+    {
+      "source": "grt_57b215b991d7",
+      "target": "page_4",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    },
+    {
+      "source": "topic_5",
+      "target": "evidence_4",
+      "relation": "HAS_EVIDENCE",
+      "similarity": 0.8547806143760681,
+      "confidence": 0.9929320812225342,
+      "reasoning_score": 0.9376714944839477
+    },
+    {
+      "source": "evidence_4",
+      "target": "grt_23f1e3d24b68",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.8547806143760681,
+      "confidence": 0.9929320812225342,
+      "reasoning_score": 0.9376714944839477
+    },
+    {
+      "source": "grt_23f1e3d24b68",
+      "target": "page_3",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    },
+    {
+      "source": "topic_5",
+      "target": "evidence_5",
+      "relation": "HAS_EVIDENCE",
+      "similarity": 0.7983285784721375,
+      "confidence": 0.2677101492881775,
+      "reasoning_score": 0.4799575209617615
+    },
+    {
+      "source": "evidence_5",
+      "target": "grt_b575b55d17c7",
+      "relation": "SUPPORTED_BY",
+      "similarity": 0.7983285784721375,
+      "confidence": 0.2677101492881775,
+      "reasoning_score": 0.4799575209617615
+    },
+    {
+      "source": "grt_b575b55d17c7",
+      "target": "page_2",
+      "relation": "LOCATED_ON",
+      "similarity": 1.0,
+      "confidence": 1.0,
+      "reasoning_score": 1.0
+    }
+  ]
+}
