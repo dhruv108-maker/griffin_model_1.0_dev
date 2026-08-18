@@ -1,110 +1,138 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
 import traceback
 
-from backend.Database.models import Evaluation, BatchJob, GeneratedReport, Report, Curriculum, JobStatus
+from sqlalchemy.orm import Session
+
+from backend.Database.database import SessionLocal
+from backend.Database.models import BatchJob, Curriculum, Evaluation, GeneratedReport, JobStatus, Report
 from backend.Services.griffin_services import GriffinService
 
+
 class EvaluationService:
+    """Coordinates product evaluation jobs; GriffinCore remains the source of truth."""
 
     @staticmethod
     def create_evaluation(db: Session, project_id: str, curriculum_id: str, name: str) -> Evaluation:
-        eval_obj = Evaluation(
+        curriculum = (
+            db.query(Curriculum)
+            .filter(Curriculum.id == curriculum_id, Curriculum.project_id == project_id)
+            .first()
+        )
+        if curriculum is None:
+            raise ValueError("Curriculum does not belong to the requested project")
+
+        evaluation = Evaluation(
             project_id=project_id,
             curriculum_id=curriculum_id,
-            name=name,
-            status=JobStatus.PENDING
+            name=name.strip() or "Griffin Evaluation",
+            status=JobStatus.PENDING,
         )
-        db.add(eval_obj)
+        db.add(evaluation)
         db.commit()
-        db.refresh(eval_obj)
-        return eval_obj
+        db.refresh(evaluation)
+        return evaluation
 
     @staticmethod
-    def run_async_evaluation(evaluation_id: str, report_ids: list[str]):
-        """Background worker that runs Griffin pipeline and updates status."""
-        from backend.Database.database import SessionLocal
+    def run_async_evaluation(evaluation_id: str, report_ids: list[str]) -> None:
+        """Run real Griffin evaluation and persist each report's GriffinResult."""
         db = SessionLocal()
+        job = None
+        evaluation = None
+
         try:
+            evaluation = db.query(Evaluation).filter(Evaluation.id == evaluation_id).first()
+            if evaluation is None:
+                raise ValueError(f"Evaluation {evaluation_id} not found")
+            if not report_ids:
+                raise ValueError("At least one report is required")
+
+            curriculum = db.query(Curriculum).filter(Curriculum.id == evaluation.curriculum_id).first()
+            if curriculum is None or not curriculum.file_path:
+                raise ValueError("Evaluation curriculum file is missing")
+
+            reports = (
+                db.query(Report)
+                .filter(Report.id.in_(report_ids), Report.project_id == evaluation.project_id)
+                .all()
+            )
+            found_ids = {report.id for report in reports}
+            missing_ids = [report_id for report_id in report_ids if report_id not in found_ids]
+            if missing_ids:
+                raise ValueError(f"Reports not found in project: {', '.join(missing_ids)}")
+
             job = BatchJob(
                 evaluation_id=evaluation_id,
                 status=JobStatus.PROCESSING,
                 progress_percentage=0.0,
-                started_at=datetime.utcnow()
+                started_at=datetime.utcnow(),
+                logs=[],
             )
+            evaluation.status = JobStatus.PROCESSING
             db.add(job)
-            
-            eval_obj = db.query(Evaluation).filter(Evaluation.id == evaluation_id).first()
-            if eval_obj:
-                eval_obj.status = JobStatus.PROCESSING
             db.commit()
+            db.refresh(job)
 
-            total_reports = len(report_ids)
-            
-            curriculum = db.query(Curriculum).filter(Curriculum.id == eval_obj.curriculum_id).first() if eval_obj else None
-            curriculum_file_path = curriculum.file_path if (curriculum and curriculum.file_path) else "/tmp/storage/curriculum.pdf"
+            total_reports = len(reports)
 
-            for idx, r_id in enumerate(report_ids):
-                report = db.query(Report).filter(Report.id == r_id).first()
-                report_file_path = report.file_path if (report and report.file_path) else "/tmp/storage/report.pdf"
-                
+            for idx, report in enumerate(reports):
                 metadata = {
-                    "title": report.title if report else "Report",
-                    "student": report.student_name if (report and report.student_name) else "Student",
-                    "student_name": report.student_name if report else "Student",
-                    "total_pages": report.total_pages if report else 1
+                    "title": report.title,
+                    "student_name": report.student_name,
+                    "student": report.student_name,
+                    "total_pages": report.total_pages,
                 }
 
-                # Callback to save stage-by-stage progress logs
-                def on_stage_update(stage_msg: str, stage_progress: float):
-                    base_progress = (idx / max(total_reports, 1)) * 100.0
-                    step_contribution = (stage_progress / 100.0) * (100.0 / max(total_reports, 1))
-                    overall_progress = min(round(base_progress + step_contribution, 2), 100.0)
-                    
-                    job.progress_percentage = overall_progress
-                    
-                    current_logs = list(job.logs or [])
-                    timestamp = datetime.utcnow().strftime("%H:%M:%S")
-                    current_logs.append(f"[{timestamp}] {stage_msg}")
-                    job.logs = current_logs
+                def on_stage_update(stage_msg: str, stage_progress: float) -> None:
+                    base_progress = (idx / total_reports) * 100.0
+                    step_contribution = (stage_progress / 100.0) * (100.0 / total_reports)
+                    job.progress_percentage = min(round(base_progress + step_contribution, 2), 100.0)
+                    job.logs = [*(job.logs or []), stage_msg]
                     db.commit()
 
-                # Run Griffin Core
                 result_json = GriffinService.process_report(
-                    report_file_path=report_file_path,
-                    curriculum_file_path=curriculum_file_path,
+                    report_file_path=report.file_path,
+                    curriculum_file_path=curriculum.file_path,
                     metadata=metadata,
-                    on_stage_update=on_stage_update
+                    on_stage_update=on_stage_update,
                 )
 
-                # Persist griffin_result.json payload
-                gen_report = GeneratedReport(
-                    evaluation_id=evaluation_id,
-                    report_id=r_id,
-                    griffin_result=result_json
+                existing = (
+                    db.query(GeneratedReport)
+                    .filter(
+                        GeneratedReport.evaluation_id == evaluation_id,
+                        GeneratedReport.report_id == report.id,
+                    )
+                    .first()
                 )
-                db.add(gen_report)
+                if existing:
+                    existing.griffin_result = result_json
+                else:
+                    db.add(
+                        GeneratedReport(
+                            evaluation_id=evaluation_id,
+                            report_id=report.id,
+                            griffin_result=result_json,
+                        )
+                    )
 
-                # Progress update
-                progress = round(((idx + 1) / max(total_reports, 1)) * 100.0, 2)
-                job.progress_percentage = progress
+                job.progress_percentage = round(((idx + 1) / total_reports) * 100.0, 2)
                 db.commit()
 
             job.status = JobStatus.COMPLETED
+            job.progress_percentage = 100.0
             job.completed_at = datetime.utcnow()
-            if eval_obj:
-                eval_obj.status = JobStatus.COMPLETED
+            evaluation.status = JobStatus.COMPLETED
             db.commit()
 
-        except Exception as e:
+        except Exception as exc:
             db.rollback()
-            try:
+            if job is not None:
+                job = db.merge(job)
                 job.status = JobStatus.FAILED
-                job.error_message = str(e) + "\n" + traceback.format_exc()
-                if eval_obj:
-                    eval_obj.status = JobStatus.FAILED
-                db.commit()
-            except Exception:
-                pass
+                job.error_message = f"{exc}\n{traceback.format_exc()}"
+            if evaluation is not None:
+                evaluation = db.merge(evaluation)
+                evaluation.status = JobStatus.FAILED
+            db.commit()
         finally:
             db.close()
