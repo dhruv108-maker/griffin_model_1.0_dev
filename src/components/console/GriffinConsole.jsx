@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import AnalysisWorkspace from "../workspace/AnalysisWorkspace";
@@ -7,184 +7,194 @@ import api from "../../api/apis";
 export default function GriffinConsole() {
   const [analyses, setAnalyses] = useState([]);
   const [activeEvaluationId, setActiveEvaluationId] = useState(null);
-  
-  // Create a pseudo analysis for the 'New Analysis' form
   const [newAnalysis, setNewAnalysis] = useState(null);
-  
   const [processing, setProcessing] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
-  
   const [workspaceId, setWorkspaceId] = useState(null);
   const pollingIntervals = useRef({});
 
-  // Default analysis state
-  const activeAnalysis = 
-    analyses.find(a => String(a.id || a.evaluation_id) === String(activeEvaluationId)) || 
+  const activeAnalysis =
+    analyses.find((analysis) => String(analysis.id) === String(activeEvaluationId)) ||
     newAnalysis;
 
-  // Initialize workspace
   useEffect(() => {
+    let cancelled = false;
+
     async function initWorkspace() {
       try {
-        let wss = await api.workspaces.list();
-        if (!wss || wss.length === 0) {
-          const ws = await api.workspaces.create({ name: "Default Workspace", description: "Default Workspace" });
-          wss = [ws];
+        let workspaces = await api.workspaces.list();
+        if (!Array.isArray(workspaces)) {
+          throw new Error("Backend returned an invalid workspace response");
         }
-        setWorkspaceId(wss[0].id);
-      } catch (err) {
-        console.warn("Failed to initialize workspace from API, using fallback", err);
-        setWorkspaceId("default-workspace-id");
+
+        if (workspaces.length === 0) {
+          const workspace = await api.workspaces.create({
+            name: "My Griffin Workspace",
+            description: "OBL evaluation workspace",
+          });
+          workspaces = [workspace];
+        }
+
+        if (!cancelled) setWorkspaceId(workspaces[0].id);
+      } catch (error) {
+        if (!cancelled) setUploadError(error.message);
       }
     }
+
     initWorkspace();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const pollEvaluation = useCallback((evalId) => {
-    if (pollingIntervals.current[evalId]) {
-      clearInterval(pollingIntervals.current[evalId]);
+  const pollEvaluation = useCallback((evaluationId) => {
+    if (!evaluationId) return;
+    if (pollingIntervals.current[evaluationId]) {
+      clearInterval(pollingIntervals.current[evaluationId]);
     }
 
-    const interval = setInterval(async () => {
+    const poll = async () => {
       try {
-        const statusRes = await api.evaluations.status(evalId);
-        
-        setAnalyses(prev => prev.map(a => {
-          const aId = a.id || a.evaluation_id || a.evaluationId;
-          if (String(aId) === String(evalId)) {
-            return {
-              ...a,
-              status: statusRes.status,
-              progress: statusRes.progress_percentage || 0,
-              logs: statusRes.logs || []
-            };
-          }
-          return a;
-        }));
+        const statusRes = await api.evaluations.status(evaluationId);
+        const status = String(statusRes.status || "").toUpperCase();
 
-        if (statusRes.status === "COMPLETED" || statusRes.status === "FAILED") {
-          clearInterval(interval);
-          delete pollingIntervals.current[evalId];
+        setAnalyses((prev) =>
+          prev.map((analysis) =>
+            String(analysis.id) === String(evaluationId)
+              ? {
+                  ...analysis,
+                  status,
+                  progress: statusRes.progress_percentage ?? 0,
+                  logs: statusRes.logs || [],
+                  error: statusRes.error_message || null,
+                }
+              : analysis,
+          ),
+        );
+
+        if (["COMPLETED", "FAILED", "CANCELLED"].includes(status)) {
+          clearInterval(pollingIntervals.current[evaluationId]);
+          delete pollingIntervals.current[evaluationId];
           setProcessing(false);
         }
-      } catch (err) {
-        console.warn("Polling failed", err);
+      } catch (error) {
+        setUploadError(error.message);
       }
-    }, 2000);
+    };
 
-    pollingIntervals.current[evalId] = interval;
+    poll();
+    pollingIntervals.current[evaluationId] = setInterval(poll, 2000);
   }, []);
 
-  // Cleanup intervals on unmount
   useEffect(() => {
     return () => {
       Object.values(pollingIntervals.current).forEach(clearInterval);
     };
   }, []);
 
-  // Fetch past analyses (History)
   useEffect(() => {
     async function loadHistory() {
       try {
-        const history = await api.history.project(""); 
-        if (Array.isArray(history)) {
-          setAnalyses(history);
-          history.forEach(a => {
-            const status = String(a.status || "").toUpperCase();
-            if (status === "PENDING" || status === "PROCESSING") {
-              setProcessing(true);
-              pollEvaluation(a.id || a.evaluation_id || a.evaluationId);
-            }
-          });
-        }
-      } catch (err) {
-        console.warn("Could not load history", err);
+        const history = await api.history.project("");
+        if (!Array.isArray(history)) return;
+
+        setAnalyses(history);
+        history.forEach((analysis) => {
+          const status = String(analysis.status || "").toUpperCase();
+          if (["PENDING", "PROCESSING"].includes(status)) {
+            setProcessing(true);
+            pollEvaluation(analysis.id);
+          }
+        });
+      } catch (error) {
+        setUploadError(error.message);
       }
     }
+
     loadHistory();
   }, [pollEvaluation]);
 
   const handleSelectAnalysis = (analysis) => {
-    const id = analysis.id || analysis.evaluation_id || analysis.evaluationId;
-    setActiveEvaluationId(id);
+    setActiveEvaluationId(analysis.id);
     setNewAnalysis(null);
   };
 
   const handleNewAnalysis = () => {
     setNewAnalysis({ id: "new", status: "READY" });
     setActiveEvaluationId("new");
+    setUploadError(null);
   };
 
   const handleStartAnalysis = async ({ curriculum, reports }) => {
-    if (!workspaceId) return;
-    
+    if (!workspaceId) {
+      setUploadError("No Griffin workspace is available. Check the backend connection.");
+      return;
+    }
+
+    if (!curriculum || !reports?.length) {
+      setUploadError("A curriculum PDF and at least one report PDF are required.");
+      return;
+    }
+
     try {
       setUploading(true);
       setUploadError(null);
-      
-      // 1. Create a Project
+
       const project = await api.projects.create({
         workspace_id: workspaceId,
-        name: `Analysis ${new Date().toLocaleString()}`,
-        description: "Auto-generated project"
+        name: `OBL Evaluation — ${new Date().toLocaleString()}`,
+        description: "Griffin outcome-based learning evaluation",
       });
-      const projectId = project.id;
-      
-      // 2. Upload Curriculum
-      const currRes = await api.curriculum.upload({
-        projectId,
+
+      const curriculumRecord = await api.curriculum.upload({
+        projectId: project.id,
         title: curriculum.name,
-        file: curriculum
+        file: curriculum,
       });
-      const curriculumId = currRes.id;
-      
-      // 3. Upload Reports
-      const reportIds = [];
+
+      const reportRecords = [];
       for (const report of reports) {
-        const repRes = await api.reports.upload({
-          projectId,
-          studentName: report.name.replace('.pdf', ''),
-          file: report
-        });
-        reportIds.push(repRes.id);
+        reportRecords.push(
+          await api.reports.upload({
+            projectId: project.id,
+            studentName: report.name.replace(/\.pdf$/i, ""),
+            file: report,
+          }),
+        );
       }
-      
-      // 4. Start Evaluation
-      setProcessing(true);
-      const evalRes = await api.evaluations.start({
-        project_id: projectId,
-        curriculum_id: curriculumId,
-        report_ids: reportIds,
-        name: `Evaluation ${new Date().toLocaleString()}`
+
+      const evaluation = await api.evaluations.start({
+        project_id: project.id,
+        curriculum_id: curriculumRecord.id,
+        report_ids: reportRecords.map((report) => report.id),
+        name: `Griffin OBL Evaluation — ${new Date().toLocaleString()}`,
       });
-      
-      const newEval = {
-        ...evalRes,
-        id: evalRes.id,
-        name: evalRes.name || project.name,
-        status: evalRes.status || "PROCESSING",
+
+      const analysis = {
+        ...evaluation,
+        id: evaluation.id,
+        status: evaluation.status || "PENDING",
         progress: 0,
-        logs: []
+        logs: [],
+        project_id: project.id,
+        curriculum_id: curriculumRecord.id,
       };
-      
-      setAnalyses(prev => [newEval, ...prev]);
-      setActiveEvaluationId(newEval.id);
+
+      setAnalyses((prev) => [analysis, ...prev]);
+      setActiveEvaluationId(analysis.id);
       setNewAnalysis(null);
-      
-      // 5. Poll for completion
-      pollEvaluation(newEval.id);
-      
-    } catch (err) {
-      console.error("Failed to start analysis", err);
-      setUploadError(err?.message || "Failed to start analysis.");
+      setProcessing(true);
+      pollEvaluation(analysis.id);
+    } catch (error) {
+      setUploadError(error.message);
     } finally {
       setUploading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen w-full overflow-hidden bg-[#090b0f] text-zinc-100">
+    <div className="flex min-h-screen w-full overflow-hidden bg-[#f7f9fb] text-slate-900">
       <Sidebar
         analyses={analyses}
         activeEvaluationId={activeEvaluationId}
@@ -194,7 +204,6 @@ export default function GriffinConsole() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar />
-
         <main className="min-w-0 flex-1 overflow-y-auto">
           {activeEvaluationId ? (
             <AnalysisWorkspace
@@ -204,8 +213,8 @@ export default function GriffinConsole() {
               uploadError={uploadError}
             />
           ) : (
-            <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center text-zinc-500">
-              Select an analysis from the sidebar or start a new one.
+            <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-6 text-center text-slate-500">
+              Select an evaluation from the sidebar or start a new Griffin OBL evaluation.
             </div>
           )}
         </main>
