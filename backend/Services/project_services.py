@@ -1,16 +1,14 @@
-"""
-backend/Services/project_service.py
-Service handling Project database operations.
-"""
+"""Project domain operations."""
 
 from typing import List, Optional
+
 from sqlalchemy.orm import Session
-from backend.Database.models import Project, Curriculum, Report, Evaluation
+
+from backend.Database.models import Project, Workspace
 from backend.Schemas.projects import ProjectCreateSchema, ProjectUpdateSchema
 
 
 class ProjectService:
-
     @staticmethod
     def list_projects(db: Session, workspace_id: Optional[str] = None) -> List[Project]:
         query = db.query(Project)
@@ -24,36 +22,40 @@ class ProjectService:
 
     @staticmethod
     def create_project(db: Session, payload: ProjectCreateSchema) -> Project:
-        proj = Project(
+        workspace = db.query(Workspace).filter(Workspace.id == payload.workspace_id).first()
+        if workspace is None:
+            raise ValueError("Workspace not found")
+
+        project = Project(
             workspace_id=payload.workspace_id,
-            name=payload.name,
-            description=payload.description
+            name=payload.name.strip(),
+            description=payload.description,
         )
-        db.add(proj)
+        db.add(project)
         db.commit()
-        db.refresh(proj)
-        return proj
+        db.refresh(project)
+        return project
 
     @staticmethod
     def update_project(db: Session, project_id: str, payload: ProjectUpdateSchema) -> Optional[Project]:
-        proj = ProjectService.get_project(db, project_id)
-        if not proj:
+        project = ProjectService.get_project(db, project_id)
+        if project is None:
             return None
 
         if payload.name is not None:
-            proj.name = payload.name
+            project.name = payload.name.strip()
         if payload.description is not None:
-            proj.description = payload.description
+            project.description = payload.description
 
         db.commit()
-        db.refresh(proj)
-        return proj
+        db.refresh(project)
+        return project
 
     @staticmethod
     def delete_project(db: Session, project_id: str) -> bool:
-        proj = ProjectService.get_project(db, project_id)
-        if not proj:
+        project = ProjectService.get_project(db, project_id)
+        if project is None:
             return False
-        db.delete(proj)
+        db.delete(project)
         db.commit()
         return True
