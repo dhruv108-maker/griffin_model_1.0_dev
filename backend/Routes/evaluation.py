@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -77,7 +79,7 @@ def cancel_evaluation(evaluation_id: str, db: Session = Depends(get_db)):
     )
     if job and job.status in {JobStatus.PENDING, JobStatus.PROCESSING}:
         job.status = JobStatus.CANCELLED
-        job.completed_at = __import__("datetime").datetime.utcnow()
+        job.completed_at = datetime.utcnow()
     db.commit()
     db.refresh(evaluation)
     return evaluation
@@ -85,6 +87,10 @@ def cancel_evaluation(evaluation_id: str, db: Session = Depends(get_db)):
 
 @router.get("/{evaluation_id}/result", response_model=list[GriffinResultResponseSchema])
 def get_evaluation_result(evaluation_id: str, db: Session = Depends(get_db)):
+    evaluation = db.query(Evaluation).filter(Evaluation.id == evaluation_id).first()
+    if not evaluation:
+        raise HTTPException(status_code=404, detail="Evaluation not found")
+
     rows = (
         db.query(GeneratedReport)
         .filter(GeneratedReport.evaluation_id == evaluation_id)
