@@ -75,6 +75,11 @@ class EvaluationService:
             total_reports = len(reports)
 
             for idx, report in enumerate(reports):
+                db.refresh(evaluation)
+                db.refresh(job)
+                if evaluation.status == JobStatus.CANCELLED or job.status == JobStatus.CANCELLED:
+                    return
+
                 metadata = {
                     "title": report.title,
                     "student_name": report.student_name,
@@ -83,6 +88,11 @@ class EvaluationService:
                 }
 
                 def on_stage_update(stage_msg: str, stage_progress: float) -> None:
+                    db.refresh(evaluation)
+                    db.refresh(job)
+                    if evaluation.status == JobStatus.CANCELLED or job.status == JobStatus.CANCELLED:
+                        raise RuntimeError("Evaluation cancelled")
+
                     base_progress = (idx / total_reports) * 100.0
                     step_contribution = (stage_progress / 100.0) * (100.0 / total_reports)
                     job.progress_percentage = min(round(base_progress + step_contribution, 2), 100.0)
@@ -126,13 +136,21 @@ class EvaluationService:
 
         except Exception as exc:
             db.rollback()
-            if job is not None:
-                job = db.merge(job)
-                job.status = JobStatus.FAILED
-                job.error_message = f"{exc}\n{traceback.format_exc()}"
             if evaluation is not None:
                 evaluation = db.merge(evaluation)
-                evaluation.status = JobStatus.FAILED
+            if job is not None:
+                job = db.merge(job)
+
+            if evaluation is not None and evaluation.status == JobStatus.CANCELLED:
+                if job is not None:
+                    job.status = JobStatus.CANCELLED
+                    job.completed_at = datetime.utcnow()
+            else:
+                if job is not None:
+                    job.status = JobStatus.FAILED
+                    job.error_message = f"{exc}\n{traceback.format_exc()}"
+                if evaluation is not None:
+                    evaluation.status = JobStatus.FAILED
             db.commit()
         finally:
             db.close()
