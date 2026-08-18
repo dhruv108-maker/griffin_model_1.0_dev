@@ -1,15 +1,19 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
+class ApiError extends Error {
+  constructor(message, { status, endpoint, data } = {}) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.endpoint = endpoint;
+    this.data = data;
+  }
+}
 
 async function request(endpoint, options = {}) {
-  const {
-    method = "GET",
-    body,
-    headers = {},
-    ...rest
-  } = options;
-
+  const { method = "GET", body, headers = {}, ...rest } = options;
   const isFormData = body instanceof FormData;
+  const url = `${API_BASE_URL}${endpoint}`;
 
   const config = {
     method,
@@ -20,8 +24,6 @@ async function request(endpoint, options = {}) {
     },
   };
 
-  // Do NOT manually set Content-Type for FormData.
-  // Browser adds the multipart boundary automatically.
   if (body !== undefined) {
     if (isFormData) {
       config.body = body;
@@ -31,44 +33,47 @@ async function request(endpoint, options = {}) {
     }
   }
 
-  const response = await fetch(
-    `${API_BASE_URL}${endpoint}`,
-    config
-  );
-
-  let data = null;
-  const contentType = response.headers.get("content-type");
-  if (contentType?.includes("application/json")) {
-    data = await response.json();
-  } else {
-    data = await response.text();
+  let response;
+  try {
+    response = await fetch(url, config);
+  } catch (cause) {
+    throw new ApiError(`Network error while calling ${endpoint}`, {
+      endpoint,
+      data: cause,
+    });
   }
 
+  const contentType = response.headers.get("content-type") || "";
+  const data = contentType.includes("application/json")
+    ? await response.json()
+    : await response.text();
+
   if (!response.ok) {
-    const message =
+    const detail =
       typeof data === "object" && data?.detail
         ? data.detail
         : typeof data === "object" && data?.message
           ? data.message
-          : `API request failed with status ${response.status}`;
+          : typeof data === "string" && data.trim()
+            ? data
+            : `Request failed with status ${response.status}`;
 
-    const error = new Error(message);
-    error.status = response.status;
-    error.data = data;
-    throw error;
+    throw new ApiError(detail, {
+      status: response.status,
+      endpoint,
+      data,
+    });
   }
 
   return data;
 }
 
 export const healthAPI = {
-  check: () =>
-    request("/health"),
+  check: () => request("/health"),
 };
 
 export const workspaceAPI = {
-  list: () =>
-    request("/workspaces"),
+  list: () => request("/workspaces"),
   create: ({ name, description = "" }) =>
     request("/workspaces", {
       method: "POST",
@@ -78,42 +83,43 @@ export const workspaceAPI = {
 
 export const projectAPI = {
   list: (workspaceId) =>
-    request(workspaceId ? `/projects?workspace_id=${workspaceId}` : "/projects"),
+    request(workspaceId ? `/projects?workspace_id=${encodeURIComponent(workspaceId)}` : "/projects"),
+  get: (projectId) => request(`/projects/${projectId}`),
   create: ({ workspace_id, name, description = "" }) =>
     request("/projects", {
       method: "POST",
       body: { workspace_id, name, description },
     }),
+  update: (projectId, data) =>
+    request(`/projects/${projectId}`, { method: "PUT", body: data }),
+  delete: (projectId) =>
+    request(`/projects/${projectId}`, { method: "DELETE" }),
 };
 
 export const curriculumAPI = {
+  list: (projectId) => request(`/curriculum?project_id=${encodeURIComponent(projectId)}`),
+  get: (curriculumId) => request(`/curriculum/${curriculumId}`),
   upload: ({ projectId, title, file }) => {
     const formData = new FormData();
     formData.append("project_id", projectId);
     formData.append("title", title);
-    if (file) {
-      formData.append("file", file);
-    }
-    return request("/curriculum/upload", {
-      method: "POST",
-      body: formData,
-    });
+    formData.append("file", file);
+    return request("/curriculum/upload", { method: "POST", body: formData });
   },
+  delete: (curriculumId) => request(`/curriculum/${curriculumId}`, { method: "DELETE" }),
 };
 
 export const reportAPI = {
+  list: (projectId) => request(`/reports?project_id=${encodeURIComponent(projectId)}`),
+  get: (reportId) => request(`/reports/${reportId}`),
   upload: ({ projectId, studentName = "", file }) => {
     const formData = new FormData();
     formData.append("project_id", projectId);
     formData.append("student_name", studentName);
-    if (file) {
-      formData.append("file", file);
-    }
-    return request("/reports/upload", {
-      method: "POST",
-      body: formData,
-    });
+    formData.append("file", file);
+    return request("/reports/upload", { method: "POST", body: formData });
   },
+  delete: (reportId) => request(`/reports/${reportId}`, { method: "DELETE" }),
 };
 
 export const evaluationAPI = {
@@ -122,29 +128,22 @@ export const evaluationAPI = {
       method: "POST",
       body: { project_id, curriculum_id, report_ids, name },
     }),
-  status: (evaluationId) =>
-    request(`/evaluations/${evaluationId}/status`),
-  result: (evaluationId) =>
-    request(`/evaluations/${evaluationId}/result`),
+  get: (evaluationId) => request(`/evaluations/${evaluationId}`),
+  status: (evaluationId) => request(`/evaluations/${evaluationId}/status`),
+  cancel: (evaluationId) =>
+    request(`/evaluations/${evaluationId}/cancel`, { method: "POST" }),
+  result: (evaluationId) => request(`/evaluations/${evaluationId}/result`),
+  resultForReport: (evaluationId, reportId) =>
+    request(`/evaluations/${evaluationId}/results/${reportId}`),
 };
 
 export const historyAPI = {
   project: (projectId) =>
-    request(projectId ? `/history?project_id=${projectId}` : "/history"),
-};
-
-export const settingsAPI = {
-  get: () => request("/settings/"),
-};
-
-export const chatAPI = {
-  sendMessage: ({ chatId, content }) =>
-    request(`/chat/message?chat_id=${chatId}&content=${encodeURIComponent(content)}`, {
-      method: "POST",
-    }),
+    request(projectId ? `/history?project_id=${encodeURIComponent(projectId)}` : "/history"),
 };
 
 const api = {
+  request,
   health: healthAPI,
   workspaces: workspaceAPI,
   projects: projectAPI,
@@ -152,8 +151,7 @@ const api = {
   reports: reportAPI,
   evaluations: evaluationAPI,
   history: historyAPI,
-  settings: settingsAPI,
-  chat: chatAPI,
 };
 
+export { ApiError };
 export default api;
