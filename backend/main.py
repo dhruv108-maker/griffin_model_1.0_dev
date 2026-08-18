@@ -1,9 +1,10 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.Database.database import Base, engine
-from backend.Database import models
-
+from backend.Database import models  # noqa: F401
 from backend.Routes import (
     health,
     projects,
@@ -13,10 +14,8 @@ from backend.Routes import (
     settings,
     evaluation,
     curriculum,
+    workspace,
 )
-
-from backend.Routes import workspace
-
 
 # ============================================================
 # DATABASE
@@ -24,47 +23,36 @@ from backend.Routes import workspace
 
 Base.metadata.create_all(bind=engine)
 
-# Dynamically add logs column to batch_jobs table if it does not exist
-try:
-    from sqlalchemy import inspect, text
-    inspector = inspect(engine)
-    if "batch_jobs" in inspector.get_table_names():
-        cols = [c["name"] for c in inspector.get_columns("batch_jobs")]
-        if "logs" not in cols:
-            with engine.connect() as conn:
-                conn.execute(text("ALTER TABLE batch_jobs ADD COLUMN logs JSON NULL"))
-                conn.commit()
-                print("Successfully added 'logs' column to batch_jobs table.")
-except Exception as e:
-    print(f"Warning: Could not dynamically add logs column on startup: {e}")
-
-
 # ============================================================
 # FASTAPI APPLICATION
 # ============================================================
 
 app = FastAPI(
-    title="Griffin Core v1.0 API Engine",
+    title="Griffin OBL Evaluation API",
     description=(
-        "Backend service exposing Griffin curriculum "
-        "evaluation capabilities."
+        "Product API wrapping the frozen Griffin Core evidence-mapping engine "
+        "for outcome-based learning evaluation."
     ),
     version="1.0.0",
 )
-
 
 # ============================================================
 # CORS
 # ============================================================
 
+_allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
-
 
 # ============================================================
 # ROUTERS
@@ -78,35 +66,14 @@ app.include_router(history.router)
 app.include_router(settings.router)
 app.include_router(evaluation.router)
 app.include_router(curriculum.router)
-
-# Workspace routes
 app.include_router(workspace.router)
 
-
-# ============================================================
-# ROOT
-# ============================================================
 
 @app.get("/")
 def root():
     return {
-        "name": "Griffin Core v1.0",
+        "name": "Griffin",
+        "product": "OBL Evaluation AI",
         "status": "online",
-        "service": "API Engine",
         "version": "1.0.0",
     }
-
-
-# ============================================================
-# DEVELOPMENT SERVER
-# ============================================================
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(
-        "backend.main:app",
-        host="0.0.0.0",
-        port=8001,
-        reload=True,
-    )
