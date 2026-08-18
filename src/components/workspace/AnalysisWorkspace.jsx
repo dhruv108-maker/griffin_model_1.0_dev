@@ -25,17 +25,16 @@ const TABS = [
   { id: "report", label: "Report" },
 ];
 
-function unwrapStoredResult(response) {
-  if (!response) return null;
-  if (response.griffin_result) return response.griffin_result;
-  if (Array.isArray(response)) {
-    return response[0]?.griffin_result || response[0] || null;
-  }
-  if (Array.isArray(response.results)) {
-    const first = response.results[0];
-    return first?.griffin_result || first || null;
-  }
-  return response;
+function normalizeStoredResults(response) {
+  if (!response) return [];
+  if (Array.isArray(response)) return response.filter(Boolean);
+  if (response.griffin_result) return [response];
+  if (Array.isArray(response.results)) return response.results.filter(Boolean);
+  return [{ report_id: "result", griffin_result: response }];
+}
+
+function extractResult(row) {
+  return row?.griffin_result || row || null;
 }
 
 export default function AnalysisWorkspace({
@@ -49,14 +48,19 @@ export default function AnalysisWorkspace({
   const { evaluationId: paramEvaluationId } = useParams();
   const evaluationId = analysis?.id || analysis?.evaluation_id || paramEvaluationId;
   const [activeTab, setActiveTab] = useState("overview");
-  const [fetchedResult, setFetchedResult] = useState(null);
+  const [storedResults, setStoredResults] = useState([]);
+  const [selectedReportId, setSelectedReportId] = useState(null);
   const [loadingResult, setLoadingResult] = useState(false);
   const [resultError, setResultError] = useState(null);
 
-  const result = externalResult || fetchedResult;
+  const externalStored = externalResult ? [{ report_id: "external", griffin_result: externalResult }] : [];
+  const rows = externalStored.length ? externalStored : storedResults;
+  const selectedRow = rows.find((row) => String(row.report_id) === String(selectedReportId)) || rows[0];
+  const result = extractResult(selectedRow);
 
   useEffect(() => {
-    setFetchedResult(null);
+    setStoredResults([]);
+    setSelectedReportId(null);
     setResultError(null);
   }, [evaluationId]);
 
@@ -73,7 +77,11 @@ export default function AnalysisWorkspace({
         setLoadingResult(true);
         setResultError(null);
         const response = await api.evaluations.result(evaluationId);
-        if (!cancelled) setFetchedResult(unwrapStoredResult(response));
+        const normalized = normalizeStoredResults(response);
+        if (!cancelled) {
+          setStoredResults(normalized);
+          setSelectedReportId(normalized[0]?.report_id || null);
+        }
       } catch (error) {
         if (!cancelled) setResultError(error.message || "Unable to load evaluation result.");
       } finally {
@@ -101,7 +109,7 @@ export default function AnalysisWorkspace({
     if (!hasAnalysis && !result) return "empty";
     if (processing && !result) return "processing";
     if (hasResult) return "result";
-    return evaluationId === "new" ? "ready" : "ready";
+    return "ready";
   }, [evaluationId, loadingResult, resultError, hasAnalysis, hasResult, processing, result]);
 
   if (workspaceState === "empty") {
@@ -121,7 +129,7 @@ export default function AnalysisWorkspace({
           </div>
           <div>
             <p className="text-sm font-semibold text-slate-800">Loading Griffin analysis</p>
-            <p className="mt-1 text-xs text-slate-500">Fetching the stored evaluation result…</p>
+            <p className="mt-1 text-xs text-slate-500">Fetching stored evaluation results…</p>
           </div>
         </div>
       </section>
@@ -159,6 +167,38 @@ export default function AnalysisWorkspace({
   return (
     <section className="flex min-h-[calc(100vh-4rem)] min-w-0 flex-col bg-[#f7f9fb]">
       <AnalysisHeader analysis={analysis} result={result} processing={processing} />
+
+      {rows.length > 1 && (
+        <div className="border-b border-slate-200 bg-white px-4 py-3 sm:px-6">
+          <div className="mx-auto flex max-w-[1600px] items-center gap-3">
+            <label htmlFor="griffin-report-selector" className="text-xs font-semibold text-slate-600">
+              Student report
+            </label>
+            <select
+              id="griffin-report-selector"
+              value={selectedReportId || ""}
+              onChange={(event) => setSelectedReportId(event.target.value)}
+              className="min-w-72 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 outline-none focus:border-slate-400"
+            >
+              {rows.map((row, index) => {
+                const payload = extractResult(row);
+                const title =
+                  payload?.report_information?.report_title ||
+                  payload?.report_information?.student ||
+                  row.report_id ||
+                  `Report ${index + 1}`;
+                return (
+                  <option key={`${row.report_id || index}`} value={row.report_id || index}>
+                    {title}
+                  </option>
+                );
+              })}
+            </select>
+            <span className="text-xs text-slate-400">{rows.length} independent GriffinResult records</span>
+          </div>
+        </div>
+      )}
+
       <WorkspaceTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} disabled={!hasResult} />
 
       <div className="min-w-0 flex-1 px-4 pb-8 pt-4 sm:px-6">
@@ -178,9 +218,7 @@ export default function AnalysisWorkspace({
                 <LoaderCircle size={22} className="animate-spin text-slate-700" />
                 <div>
                   <p className="text-sm font-semibold text-slate-900">Griffin is evaluating the submitted work</p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Progress reported by the backend: {analysis?.progress ?? 0}%
-                  </p>
+                  <p className="mt-1 text-xs text-slate-500">Backend-reported progress: {analysis?.progress ?? 0}%</p>
                 </div>
               </div>
               {analysis?.logs?.length > 0 && (
