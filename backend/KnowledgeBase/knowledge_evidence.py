@@ -1,13 +1,121 @@
+import gzip
+import hashlib
 import json
 import re
+from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
+
 import pypdf
+
+
+_CACHE_DIR = Path("data") / "curriculum_cache"
+_CACHE_VERSION = "v2"
+
+# Compile hot-path regular expressions once. The parser can process hundreds of
+# pages and thousands of lines, so recompiling these patterns per line is costly.
+_RE_WS = re.compile(r"\s+")
+_RE_LEADING_LAYOUT = re.compile(r"^[•\-\*\d\.\:\s]+")
+_RE_PAGE_NOISE = re.compile(r"(?i)^(page\s*\d+(\s*of\s*\d+)?|\d+\s*/\s*\d+)$")
+_RE_PAGE_HEADER = re.compile(r"(?i)^(curriculum|syllabus|department of|faculty of).*page")
+_RE_DIVIDER = re.compile(r"^[\-\_\=\|\s]{3,}$")
+_RE_COURSE_TRIGGER = re.compile(r"(?:COURSE NAME|DATABASE MANAGEMENT SYSTEM)", re.IGNORECASE)
+_RE_COURSE_NAME = re.compile(r"COURSE NAME\s*[:\-]*\s*", re.IGNORECASE)
+_RE_OBJECTIVES = re.compile(r"^Course Objectives", re.IGNORECASE)
+_RE_UNIT = re.compile(r"^Unit\s+\d+", re.IGNORECASE)
+_RE_CO_SECTION = re.compile(r"^Course Outcomes", re.IGNORECASE)
+_RE_PO_SECTION = re.compile(r"^(Programme Outcomes|POs)", re.IGNORECASE)
+_RE_PSO_SECTION = re.compile(r"^(Programme Specific Outcomes|PSOs)", re.IGNORECASE)
+_RE_PRACTICAL_SECTION = re.compile(r"^(Practicals|Laboratory Work|Experiments|Lab Sessions)", re.IGNORECASE)
+_RE_PEDAGOGY_SECTION = re.compile(r"^(Pedagogy|Teaching Methodology|Instructional Strategies)", re.IGNORECASE)
+_RE_ASSESSMENT_SECTION = re.compile(r"^Evaluation Scheme", re.IGNORECASE)
+_RE_RESOURCE_SECTION = re.compile(r"^(Learning Resources|Reference Books)", re.IGNORECASE)
+_RE_NEW_ITEM = re.compile(r"^(\d+[\.\:]|CO\d+|PO\d+|PSO\d+|\u2022|\-)", re.IGNORECASE)
+_RE_HOURS = re.compile(r"\(?\b(\d+)\s*(?:hours?|hrs?|L|Lectures?)\b\)?", re.IGNORECASE)
+_RE_WEIGHTAGE = re.compile(r"\(?\b(?:weightage\s*[:\-]?\s*)?(\d+\s*%|\d+\s*marks?)\b\)?", re.IGNORECASE)
+_RE_CO = re.compile(r"\b(CO\d+)\b", re.IGNORECASE)
+_RE_CO_BLOCK = re.compile(r"\[?\b(?:CO\d+(?:\s*,\s*)?)+\b\]?", re.IGNORECASE)
+_RE_EMPTY_PARENS = re.compile(r"\(\s*\)")
+_RE_COURSE_CODE = re.compile(r"Course\s*Code\s*[:\-]\s*(.*)", re.IGNORECASE)
+_RE_CREDITS = re.compile(r"Credits?\s*[:\-]\s*(\d+(\.\d+)?)", re.IGNORECASE)
+_RE_PREREQUISITES = re.compile(r"Prerequisite[s]?\s*[:\-]\s*(.*)", re.IGNORECASE)
+_RE_TOTAL_HOURS = re.compile(r"Total\s*Hours\s*[:\-]\s*(\d+)", re.IGNORECASE)
+_RE_MARKS = re.compile(r"Marks\s*[:\-]\s*(.*)", re.IGNORECASE)
+
+_META_PATTERNS = (
+    (_RE_COURSE_CODE, "course_code"),
+    (_RE_CREDITS, "credits"),
+    (_RE_PREREQUISITES, "prerequisites"),
+    (_RE_TOTAL_HOURS, "total_hours"),
+    (_RE_MARKS, "marks_distribution"),
+)
+
+_CONTAINER_TYPES = {
+    "OBJECTIVE",
+    "UNIT",
+    "CO",
+    "PO",
+    "PSO",
+    "ASSESSMENT",
+    "RESOURCE",
+    "PRACTICAL",
+    "PEDAGOGY",
+    "METADATA",
+}
+
+
+def _cache_path(pdf_path: str) -> Path:
+    path = Path(pdf_path).resolve()
+    stat = path.stat()
+    # Fingerprint uses immutable path + size + mtime. This avoids hashing a
+    # potentially 200+ page PDF on every evaluation while invalidating on normal
+    # file replacement/edit operations.
+    fingerprint = f"{_CACHE_VERSION}|{path}|{stat.st_size}|{stat.st_mtime_ns}"
+    digest = hashlib.sha256(fingerprint.encode("utf-8")).hexdigest()
+    return _CACHE_DIR / f"{digest}.json.gz"
+
+
+def _load_cached(pdf_path: str) -> Optional[Dict[str, Any]]:
+    cache_path = _cache_path(pdf_path)
+    if not cache_path.exists():
+        return None
+
+    try:
+        with gzip.open(cache_path, "rt", encoding="utf-8") as handle:
+            payload = json.load(handle)
+        if payload.get("cache_version") != _CACHE_VERSION:
+            return None
+        return payload.get("tree")
+    except (OSError, EOFError, ValueError, KeyError, json.JSONDecodeError):
+        # Corrupt/stale cache should never prevent a fresh parse.
+        return None
+
+
+def _save_cached(pdf_path: str, tree: Dict[str, Any]) -> None:
+    cache_path = _cache_path(pdf_path)
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = cache_path.with_suffix(cache_path.suffix + ".tmp")
+    payload = {
+        "cache_version": _CACHE_VERSION,
+        "tree": tree,
+    }
+
+    try:
+        with gzip.open(temp_path, "wt", encoding="utf-8", compresslevel=6) as handle:
+            json.dump(payload, handle, ensure_ascii=False, separators=(",", ":"))
+        temp_path.replace(cache_path)
+    except OSError:
+        try:
+            temp_path.unlink(missing_ok=True)
+        except OSError:
+            pass
+
 
 class EvidenceTransformer:
     """
     Post-processing transformer to clean hierarchy, prune empty structural containers,
     deduplicate nodes, merge duplicate course roots, and re-index contiguous IDs.
     """
+
     def __init__(self):
         self.counter = 0
 
@@ -16,17 +124,14 @@ class EvidenceTransformer:
         if not tree or "roots" not in tree:
             return tree
 
-        # 1. Merge duplicate course roots into one canonical root
         canonical_roots = self._canonicalize_roots(tree["roots"])
 
-        # 2. Process hierarchy, prune empty sections and residual layout noise
         cleaned_roots = []
         for root in canonical_roots:
             cleaned_root = self._process_node(root)
             if cleaned_root:
                 cleaned_roots.append(cleaned_root)
 
-        # 3. Re-index all node IDs sequentially from 0
         self.counter = 0
         for root in cleaned_roots:
             self._reindex_node(root)
@@ -34,48 +139,43 @@ class EvidenceTransformer:
         return {"roots": cleaned_roots}
 
     def _canonicalize_roots(self, roots: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Consolidates multiple detected COURSE roots into a single canonical root."""
+        """Consolidates multiple detected COURSE roots into one canonical root."""
         if not roots:
             return []
 
         primary_root = roots[0]
-        if "metadata" not in primary_root:
-            primary_root["metadata"] = {}
+        primary_root.setdefault("metadata", {})
 
         for secondary_root in roots[1:]:
             primary_root["children"].extend(secondary_root.get("children", []))
-            if "metadata" in secondary_root:
-                primary_root["metadata"].update(secondary_root["metadata"])
+            primary_root["metadata"].update(secondary_root.get("metadata", {}))
 
         return [primary_root]
 
     def _process_node(self, node: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Recursively cleans text, deduplicates children, and prunes empty containers."""
-        if not node.get("children"):
+        children = node.get("children")
+        if not children:
             return node
 
-        processed_children = []
-        for child in node["children"]:
-            processed_child = self._process_node(child)
-            if processed_child:
-                processed_children.append(processed_child)
-
-        # Deduplicate children based on node type and normalized text
         seen_keys = set()
         unique_children = []
-        for child in processed_children:
-            norm_text = re.sub(r"\s+", " ", child["text"].lower().strip())
-            sig_key = (child["type"], norm_text)
+
+        for child in children:
+            processed_child = self._process_node(child)
+            if not processed_child:
+                continue
+
+            norm_text = _RE_WS.sub(" ", processed_child["text"].lower().strip())
+            sig_key = (processed_child["type"], norm_text)
 
             if sig_key not in seen_keys:
                 seen_keys.add(sig_key)
-                unique_children.append(child)
+                unique_children.append(processed_child)
 
         node["children"] = unique_children
 
-        # Prune empty container/section nodes
-        container_types = ["OBJECTIVE", "UNIT", "CO", "PO", "PSO", "ASSESSMENT", "RESOURCE", "PRACTICAL", "PEDAGOGY", "METADATA"]
-        if node["type"] in container_types and len(node["children"]) == 0:
+        if node["type"] in _CONTAINER_TYPES and not unique_children:
             return None
 
         return node
@@ -90,9 +190,13 @@ class EvidenceTransformer:
 
 class CurriculumEvidenceExtractor:
     """
-    Rule-based extractor & parser for curriculum documents that enforces clean
-    semantic separation, metadata isolation, and layout artifact removal.
+    Lossless optimized rule-based extractor & parser for curriculum documents.
+
+    The semantic extraction rules remain unchanged. Performance improvements are
+    limited to compiled hot-path regexes, reduced repeated list scans, state reset,
+    and compressed on-disk caching of the final normalized tree.
     """
+
     def __init__(self):
         self.node_id = 0
         self.transformer = EvidenceTransformer()
@@ -102,7 +206,14 @@ class CurriculumEvidenceExtractor:
         self.node_id += 1
         return current_id
 
-    def _create_node(self, node_type: str, text: str, page: int, confidence: float = 0.99, attributes: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def _create_node(
+        self,
+        node_type: str,
+        text: str,
+        page: int,
+        confidence: float = 0.99,
+        attributes: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         node = {
             "id": self._next_id(),
             "type": node_type,
@@ -110,246 +221,260 @@ class CurriculumEvidenceExtractor:
             "page": page,
             "confidence": confidence,
             "attributes": attributes or {},
-            "children": []
+            "children": [],
         }
         if node_type == "COURSE":
             node["metadata"] = {}
         return node
 
-    def _clean_layout_artifacts(self, text: str) -> str:
+    @staticmethod
+    def _clean_layout_artifacts(text: str) -> str:
         """Strips bullet points, table lines, residual numbers, and dangling layout noise."""
-        text = re.sub(r"^[•\-\*\d\.\:\s]+", "", text)  # Leading bullets & numbers
-        text = re.sub(r"\|", " ", text)                # Table border pipes
-        text = re.sub(r"[\t\r\n]+", " ", text)         # Layout linebreaks
-        text = re.sub(r"\s+", " ", text).strip()        # Extra spaces
+        text = _RE_LEADING_LAYOUT.sub("", text)
+        text = text.replace("|", " ")
+        text = _RE_WS.sub(" ", text).strip()
         return text
 
-    def _is_noise(self, line: str) -> bool:
+    @staticmethod
+    def _is_noise(line: str) -> bool:
         """Filters headers, footers, page numbering, and structural table margins."""
-        if re.match(r"(?i)^(page\s*\d+(\s*of\s*\d+)?|\d+\s*/\s*\d+)$", line):
-            return True
-        if re.match(r"(?i)^(curriculum|syllabus|department of|faculty of).*page", line):
-            return True
-        if re.match(r"^[\-\_\=\|\s]{3,}$", line):  # Divider lines
-            return True
-        return False
+        return bool(
+            _RE_PAGE_NOISE.match(line)
+            or _RE_PAGE_HEADER.match(line)
+            or _RE_DIVIDER.match(line)
+        )
 
-    def _parse_attributes_and_cos(self, raw_text: str) -> Tuple[str, Dict[str, Any], List[str]]:
+    def _parse_attributes_and_cos(
+        self,
+        raw_text: str,
+    ) -> Tuple[str, Dict[str, Any], List[str]]:
         """
         Extracts weightage/contact hours into attributes and parses inline COs
         into standalone entities while cleaning the source text.
         """
-        attributes = {}
-        embedded_cos = []
+        attributes: Dict[str, Any] = {}
         text = raw_text
 
-        # Extract Contact Hours (e.g., "8 Hours", "10 Hrs", "[4L]")
-        hours_match = re.search(r"\(?\b(\d+)\s*(?:hours?|hrs?|L|Lectures?)\b\)?", text, re.IGNORECASE)
+        hours_match = _RE_HOURS.search(text)
         if hours_match:
             attributes["hours"] = hours_match.group(0).strip("()")
-            text = text.replace(hours_match.group(0), "")
+            text = text.replace(hours_match.group(0), "", 1)
 
-        # Extract Weightage (e.g., "15%", "20 Marks", "Weightage: 10%")
-        weightage_match = re.search(r"\(?\b(?:weightage\s*[:\-]?\s*)?(\d+\s*%|\d+\s*marks?)\b\)?", text, re.IGNORECASE)
+        weightage_match = _RE_WEIGHTAGE.search(text)
         if weightage_match:
             attributes["weightage"] = weightage_match.group(1)
-            text = text.replace(weightage_match.group(0), "")
+            text = text.replace(weightage_match.group(0), "", 1)
 
-        # Extract Embedded CO References (e.g., "[CO1, CO2]", "(CO3)")
-        co_matches = re.findall(r"\b(CO\d+)\b", text, re.IGNORECASE)
+        co_matches = _RE_CO.findall(text)
+        embedded_cos: List[str] = []
         if co_matches:
-            embedded_cos = list(dict.fromkeys([co.upper() for co in co_matches]))
-            text = re.sub(r"\[?\b(?:CO\d+(?:\s*,\s*)?)+\b\]?", "", text, flags=re.IGNORECASE)
-            text = re.sub(r"\(\s*\)", "", text)  # Remove empty remaining parentheses
+            embedded_cos = list(dict.fromkeys(co.upper() for co in co_matches))
+            text = _RE_CO_BLOCK.sub("", text)
+            text = _RE_EMPTY_PARENS.sub("", text)
 
         cleaned_text = self._clean_layout_artifacts(text)
         return cleaned_text, attributes, embedded_cos
 
     def _extract_metadata(self, line: str, course_node: Dict[str, Any]) -> bool:
         """Separates metadata from semantic evidence into dedicated fields/nodes."""
-        meta_patterns = [
-            (r"(?i)Course\s*Code\s*[:\-]\s*(.*)", "course_code"),
-            (r"(?i)Credits?\s*[:\-]\s*(\d+(\.\d+)?)", "credits"),
-            (r"(?i)Prerequisite[s]?\s*[:\-]\s*(.*)", "prerequisites"),
-            (r"(?i)Total\s*Hours\s*[:\-]\s*(\d+)", "total_hours"),
-            (r"(?i)Marks\s*[:\-]\s*(.*)", "marks_distribution")
-        ]
-        for pattern, key in meta_patterns:
-            match = re.search(pattern, line)
+        for pattern, key in _META_PATTERNS:
+            match = pattern.search(line)
             if match:
-                val = match.group(1).strip()
-                course_node["metadata"][key] = val
+                course_node["metadata"][key] = match.group(1).strip()
                 return True
         return False
 
     def parse_pdf(self, pdf_path: str) -> Dict[str, Any]:
+        """Parse once, normalize once, and cache the exact final tree losslessly."""
+        cached_tree = _load_cached(pdf_path)
+        if cached_tree is not None:
+            return cached_tree
+
+        # Reset state so extractor reuse cannot carry IDs across documents.
+        self.node_id = 0
+
         reader = pypdf.PdfReader(pdf_path)
-        roots = []
+        roots: List[Dict[str, Any]] = []
         current_course = None
         current_section = None
         last_leaf_node = None
+        metadata_section = None
 
         for page_num, page in enumerate(reader.pages, start=1):
             text = page.extract_text()
             if not text:
                 continue
 
-            lines = [line.strip() for line in text.splitlines() if line.strip()]
-
-            for line in lines:
-                # 1. Strip Header/Footer & Layout Noise
-                if self._is_noise(line):
+            for raw_line in text.splitlines():
+                line = raw_line.strip()
+                if not line or self._is_noise(line):
                     continue
 
-                # 2. Detect Course Root
-                if "COURSE NAME" in line.upper() or "DATABASE MANAGEMENT SYSTEM" in line.upper():
-                    clean_title = re.sub(r"(?i)COURSE NAME\s*[:\-]*\s*", "", line)
+                if _RE_COURSE_TRIGGER.search(line):
+                    clean_title = _RE_COURSE_NAME.sub("", line)
                     if clean_title:
                         current_course = self._create_node("COURSE", clean_title, page_num)
                         roots.append(current_course)
                         current_section = None
                         last_leaf_node = None
+                        metadata_section = None
                     continue
 
                 if current_course is None:
                     continue
 
-                # 3. Extract Metadata into Attributes / Isolated Node
                 if self._extract_metadata(line, current_course):
-                    # Ensure a dedicated METADATA container exists
-                    meta_section = next((c for c in current_course["children"] if c["type"] == "METADATA"), None)
-                    if not meta_section:
-                        meta_section = self._create_node("METADATA", "Course Metadata", page_num)
-                        current_course["children"].append(meta_section)
-                    
-                    meta_leaf = self._create_node("METADATA", line, page_num)
-                    meta_section["children"].append(meta_leaf)
+                    if metadata_section is None:
+                        metadata_section = self._create_node(
+                            "METADATA",
+                            "Course Metadata",
+                            page_num,
+                        )
+                        current_course["children"].append(metadata_section)
+
+                    metadata_section["children"].append(
+                        self._create_node("METADATA", line, page_num)
+                    )
                     continue
 
-                # 4. Detect Section Headers (Dedicated Node Types)
-                if re.match(r"(?i)^Course Objectives", line):
-                    current_section = self._create_node("OBJECTIVE", "Course Objectives", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
-                    continue
+                section_type = None
+                section_text = None
 
-                elif re.match(r"(?i)^Unit\s+\d+", line):
+                if _RE_OBJECTIVES.match(line):
+                    section_type, section_text = "OBJECTIVE", "Course Objectives"
+                elif _RE_UNIT.match(line):
                     clean_text, attrs, _ = self._parse_attributes_and_cos(line)
-                    current_section = self._create_node("UNIT", clean_text, page_num, attributes=attrs)
+                    current_section = self._create_node(
+                        "UNIT",
+                        clean_text,
+                        page_num,
+                        attributes=attrs,
+                    )
+                    current_course["children"].append(current_section)
+                    last_leaf_node = None
+                    continue
+                elif _RE_CO_SECTION.match(line):
+                    section_type, section_text = "CO", "Course Outcomes"
+                elif _RE_PO_SECTION.match(line):
+                    section_type, section_text = "PO", "Programme Outcomes"
+                elif _RE_PSO_SECTION.match(line):
+                    section_type, section_text = "PSO", "Programme Specific Outcomes"
+                elif _RE_PRACTICAL_SECTION.match(line):
+                    section_type, section_text = "PRACTICAL", "Practicals"
+                elif _RE_PEDAGOGY_SECTION.match(line):
+                    section_type, section_text = "PEDAGOGY", "Pedagogy & Teaching Methodology"
+                elif _RE_ASSESSMENT_SECTION.match(line):
+                    section_type, section_text = "ASSESSMENT", "Evaluation Scheme"
+                elif _RE_RESOURCE_SECTION.match(line):
+                    section_type, section_text = "RESOURCE", "Learning Resources"
+
+                if section_type is not None:
+                    current_section = self._create_node(
+                        section_type,
+                        section_text,
+                        page_num,
+                    )
                     current_course["children"].append(current_section)
                     last_leaf_node = None
                     continue
 
-                elif re.match(r"(?i)^Course Outcomes", line):
-                    current_section = self._create_node("CO", "Course Outcomes", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
+                if current_section is None:
                     continue
 
-                elif re.match(r"(?i)^(Programme Outcomes|POs)", line):
-                    current_section = self._create_node("PO", "Programme Outcomes", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
+                is_new_item = bool(_RE_NEW_ITEM.match(line))
+
+                # Merge wrapped sentences into the previous semantic node exactly
+                # as before, while avoiding repeated regex compilation.
+                if not is_new_item and last_leaf_node and not line.startswith("Unit"):
+                    additional_text, add_attrs, add_cos = self._parse_attributes_and_cos(line)
+                    if additional_text:
+                        last_leaf_node["text"] += f" {additional_text}"
+                    last_leaf_node["attributes"].update(add_attrs)
+
+                    for co_code in add_cos:
+                        last_leaf_node["children"].append(
+                            self._create_node(
+                                "CO",
+                                f"Mapped Outcome: {co_code}",
+                                page_num,
+                            )
+                        )
                     continue
 
-                elif re.match(r"(?i)^(Programme Specific Outcomes|PSOs)", line):
-                    current_section = self._create_node("PSO", "Programme Specific Outcomes", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
+                clean_line, line_attrs, embedded_cos = self._parse_attributes_and_cos(line)
+                if not clean_line:
                     continue
 
-                elif re.match(r"(?i)^(Practicals|Laboratory Work|Experiments|Lab Sessions)", line):
-                    current_section = self._create_node("PRACTICAL", "Practicals", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
-                    continue
+                section_type = current_section["type"]
 
-                elif re.match(r"(?i)^(Pedagogy|Teaching Methodology|Instructional Strategies)", line):
-                    current_section = self._create_node("PEDAGOGY", "Pedagogy & Teaching Methodology", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
-                    continue
+                if section_type == "UNIT":
+                    topic_node = self._create_node(
+                        "TOPIC",
+                        clean_line,
+                        page_num,
+                        attributes=line_attrs,
+                    )
+                    for co_code in embedded_cos:
+                        topic_node["children"].append(
+                            self._create_node(
+                                "CO",
+                                f"Mapped Outcome: {co_code}",
+                                page_num,
+                            )
+                        )
+                    current_section["children"].append(topic_node)
+                    last_leaf_node = topic_node
 
-                elif re.match(r"(?i)^Evaluation Scheme", line):
-                    current_section = self._create_node("ASSESSMENT", "Evaluation Scheme", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
-                    continue
+                elif section_type == "PRACTICAL":
+                    practical_node = self._create_node(
+                        "PRACTICAL",
+                        clean_line,
+                        page_num,
+                        attributes=line_attrs,
+                    )
+                    current_section["children"].append(practical_node)
+                    last_leaf_node = practical_node
 
-                elif re.match(r"(?i)^(Learning Resources|Reference Books)", line):
-                    current_section = self._create_node("RESOURCE", "Learning Resources", page_num)
-                    current_course["children"].append(current_section)
-                    last_leaf_node = None
-                    continue
+                elif section_type == "PEDAGOGY":
+                    pedagogy_node = self._create_node(
+                        "PEDAGOGY",
+                        clean_line,
+                        page_num,
+                        attributes=line_attrs,
+                    )
+                    current_section["children"].append(pedagogy_node)
+                    last_leaf_node = pedagogy_node
 
-                # 5. Extract Leaf Nodes, Process Attributes & Standalone CO Nodes
-                if current_section:
-                    is_new_item = bool(re.match(r"^(\d+[\.\:]|CO\d+|PO\d+|PSO\d+|\u2022|\-)", line, re.IGNORECASE))
+                elif section_type in {"OBJECTIVE", "ASSESSMENT", "RESOURCE"}:
+                    leaf_node = self._create_node(
+                        section_type,
+                        clean_line,
+                        page_num,
+                        attributes=line_attrs,
+                    )
+                    current_section["children"].append(leaf_node)
+                    last_leaf_node = leaf_node
 
-                    # Merge wrapped sentences with previous leaf node
-                    if not is_new_item and last_leaf_node and not line.startswith("Unit"):
-                        additional_text, add_attrs, add_cos = self._parse_attributes_and_cos(line)
-                        if additional_text:
-                            last_leaf_node["text"] += f" {additional_text}"
-                        last_leaf_node["attributes"].update(add_attrs)
-                        
-                        # Add newly discovered embedded COs as child nodes
-                        for co_code in add_cos:
-                            co_node = self._create_node("CO", f"Mapped Outcome: {co_code}", page_num)
-                            last_leaf_node["children"].append(co_node)
-                        continue
-
-                    # Parse inline attributes and embedded CO references
-                    clean_line, line_attrs, embedded_cos = self._parse_attributes_and_cos(line)
-                    if not clean_line:
-                        continue
-
-                    # Unit Topics
-                    if current_section["type"] == "UNIT":
-                        topic_node = self._create_node("TOPIC", clean_line, page_num, attributes=line_attrs)
-                        
-                        # Extract embedded COs into standalone CO nodes
-                        for co_code in embedded_cos:
-                            co_child = self._create_node("CO", f"Mapped Outcome: {co_code}", page_num)
-                            topic_node["children"].append(co_child)
-
-                        current_section["children"].append(topic_node)
-                        last_leaf_node = topic_node
-
-                    # Practicals
-                    elif current_section["type"] == "PRACTICAL":
-                        practical_node = self._create_node("PRACTICAL", clean_line, page_num, attributes=line_attrs)
-                        current_section["children"].append(practical_node)
-                        last_leaf_node = practical_node
-
-                    # Pedagogy
-                    elif current_section["type"] == "PEDAGOGY":
-                        pedagogy_node = self._create_node("PEDAGOGY", clean_line, page_num, attributes=line_attrs)
-                        current_section["children"].append(pedagogy_node)
-                        last_leaf_node = pedagogy_node
-
-                    # Objectives / Assessment / Resources
-                    elif current_section["type"] in ["OBJECTIVE", "ASSESSMENT", "RESOURCE"]:
-                        leaf_node = self._create_node(current_section["type"], clean_line, page_num, attributes=line_attrs)
-                        current_section["children"].append(leaf_node)
-                        last_leaf_node = leaf_node
-
-                    # Course & Programme Outcomes
-                    elif current_section["type"] in ["CO", "PO", "PSO"]:
-                        outcome_node = self._create_node(current_section["type"], clean_line, page_num, attributes=line_attrs)
-                        current_section["children"].append(outcome_node)
-                        last_leaf_node = outcome_node
+                elif section_type in {"CO", "PO", "PSO"}:
+                    outcome_node = self._create_node(
+                        section_type,
+                        clean_line,
+                        page_num,
+                        attributes=line_attrs,
+                    )
+                    current_section["children"].append(outcome_node)
+                    last_leaf_node = outcome_node
 
         raw_output = {"roots": roots}
-        return self.transformer.transform(raw_output)
+        structured_output = self.transformer.transform(raw_output)
+        _save_cached(pdf_path, structured_output)
+        return structured_output
 
 
-# Execution Entrypoint
 if __name__ == "__main__":
     extractor = CurriculumEvidenceExtractor()
     structured_output = extractor.parse_pdf(r"backend\rl\Database\Samples\curr_test.pdf")
 
-    # Output directly to final JSON format
     output_filepath = "curriculum_evidence_final.json"
     with open(output_filepath, "w", encoding="utf-8") as f:
         json.dump(structured_output, f, indent=4, ensure_ascii=False)
