@@ -9,12 +9,7 @@ from backend.EvidenceModel.presentation.builder import GriffinResultBuilder
 
 
 class GriffinService:
-    """Thin product wrapper around the frozen Griffin Core pipeline.
-
-    Griffin Core instances are process-scoped and reused across evaluations.
-    A bounded pool preserves concurrent report evaluation without reloading
-    model weights for every new evaluation.
-    """
+    """Product wrapper around the Griffin Core pipeline with reusable model instances."""
 
     _pool: queue.Queue[GriffinCore] | None = None
     _pool_lock = threading.Lock()
@@ -31,7 +26,6 @@ class GriffinService:
     @classmethod
     def _ensure_pool(cls, size: int | None = None) -> queue.Queue[GriffinCore]:
         target_size = size or cls._configured_pool_size()
-
         if cls._pool is not None and cls._pool_size == target_size:
             return cls._pool
 
@@ -42,14 +36,12 @@ class GriffinService:
             pool: queue.Queue[GriffinCore] = queue.Queue(maxsize=target_size)
             for _ in range(target_size):
                 pool.put(GriffinCore())
-
             cls._pool = pool
             cls._pool_size = target_size
             return pool
 
     @classmethod
     def warm_up(cls) -> None:
-        """Load the configured Griffin Core model pool once per API process."""
         cls._ensure_pool()
 
     @classmethod
@@ -57,6 +49,7 @@ class GriffinService:
         cls,
         report_file_path: str,
         curriculum_file_path: str,
+        curriculum_schema: Dict[str, Any] | None,
         metadata: Dict[str, Any],
         on_stage_update=None,
     ) -> Dict[str, Any]:
@@ -73,6 +66,7 @@ class GriffinService:
                 curriculum_pdf_path=curriculum_file_path,
                 report_input=report_file_path,
                 on_stage_update=progress_callback,
+                curriculum_schema=curriculum_schema,
             )
 
             processing_time = round(time.perf_counter() - start_time, 2)
@@ -87,7 +81,6 @@ class GriffinService:
                 ),
                 metadata=result_metadata,
             )
-
             return result.model_dump() if hasattr(result, "model_dump") else result.dict()
         finally:
             pool.put(griffin)
