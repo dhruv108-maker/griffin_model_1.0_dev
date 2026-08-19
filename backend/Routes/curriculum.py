@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from backend.Database.models import Curriculum, Project
 from backend.Dependencies.database_dep import get_db
+from backend.KnowledgeBase.knowledge_evidence import CurriculumEvidenceExtractor
 from backend.Services.storage_services import StorageService
 
 router = APIRouter(prefix="/curriculum", tags=["Curriculum"])
@@ -29,7 +30,10 @@ async def upload_curriculum(
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
-    file_path = StorageService.save_upload_file(file, subfolder=f"projects/{project_id}/curricula")
+    file_path = StorageService.save_upload_file(
+        file,
+        subfolder=f"projects/{project_id}/curricula",
+    )
 
     try:
         # Validate that the uploaded file is a readable PDF before persisting the record.
@@ -38,10 +42,23 @@ async def upload_curriculum(
         Path(file_path).unlink(missing_ok=True)
         raise HTTPException(status_code=400, detail=f"Invalid curriculum PDF: {exc}") from exc
 
+    try:
+        # Parse once at ingestion time and persist the normalized HEEM tree.
+        # The parser is lossless with respect to the current Griffin curriculum contract.
+        parsed_schema = CurriculumEvidenceExtractor().parse_pdf(file_path)
+    except Exception as exc:
+        Path(file_path).unlink(missing_ok=True)
+        raise HTTPException(status_code=422, detail=f"Curriculum parsing failed: {exc}") from exc
+
+    if not parsed_schema or not parsed_schema.get("roots"):
+        Path(file_path).unlink(missing_ok=True)
+        raise HTTPException(status_code=422, detail="Curriculum parsing produced no structural content")
+
     curriculum = Curriculum(
         project_id=project_id,
         title=title.strip() or Path(file.filename).stem,
         file_path=file_path,
+        parsed_schema=parsed_schema,
     )
     db.add(curriculum)
     db.commit()
