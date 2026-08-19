@@ -10,19 +10,7 @@ from backend.Schemas.schemas import (
 
 
 class EvidenceGraphBuilder:
-    """
-    Griffin Evidence Graph Builder
-
-    Constructs the explainable Evidence Graph from:
-
-        Units
-            ↓
-        Topics
-            ↓
-    Validated Evidence
-            ↓
-    Evidence Tokens
-    """
+    """Build the explainable Unit -> Topic -> Evidence -> Token graph."""
 
     def __init__(self):
         self.graph = EvidenceGraph()
@@ -34,41 +22,23 @@ class EvidenceGraphBuilder:
         validated_evidences: List[ValidatedEvidence],
         evidence_tokens: List[EvidenceToken],
     ) -> EvidenceGraph:
-
         self.graph = EvidenceGraph()
 
-        token_map = {
-            token.token_id: token
-            for token in evidence_tokens
-        }
-
-        # ------------------------------------------------------------------
-        # Unit Nodes
-        # ------------------------------------------------------------------
+        token_map = {token.token_id: token for token in evidence_tokens}
 
         for unit in units:
-
             unit_id = f"unit_{unit['id']}"
-
             self.graph.add_node(
                 GraphNode(
                     id=unit_id,
                     label=unit["text"],
                     node_type="UNIT",
-                    attributes={
-                        "type": unit.get("type"),
-                    },
+                    attributes={"type": unit.get("type")},
                 )
             )
 
-        # ------------------------------------------------------------------
-        # Topic Nodes
-        # ------------------------------------------------------------------
-
         for topic in topics:
-
             topic_id = f"topic_{topic['id']}"
-
             self.graph.add_node(
                 GraphNode(
                     id=topic_id,
@@ -76,30 +46,34 @@ class EvidenceGraphBuilder:
                     node_type="TOPIC",
                     attributes={
                         "type": topic.get("type"),
+                        "unit_id": topic.get("unit_id"),
                     },
                 )
             )
 
-        # ------------------------------------------------------------------
-        # Evidence Graph
-        # ------------------------------------------------------------------
+            unit_id = topic.get("unit_id")
+            if unit_id is not None:
+                source_unit_id = f"unit_{unit_id}"
+                if source_unit_id in self.graph.nodes:
+                    self.graph.add_edge(
+                        GraphEdge(
+                            source=source_unit_id,
+                            target=topic_id,
+                            relation="CONTAINS_TOPIC",
+                            similarity=1.0,
+                            confidence=1.0,
+                            reasoning_score=1.0,
+                        )
+                    )
 
         for index, evidence in enumerate(validated_evidences):
-
             token = token_map.get(evidence.token_id)
-
             if token is None:
                 continue
 
             evidence_id = f"evidence_{index}"
-
             page_id = f"page_{token.page_number}"
-
             topic_id = f"topic_{evidence.topic_id}"
-
-            # --------------------------------------------------------------
-            # Evidence Node
-            # --------------------------------------------------------------
 
             self.graph.add_node(
                 GraphNode(
@@ -114,20 +88,11 @@ class EvidenceGraphBuilder:
                 )
             )
 
-            # --------------------------------------------------------------
-            # Evidence Token Node
-            # --------------------------------------------------------------
-
             if token.token_id not in self.graph.nodes:
-
                 self.graph.add_node(
                     GraphNode(
                         id=token.token_id,
-                        label=(
-                            token.text[:120] + "..."
-                            if len(token.text) > 120
-                            else token.text
-                        ),
+                        label=token.text[:120] + "..." if len(token.text) > 120 else token.text,
                         node_type="TOKEN",
                         attributes={
                             "page": token.page_number,
@@ -156,29 +121,17 @@ class EvidenceGraphBuilder:
                     )
                 )
 
-            # --------------------------------------------------------------
-            # Page Node
-            # --------------------------------------------------------------
-
             if page_id not in self.graph.nodes:
-
                 self.graph.add_node(
                     GraphNode(
                         id=page_id,
                         label=f"Page {token.page_number}",
                         node_type="PAGE",
-                        attributes={
-                            "page_number": token.page_number,
-                        },
+                        attributes={"page_number": token.page_number},
                     )
                 )
 
-            # --------------------------------------------------------------
-            # Topic -> Evidence
-            # --------------------------------------------------------------
-
             if topic_id in self.graph.nodes:
-
                 self.graph.add_edge(
                     GraphEdge(
                         source=topic_id,
@@ -189,10 +142,6 @@ class EvidenceGraphBuilder:
                         reasoning_score=evidence.reasoning_score,
                     )
                 )
-
-            # --------------------------------------------------------------
-            # Evidence -> Token
-            # --------------------------------------------------------------
 
             self.graph.add_edge(
                 GraphEdge(
@@ -205,10 +154,6 @@ class EvidenceGraphBuilder:
                 )
             )
 
-            # --------------------------------------------------------------
-            # Token -> Page
-            # --------------------------------------------------------------
-
             self.graph.add_edge(
                 GraphEdge(
                     source=token.token_id,
@@ -220,15 +165,7 @@ class EvidenceGraphBuilder:
                 )
             )
 
-            # --------------------------------------------------------------
-            # Parent Token Hierarchy
-            # --------------------------------------------------------------
-
-            if (
-                token.parent_token
-                and token.parent_token in token_map
-            ):
-
+            if token.parent_token and token.parent_token in token_map:
                 self.graph.add_edge(
                     GraphEdge(
                         source=token.parent_token,
