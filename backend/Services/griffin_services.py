@@ -7,24 +7,28 @@ from backend.EvidenceModel.presentation.builder import GriffinResultBuilder
 
 
 class GriffinService:
-    """Thin product wrapper around the frozen Griffin Core pipeline."""
+    """Thin product wrapper around the frozen Griffin Core pipeline.
 
-    _core: GriffinCore | None = None
-    _core_lock = threading.Lock()
-    _process_lock = threading.Lock()
+    Concurrency is implemented at the product-service boundary. Griffin Core
+    itself is unchanged. Each worker thread owns one warm GriffinCore instance
+    so independent student reports can be evaluated concurrently without
+    sharing mutable inference state.
+    """
+
+    _thread_local = threading.local()
 
     @classmethod
     def _get_core(cls) -> GriffinCore:
-        """Create Griffin Core once per worker and reuse its loaded models."""
-        if cls._core is None:
-            with cls._core_lock:
-                if cls._core is None:
-                    cls._core = GriffinCore()
-        return cls._core
+        """Return a warm Griffin Core instance dedicated to this worker thread."""
+        core = getattr(cls._thread_local, "core", None)
+        if core is None:
+            core = GriffinCore()
+            cls._thread_local.core = core
+        return core
 
     @classmethod
     def warm_up(cls) -> None:
-        """Load Griffin's model stack before the first user evaluation."""
+        """Load Griffin's model stack for the current worker thread."""
         cls._get_core()
 
     @classmethod
@@ -41,15 +45,12 @@ class GriffinService:
             if on_stage_update:
                 on_stage_update(stage, percent)
 
-        # GriffinCore owns model/evaluation state. Keep one warm instance per
-        # worker and serialize access to avoid concurrent inference contention.
-        with cls._process_lock:
-            griffin = cls._get_core()
-            evidence_graph = griffin.process(
-                curriculum_pdf_path=curriculum_file_path,
-                report_input=report_file_path,
-                on_stage_update=progress_callback,
-            )
+        griffin = cls._get_core()
+        evidence_graph = griffin.process(
+            curriculum_pdf_path=curriculum_file_path,
+            report_input=report_file_path,
+            on_stage_update=progress_callback,
+        )
 
         processing_time = round(time.perf_counter() - start_time, 2)
         result_metadata = dict(metadata)
