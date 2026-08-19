@@ -1,5 +1,8 @@
-from datetime import datetime
+import os
+import queue
 import traceback
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+from datetime import datetime
 
 from sqlalchemy.orm import Session
 
@@ -48,8 +51,67 @@ class EvaluationService:
         return evaluation
 
     @staticmethod
+    def _worker_count(report_count: int) -> int:
+        """Bound concurrency to protect CPU/RAM/GPU while enabling bulk throughput."""
+        configured = os.getenv("GRIFFIN_MAX_CONCURRENT_REPORTS", "2")
+        try:
+            configured_count = int(configured)
+        except ValueError:
+            configured_count = 2
+        return max(1, min(configured_count, report_count))
+
+    @staticmethod
+    def _evaluate_report(
+        report_id: str,
+        title: str,
+        student_name: str | None,
+        total_pages: int,
+        report_file_path: str,
+        curriculum_file_path: str,
+        events: queue.Queue,
+    ):
+        metadata = {
+            "title": title,
+            "student_name": student_name,
+            "student": student_name,
+            "total_pages": total_pages,
+        }
+
+        def on_stage_update(stage_msg: str, stage_progress: float) -> None:
+            events.put((report_id, stage_msg, float(stage_progress)))
+
+        result = GriffinService.process_report(
+            report_file_path=report_file_path,
+            curriculum_file_path=curriculum_file_path,
+            metadata=metadata,
+            on_stage_update=on_stage_update,
+        )
+        return report_id, result
+
+    @staticmethod
+    def _drain_progress_events(
+        events: queue.Queue,
+        progress_by_report: dict[str, float],
+        logs: list[str],
+    ) -> bool:
+        changed = False
+        while True:
+            try:
+                report_id, stage_msg, stage_progress = events.get_nowait()
+            except queue.Empty:
+                break
+
+            progress_by_report[report_id] = max(
+                0.0,
+                min(100.0, stage_progress),
+            )
+            logs.append(stage_msg)
+            changed = True
+        return changed
+
+    @staticmethod
     def run_async_evaluation(evaluation_id: str, report_ids: list[str]) -> None:
-        """Run real Griffin evaluation and persist each report's GriffinResult."""
+        """Evaluate independent reports concurrently and persist one result per report."""
         db = SessionLocal()
         job = None
         evaluation = None
@@ -72,6 +134,8 @@ class EvaluationService:
             )
             if curriculum is None or not curriculum.file_path:
                 raise ValueError("Evaluation curriculum file is missing")
+            if not os.path.isfile(curriculum.file_path):
+                raise ValueError("Evaluation curriculum file does not exist")
 
             reports = (
                 db.query(Report)
@@ -82,21 +146,26 @@ class EvaluationService:
                 .all()
             )
             reports_by_id = {report.id: report for report in reports}
-            missing_ids = [report_id for report_id in report_ids if report_id not in reports_by_id]
+            missing_ids = [
+                report_id
+                for report_id in report_ids
+                if report_id not in reports_by_id
+            ]
             if missing_ids:
                 raise ValueError(
                     f"Reports not found in project: {', '.join(missing_ids)}"
                 )
 
-            # Preserve the user's requested report order.
             reports = [reports_by_id[report_id] for report_id in report_ids]
-            report_id_set = set(report_ids)
+            for report in reports:
+                if not report.file_path or not os.path.isfile(report.file_path):
+                    raise ValueError(f"Report file is missing: {report.title}")
 
             existing_rows = (
                 db.query(GeneratedReport)
                 .filter(
                     GeneratedReport.evaluation_id == evaluation_id,
-                    GeneratedReport.report_id.in_(report_id_set),
+                    GeneratedReport.report_id.in_(report_ids),
                 )
                 .all()
             )
@@ -117,71 +186,107 @@ class EvaluationService:
             db.refresh(job)
 
             total_reports = len(reports)
-            logs = []
+            max_workers = EvaluationService._worker_count(total_reports)
+            logs = [
+                f"Starting {total_reports} report(s) with {max_workers} parallel Griffin worker(s)."
+            ]
+            job.logs = logs
+            db.commit()
 
-            for idx, report in enumerate(reports):
-                if evaluation.status == JobStatus.CANCELLED or job.status == JobStatus.CANCELLED:
-                    return
+            events: queue.Queue = queue.Queue()
+            progress_by_report = {report.id: 0.0 for report in reports}
 
-                metadata = {
-                    "title": report.title,
-                    "student_name": report.student_name,
-                    "student": report.student_name,
-                    "total_pages": report.total_pages,
+            worker_args = [
+                (
+                    report.id,
+                    report.title,
+                    report.student_name,
+                    report.total_pages,
+                    report.file_path,
+                    curriculum.file_path,
+                    events,
+                )
+                for report in reports
+            ]
+
+            with ThreadPoolExecutor(
+                max_workers=max_workers,
+                thread_name_prefix="griffin-eval",
+            ) as executor:
+                pending = {
+                    executor.submit(EvaluationService._evaluate_report, *args): args[0]
+                    for args in worker_args
                 }
 
-                def on_stage_update(stage_msg: str, stage_progress: float) -> None:
-                    if evaluation.status == JobStatus.CANCELLED or job.status == JobStatus.CANCELLED:
-                        raise RuntimeError("Evaluation cancelled")
+                while pending:
+                    db.refresh(evaluation)
+                    db.refresh(job)
 
-                    base_progress = (idx / total_reports) * 100.0
-                    step_contribution = (
-                        (stage_progress / 100.0) * (100.0 / total_reports)
+                    if (
+                        evaluation.status == JobStatus.CANCELLED
+                        or job.status == JobStatus.CANCELLED
+                    ):
+                        for future in pending:
+                            future.cancel()
+                        return
+
+                    EvaluationService._drain_progress_events(
+                        events,
+                        progress_by_report,
+                        logs,
                     )
-                    job.progress_percentage = min(
-                        round(base_progress + step_contribution, 2),
-                        100.0,
+
+                    completed, _ = wait(
+                        pending,
+                        timeout=0.25,
+                        return_when=FIRST_COMPLETED,
                     )
 
-                    logs.append(stage_msg)
-                    job.logs = logs
-                    db.commit()
+                    for future in completed:
+                        report_id = pending.pop(future)
+                        result_report_id, result_json = future.result()
+                        if result_report_id != report_id:
+                            raise RuntimeError(
+                                "Griffin worker returned mismatched report id"
+                            )
 
-                result_json = GriffinService.process_report(
-                    report_file_path=report.file_path,
-                    curriculum_file_path=curriculum.file_path,
-                    metadata=metadata,
-                    on_stage_update=on_stage_update,
-                )
+                        existing = existing_by_report_id.get(report_id)
+                        if existing:
+                            existing.griffin_result = result_json
+                        else:
+                            existing = GeneratedReport(
+                                evaluation_id=evaluation_id,
+                                report_id=report_id,
+                                griffin_result=result_json,
+                            )
+                            db.add(existing)
+                            existing_by_report_id[report_id] = existing
 
-                existing = existing_by_report_id.get(report.id)
-                if existing:
-                    existing.griffin_result = result_json
-                else:
-                    existing = GeneratedReport(
-                        evaluation_id=evaluation_id,
-                        report_id=report.id,
-                        griffin_result=result_json,
-                    )
-                    db.add(existing)
-                    existing_by_report_id[report.id] = existing
+                        progress_by_report[report_id] = 100.0
+                        logs.append(f"Report {report_id} evaluation completed.")
 
-                job.progress_percentage = round(
-                    ((idx + 1) / total_reports) * 100.0,
-                    2,
-                )
-                job.logs = logs
-                db.commit()
+                    if completed or not events.empty():
+                        EvaluationService._drain_progress_events(
+                            events,
+                            progress_by_report,
+                            logs,
+                        )
+                        job.progress_percentage = round(
+                            min(100.0, sum(progress_by_report.values()) / total_reports),
+                            2,
+                        )
+                        job.logs = logs[-500:]
+                        db.commit()
 
             job.status = JobStatus.COMPLETED
             job.progress_percentage = 100.0
             job.completed_at = datetime.utcnow()
             evaluation.status = JobStatus.COMPLETED
+            job.logs = logs[-500:]
             db.commit()
 
         except Exception as exc:
             db.rollback()
-
             if evaluation is not None:
                 evaluation = db.merge(evaluation)
             if job is not None:
@@ -195,9 +300,9 @@ class EvaluationService:
                 if job is not None:
                     job.status = JobStatus.FAILED
                     job.error_message = f"{exc}\n{traceback.format_exc()}"
+                    job.completed_at = datetime.utcnow()
                 if evaluation is not None:
                     evaluation.status = JobStatus.FAILED
-
             db.commit()
         finally:
             db.close()
