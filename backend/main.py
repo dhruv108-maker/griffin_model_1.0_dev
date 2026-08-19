@@ -16,6 +16,7 @@ from backend.Routes import (
     curriculum,
     workspace,
 )
+from backend.Services.griffin_services import GriffinService
 
 # ============================================================
 # DATABASE
@@ -36,13 +37,19 @@ app = FastAPI(
     version="1.0.0",
 )
 
+
+@app.on_event("startup")
+async def warm_griffin_models() -> None:
+    """Load the configured Griffin model pool once when the API process starts."""
+    GriffinService.warm_up()
+
 # ============================================================
 # CORS
 # ============================================================
 
 _allowed_origins = [
     origin.strip()
-    for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+    for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
     if origin.strip()
 ]
 
