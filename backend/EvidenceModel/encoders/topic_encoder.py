@@ -1,4 +1,5 @@
 from typing import List, Dict, Any
+
 import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModel
@@ -23,19 +24,23 @@ class TopicEncoder:
     def extract_filtered_topics(self, heem_tree: Dict[str, Any]) -> List[Dict[str, Any]]:
         extracted = []
 
-        def recurse(nodes: List[Dict[str, Any]]) -> None:
+        def recurse(nodes: List[Dict[str, Any]], parent_unit_id: int | None = None) -> None:
             for node in nodes:
                 node_type = str(node.get("type", "")).upper()
+                current_unit_id = node.get("id") if node_type == "UNIT" else parent_unit_id
+
                 if node_type in self.ALLOWED_NODE_TYPES:
                     extracted.append({
                         "id": node["id"],
                         "type": node_type,
                         "text": node["text"],
                         "page": node.get("page", 0),
+                        "unit_id": None if node_type == "UNIT" else current_unit_id,
                     })
+
                 children = node.get("children") or []
                 if children:
-                    recurse(children)
+                    recurse(children, current_unit_id)
 
         recurse(heem_tree.get("roots", []))
         return extracted
