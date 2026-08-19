@@ -62,9 +62,10 @@ export default function GriffinConsole() {
     };
 
     stream.onerror = () => {
-      closeStream(evaluationId);
-      setUploadError("Live evaluation connection was interrupted. Re-open the evaluation to reconnect.");
-      setProcessing(false);
+      // EventSource automatically reconnects. Keep the stream registered and
+      // preserve the processing state during transient network interruptions.
+      setUploadError("Live evaluation connection interrupted; reconnecting…");
+      setProcessing(true);
     };
 
     streams.current[evaluationId] = stream;
