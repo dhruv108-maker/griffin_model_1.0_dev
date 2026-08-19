@@ -242,6 +242,7 @@ function TopicRow({ topic }) {
                 ? "Collapse topic"
                 : "Expand topic"
             }
+            aria-expanded={expanded}
           >
             <ChevronDown
               size={16}

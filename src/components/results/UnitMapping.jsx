@@ -311,6 +311,7 @@ function UnitCard({ unit }) {
         onClick={() =>
           setExpanded((value) => !value)
         }
+        aria-expanded={expanded}
       >
         <div className="griffin-unit-card-status">
           <StatusIcon status={status} />
