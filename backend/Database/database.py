@@ -6,6 +6,7 @@ back to SQLite.
 """
 
 import os
+from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
@@ -17,7 +18,10 @@ if not DATABASE_URL:
         raise RuntimeError(
             "DATABASE_URL is required. Set GRIFFIN_ALLOW_LOCAL_SQLITE=true only for local development."
         )
-    DATABASE_URL = "sqlite:////tmp/griffin.db"
+
+    local_db_path = Path(__file__).resolve().parents[2] / "data" / "griffin.db"
+    local_db_path.parent.mkdir(parents=True, exist_ok=True)
+    DATABASE_URL = f"sqlite:///{local_db_path.as_posix()}"
 
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
