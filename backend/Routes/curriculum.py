@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from backend.Database.models import Curriculum, Project
 from backend.Dependencies.database_dep import get_db
 from backend.KnowledgeBase.knowledge_evidence import CurriculumEvidenceExtractor
+from backend.KnowledgeBase.curriculum_normalizer import normalize_curriculum_tree
 from backend.Services.storage_services import StorageService
 
 router = APIRouter(prefix="/curriculum", tags=["Curriculum"])
@@ -36,16 +37,14 @@ async def upload_curriculum(
     )
 
     try:
-        # Validate that the uploaded file is a readable PDF before persisting the record.
         PdfReader(file_path)
     except Exception as exc:
         Path(file_path).unlink(missing_ok=True)
         raise HTTPException(status_code=400, detail=f"Invalid curriculum PDF: {exc}") from exc
 
     try:
-        # Parse once at ingestion time and persist the normalized HEEM tree.
-        # The parser is lossless with respect to the current Griffin curriculum contract.
-        parsed_schema = CurriculumEvidenceExtractor().parse_pdf(file_path)
+        raw_schema = CurriculumEvidenceExtractor().parse_pdf(file_path)
+        parsed_schema = normalize_curriculum_tree(raw_schema)
     except Exception as exc:
         Path(file_path).unlink(missing_ok=True)
         raise HTTPException(status_code=422, detail=f"Curriculum parsing failed: {exc}") from exc
