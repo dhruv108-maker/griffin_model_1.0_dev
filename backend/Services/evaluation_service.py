@@ -84,6 +84,7 @@ class EvaluationService:
         total_pages: int,
         report_file_path: str,
         curriculum_file_path: str,
+        curriculum_schema: dict | None,
         events: queue.Queue,
     ):
         metadata = {
@@ -99,6 +100,7 @@ class EvaluationService:
         result = GriffinService.process_report(
             report_file_path=report_file_path,
             curriculum_file_path=curriculum_file_path,
+            curriculum_schema=curriculum_schema,
             metadata=metadata,
             on_stage_update=on_stage_update,
         )
@@ -141,6 +143,8 @@ class EvaluationService:
                 raise ValueError("Evaluation curriculum file is missing")
             if not os.path.isfile(curriculum.file_path):
                 raise ValueError("Evaluation curriculum file does not exist")
+            if not curriculum.parsed_schema or not curriculum.parsed_schema.get("roots"):
+                raise ValueError("Evaluation curriculum parsed_schema is missing; re-upload the curriculum")
 
             reports = (
                 db.query(Report)
@@ -199,6 +203,7 @@ class EvaluationService:
                     report.total_pages,
                     report.file_path,
                     curriculum.file_path,
+                    curriculum.parsed_schema,
                     events,
                 )
                 for report in reports
@@ -226,7 +231,6 @@ class EvaluationService:
                         return
 
                     EvaluationService._drain_progress_events(events, progress_by_report, logs)
-
                     completed, _ = wait(pending, timeout=0.25, return_when=FIRST_COMPLETED)
 
                     for future in completed:
@@ -313,7 +317,6 @@ class EvaluationService:
                     job.logs if job else [],
                     error=str(exc),
                 )
-
             db.commit()
         finally:
             db.close()
