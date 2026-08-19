@@ -1,3 +1,5 @@
+import os
+import queue
 import threading
 import time
 from typing import Any, Dict
@@ -9,27 +11,46 @@ from backend.EvidenceModel.presentation.builder import GriffinResultBuilder
 class GriffinService:
     """Thin product wrapper around the frozen Griffin Core pipeline.
 
-    Concurrency is implemented at the product-service boundary. Griffin Core
-    itself is unchanged. Each worker thread owns one warm GriffinCore instance
-    so independent student reports can be evaluated concurrently without
-    sharing mutable inference state.
+    Griffin Core instances are process-scoped and reused across evaluations.
+    A bounded pool preserves concurrent report evaluation without reloading
+    model weights for every new evaluation.
     """
 
-    _thread_local = threading.local()
+    _pool: queue.Queue[GriffinCore] | None = None
+    _pool_lock = threading.Lock()
+    _pool_size: int | None = None
 
     @classmethod
-    def _get_core(cls) -> GriffinCore:
-        """Return a warm Griffin Core instance dedicated to this worker thread."""
-        core = getattr(cls._thread_local, "core", None)
-        if core is None:
-            core = GriffinCore()
-            cls._thread_local.core = core
-        return core
+    def _configured_pool_size(cls) -> int:
+        configured = os.getenv("GRIFFIN_MAX_CONCURRENT_REPORTS", "2")
+        try:
+            return max(1, int(configured))
+        except ValueError:
+            return 2
+
+    @classmethod
+    def _ensure_pool(cls, size: int | None = None) -> queue.Queue[GriffinCore]:
+        target_size = size or cls._configured_pool_size()
+
+        if cls._pool is not None and cls._pool_size == target_size:
+            return cls._pool
+
+        with cls._pool_lock:
+            if cls._pool is not None and cls._pool_size == target_size:
+                return cls._pool
+
+            pool: queue.Queue[GriffinCore] = queue.Queue(maxsize=target_size)
+            for _ in range(target_size):
+                pool.put(GriffinCore())
+
+            cls._pool = pool
+            cls._pool_size = target_size
+            return pool
 
     @classmethod
     def warm_up(cls) -> None:
-        """Load Griffin's model stack for the current worker thread."""
-        cls._get_core()
+        """Load the configured Griffin Core model pool once per API process."""
+        cls._ensure_pool()
 
     @classmethod
     def process_report(
@@ -40,29 +61,33 @@ class GriffinService:
         on_stage_update=None,
     ) -> Dict[str, Any]:
         start_time = time.perf_counter()
+        pool = cls._ensure_pool()
+        griffin = pool.get()
 
-        def progress_callback(stage: str, percent: float):
-            if on_stage_update:
-                on_stage_update(stage, percent)
+        try:
+            def progress_callback(stage: str, percent: float):
+                if on_stage_update:
+                    on_stage_update(stage, percent)
 
-        griffin = cls._get_core()
-        evidence_graph = griffin.process(
-            curriculum_pdf_path=curriculum_file_path,
-            report_input=report_file_path,
-            on_stage_update=progress_callback,
-        )
+            evidence_graph = griffin.process(
+                curriculum_pdf_path=curriculum_file_path,
+                report_input=report_file_path,
+                on_stage_update=progress_callback,
+            )
 
-        processing_time = round(time.perf_counter() - start_time, 2)
-        result_metadata = dict(metadata)
-        result_metadata["processing_time"] = processing_time
+            processing_time = round(time.perf_counter() - start_time, 2)
+            result_metadata = dict(metadata)
+            result_metadata["processing_time"] = processing_time
 
-        result = GriffinResultBuilder().build(
-            evidence_graph=(
-                evidence_graph.model_dump()
-                if hasattr(evidence_graph, "model_dump")
-                else evidence_graph.dict()
-            ),
-            metadata=result_metadata,
-        )
+            result = GriffinResultBuilder().build(
+                evidence_graph=(
+                    evidence_graph.model_dump()
+                    if hasattr(evidence_graph, "model_dump")
+                    else evidence_graph.dict()
+                ),
+                metadata=result_metadata,
+            )
 
-        return result.model_dump() if hasattr(result, "model_dump") else result.dict()
+            return result.model_dump() if hasattr(result, "model_dump") else result.dict()
+        finally:
+            pool.put(griffin)
