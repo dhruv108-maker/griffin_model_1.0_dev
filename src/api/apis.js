@@ -135,6 +135,7 @@ export const evaluationAPI = {
   result: (evaluationId) => request(`/evaluations/${evaluationId}/result`),
   resultForReport: (evaluationId, reportId) =>
     request(`/evaluations/${evaluationId}/results/${reportId}`),
+  streamUrl: (evaluationId) => `${API_BASE_URL}/evaluations/${evaluationId}/stream`,
 };
 
 export const historyAPI = {
