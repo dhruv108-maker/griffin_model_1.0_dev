@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import AnalysisWorkspace from "../workspace/AnalysisWorkspace";
@@ -12,11 +12,63 @@ export default function GriffinConsole() {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [workspaceId, setWorkspaceId] = useState(null);
-  const pollingIntervals = useRef({});
+  const streams = useRef({});
 
   const activeAnalysis =
     analyses.find((analysis) => String(analysis.id) === String(activeEvaluationId)) ||
     newAnalysis;
+
+  const closeStream = (evaluationId) => {
+    const stream = streams.current[evaluationId];
+    if (stream) {
+      stream.close();
+      delete streams.current[evaluationId];
+    }
+  };
+
+  const subscribeToEvaluation = (evaluationId) => {
+    if (!evaluationId || streams.current[evaluationId]) return;
+
+    const stream = new EventSource(api.evaluations.streamUrl(evaluationId));
+
+    stream.onmessage = (event) => {
+      try {
+        const payload = JSON.parse(event.data);
+        const status = String(payload.status || "").toUpperCase();
+
+        setAnalyses((prev) =>
+          prev.map((analysis) =>
+            String(analysis.id) === String(evaluationId)
+              ? {
+                  ...analysis,
+                  status,
+                  progress: payload.progress ?? analysis.progress ?? 0,
+                  logs: payload.logs || analysis.logs || [],
+                  error: payload.error || null,
+                  activeReportId: payload.report_id || null,
+                  activeStage: payload.stage || null,
+                }
+              : analysis,
+          ),
+        );
+
+        if (["COMPLETED", "FAILED", "CANCELLED"].includes(status)) {
+          closeStream(evaluationId);
+          setProcessing(false);
+        }
+      } catch (error) {
+        setUploadError(`Invalid evaluation status event: ${error.message}`);
+      }
+    };
+
+    stream.onerror = () => {
+      closeStream(evaluationId);
+      setUploadError("Live evaluation connection was interrupted. Re-open the evaluation to reconnect.");
+      setProcessing(false);
+    };
+
+    streams.current[evaluationId] = stream;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -48,51 +100,6 @@ export default function GriffinConsole() {
     };
   }, []);
 
-  const pollEvaluation = useCallback((evaluationId) => {
-    if (!evaluationId) return;
-    if (pollingIntervals.current[evaluationId]) {
-      clearInterval(pollingIntervals.current[evaluationId]);
-    }
-
-    const poll = async () => {
-      try {
-        const statusRes = await api.evaluations.status(evaluationId);
-        const status = String(statusRes.status || "").toUpperCase();
-
-        setAnalyses((prev) =>
-          prev.map((analysis) =>
-            String(analysis.id) === String(evaluationId)
-              ? {
-                  ...analysis,
-                  status,
-                  progress: statusRes.progress_percentage ?? 0,
-                  logs: statusRes.logs || [],
-                  error: statusRes.error_message || null,
-                }
-              : analysis,
-          ),
-        );
-
-        if (["COMPLETED", "FAILED", "CANCELLED"].includes(status)) {
-          clearInterval(pollingIntervals.current[evaluationId]);
-          delete pollingIntervals.current[evaluationId];
-          setProcessing(false);
-        }
-      } catch (error) {
-        setUploadError(error.message);
-      }
-    };
-
-    poll();
-    pollingIntervals.current[evaluationId] = setInterval(poll, 2000);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      Object.values(pollingIntervals.current).forEach(clearInterval);
-    };
-  }, []);
-
   useEffect(() => {
     async function loadHistory() {
       try {
@@ -104,7 +111,7 @@ export default function GriffinConsole() {
           const status = String(analysis.status || "").toUpperCase();
           if (["PENDING", "PROCESSING"].includes(status)) {
             setProcessing(true);
-            pollEvaluation(analysis.id);
+            subscribeToEvaluation(analysis.id);
           }
         });
       } catch (error) {
@@ -113,11 +120,23 @@ export default function GriffinConsole() {
     }
 
     loadHistory();
-  }, [pollEvaluation]);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      Object.keys(streams.current).forEach(closeStream);
+    };
+  }, []);
 
   const handleSelectAnalysis = (analysis) => {
     setActiveEvaluationId(analysis.id);
     setNewAnalysis(null);
+
+    const status = String(analysis.status || "").toUpperCase();
+    if (["PENDING", "PROCESSING"].includes(status)) {
+      setProcessing(true);
+      subscribeToEvaluation(analysis.id);
+    }
   };
 
   const handleNewAnalysis = () => {
@@ -185,7 +204,7 @@ export default function GriffinConsole() {
       setActiveEvaluationId(analysis.id);
       setNewAnalysis(null);
       setProcessing(true);
-      pollEvaluation(analysis.id);
+      subscribeToEvaluation(analysis.id);
     } catch (error) {
       setUploadError(error.message);
     } finally {
