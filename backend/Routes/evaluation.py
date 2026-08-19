@@ -86,15 +86,19 @@ async def stream_evaluation_status(evaluation_id: str, request: Request, db: Ses
     async def event_generator():
         try:
             if job:
+                initial_status = job.status.value if hasattr(job.status, "value") else str(job.status)
                 initial = {
                     "type": "status",
                     "evaluation_id": evaluation_id,
-                    "status": job.status.value if hasattr(job.status, "value") else str(job.status),
+                    "status": initial_status,
                     "progress": job.progress_percentage,
                     "logs": job.logs or [],
                     "error": job.error_message,
                 }
                 yield f"data: {json.dumps(initial)}\n\n"
+
+                if initial_status in {"COMPLETED", "FAILED", "CANCELLED"}:
+                    return
 
             while True:
                 if await request.is_disconnected():
