@@ -1,6 +1,11 @@
+import asyncio
+import json
+import queue
+
 from datetime import datetime
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from backend.Database.models import BatchJob, Evaluation, GeneratedReport, JobStatus
@@ -11,6 +16,7 @@ from backend.Schemas.evaluation import (
     EvaluationResponseSchema,
     GriffinResultResponseSchema,
 )
+from backend.Services.evaluation_events import EvaluationEventBus
 from backend.Services.evaluation_service import EvaluationService
 
 router = APIRouter(prefix="/evaluations", tags=["Evaluations"])
@@ -62,6 +68,62 @@ def get_job_status(evaluation_id: str, db: Session = Depends(get_db)):
     return job
 
 
+@router.get("/{evaluation_id}/stream")
+async def stream_evaluation_status(evaluation_id: str, request: Request, db: Session = Depends(get_db)):
+    evaluation = db.query(Evaluation).filter(Evaluation.id == evaluation_id).first()
+    if not evaluation:
+        raise HTTPException(status_code=404, detail="Evaluation not found")
+
+    job = (
+        db.query(BatchJob)
+        .filter(BatchJob.evaluation_id == evaluation_id)
+        .order_by(BatchJob.created_at.desc())
+        .first()
+    )
+
+    channel = EvaluationEventBus.subscribe(evaluation_id)
+
+    async def event_generator():
+        try:
+            if job:
+                initial = {
+                    "type": "status",
+                    "evaluation_id": evaluation_id,
+                    "status": job.status.value if hasattr(job.status, "value") else str(job.status),
+                    "progress": job.progress_percentage,
+                    "logs": job.logs or [],
+                    "error": job.error_message,
+                }
+                yield f"data: {json.dumps(initial)}\n\n"
+
+            while True:
+                if await request.is_disconnected():
+                    break
+
+                try:
+                    event = await asyncio.to_thread(channel.get, True, 15.0)
+                except queue.Empty:
+                    yield ": keep-alive\n\n"
+                    continue
+
+                yield f"data: {json.dumps(event)}\n\n"
+
+                if event.get("status") in {"COMPLETED", "FAILED", "CANCELLED"}:
+                    break
+        finally:
+            EvaluationEventBus.unsubscribe(evaluation_id, channel)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
 @router.post("/{evaluation_id}/cancel", response_model=EvaluationResponseSchema)
 def cancel_evaluation(evaluation_id: str, db: Session = Depends(get_db)):
     evaluation = db.query(Evaluation).filter(Evaluation.id == evaluation_id).first()
@@ -80,7 +142,19 @@ def cancel_evaluation(evaluation_id: str, db: Session = Depends(get_db)):
     if job and job.status in {JobStatus.PENDING, JobStatus.PROCESSING}:
         job.status = JobStatus.CANCELLED
         job.completed_at = datetime.utcnow()
+
     db.commit()
+    EvaluationEventBus.publish(
+        evaluation_id,
+        {
+            "type": "status",
+            "evaluation_id": evaluation_id,
+            "status": "CANCELLED",
+            "progress": job.progress_percentage if job else 0.0,
+            "logs": job.logs if job else [],
+            "error": None,
+        },
+    )
     db.refresh(evaluation)
     return evaluation
 
