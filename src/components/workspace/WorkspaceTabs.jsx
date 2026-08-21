@@ -9,7 +9,7 @@ export default function WorkspaceTabs({
       className="griffin-workspace-tabs"
       aria-label="Analysis sections"
     >
-      <div className="griffin-workspace-tabs-inner">
+      <div className="griffin-workspace-tabs-inner" role="tablist">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
 
