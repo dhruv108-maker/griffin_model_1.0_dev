@@ -428,6 +428,7 @@ button:disabled {
   text-align: center;
   border: 1px dashed #343b47;
   border-radius: var(--griffin-radius-md);
+  cursor: pointer;
   transition:
     border-color 0.15s ease,
     background 0.15s ease;
@@ -439,8 +440,14 @@ button:disabled {
   background: var(--griffin-accent-soft);
 }
 
+.griffin-upload-zone:focus-visible {
+  outline: 2px solid var(--griffin-accent);
+  outline-offset: 2px;
+}
+
 .griffin-upload-zone.is-disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .griffin-upload-zone-icon {
