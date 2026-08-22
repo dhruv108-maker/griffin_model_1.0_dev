@@ -93,6 +93,20 @@ function UploadZone({
     handleFiles(event.dataTransfer.files);
   };
 
+  const handleClick = () => {
+    if (!disabled) {
+      inputRef.current?.click();
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (disabled) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      inputRef.current?.click();
+    }
+  };
+
   const handleChange = (event) => {
     handleFiles(event.target.files);
 
@@ -102,9 +116,14 @@ function UploadZone({
 
   return (
     <div
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-label={`${title}. ${description}`}
       className={`griffin-upload-zone ${
         dragging ? "is-dragging" : ""
       } ${disabled ? "is-disabled" : ""}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       onDragEnter={(event) => {
         event.preventDefault();
         if (!disabled) setDragging(true);
@@ -144,15 +163,10 @@ function UploadZone({
 
         <span>{description}</span>
 
-        <button
-          type="button"
-          className="griffin-upload-browse"
-          onClick={() => inputRef.current?.click()}
-          disabled={disabled}
-        >
+        <span className="griffin-upload-browse">
           <FolderOpen size={15} />
           Browse files
-        </button>
+        </span>
       </div>
     </div>
   );
