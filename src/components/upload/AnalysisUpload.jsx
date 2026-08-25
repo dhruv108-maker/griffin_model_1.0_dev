@@ -149,6 +149,8 @@ function UploadZone({
           className="griffin-upload-browse"
           onClick={() => inputRef.current?.click()}
           disabled={disabled}
+          aria-disabled={disabled}
+          title={disabled ? "File upload is currently disabled" : "Browse files on your device"}
         >
           <FolderOpen size={15} />
           Browse files
@@ -274,6 +276,16 @@ export default function AnalysisUpload({
     reports.length > 0 &&
     !uploading &&
     !disabled;
+
+  const disabledReason = (() => {
+    if (uploading) return "Analysis preparation is in progress";
+    if (disabled) return "Upload actions are currently disabled";
+    if (!curriculum && reports.length === 0)
+      return "Please upload a curriculum PDF and at least one report PDF";
+    if (!curriculum) return "Please upload a curriculum PDF";
+    if (reports.length === 0) return "Please upload at least one report PDF";
+    return undefined;
+  })();
 
   const handleStart = async () => {
     if (!canStart) return;
@@ -425,6 +437,13 @@ export default function AnalysisUpload({
             type="button"
             className="griffin-primary-button"
             disabled={!canStart}
+            aria-disabled={!canStart}
+            title={disabledReason}
+            aria-label={
+              canStart
+                ? "Start Griffin Analysis"
+                : `Start Griffin Analysis (${disabledReason})`
+            }
             onClick={handleStart}
           >
             <Play size={16} />
