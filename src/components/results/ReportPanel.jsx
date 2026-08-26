@@ -174,11 +174,16 @@ export default function ReportPanel({
         </div>
 
         <div className="griffin-report-actions">
+          <span className="sr-only" aria-live="polite" role="status">
+            {copied ? "JSON copied to clipboard" : ""}
+          </span>
           <button
             type="button"
             className="griffin-secondary-button"
             onClick={handleCopy}
             disabled={!result}
+            title={!result ? "No result data to copy" : "Copy raw JSON to clipboard"}
+            aria-label={copied ? "Copied JSON to clipboard" : "Copy JSON"}
           >
             {copied ? (
               <CheckCircle2 size={15} />
@@ -196,6 +201,8 @@ export default function ReportPanel({
             className="griffin-secondary-button"
             onClick={handleDownload}
             disabled={!result}
+            title={!result ? "No result data to export" : "Export raw JSON as file"}
+            aria-label="Export JSON"
           >
             <Download size={15} />
             <span>Export JSON</span>
