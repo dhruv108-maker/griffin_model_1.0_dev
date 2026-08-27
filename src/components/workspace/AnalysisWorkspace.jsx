@@ -485,7 +485,14 @@ export default function AnalysisWorkspace({
 
           {/* RESULTS */}
           {workspaceState === "result" && (
-            <div className="min-w-0">
+            <div
+              key={activeTab}
+              id={`tabpanel-${activeTab}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${activeTab}`}
+              tabIndex={0}
+              className="min-w-0 focus:outline-none"
+            >
 
               {activeTab === "overview" && (
                 <Overview
