@@ -9,7 +9,7 @@ export default function WorkspaceTabs({
       className="griffin-workspace-tabs"
       aria-label="Analysis sections"
     >
-      <div className="griffin-workspace-tabs-inner">
+      <div className="griffin-workspace-tabs-inner" role="tablist">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
 
@@ -22,7 +22,13 @@ export default function WorkspaceTabs({
               }`}
               onClick={() => onChange?.(tab.id)}
               disabled={disabled}
+              aria-disabled={disabled}
               aria-selected={isActive}
+              title={
+                disabled
+                  ? "Tabs are disabled until analysis results are ready"
+                  : undefined
+              }
               role="tab"
             >
               {tab.label}

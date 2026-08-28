@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   FileText,
   FolderOpen,
+  LoaderCircle,
   Play,
   Trash2,
   UploadCloud,
@@ -425,9 +426,25 @@ export default function AnalysisUpload({
             type="button"
             className="griffin-primary-button"
             disabled={!canStart}
+            aria-disabled={!canStart}
+            title={
+              !canStart
+                ? uploading
+                  ? "Analysis is currently running..."
+                  : !curriculum && reports.length === 0
+                  ? "Upload a curriculum PDF and at least one report PDF to start"
+                  : !curriculum
+                  ? "Upload a curriculum PDF to start analysis"
+                  : "Upload at least one report PDF to start analysis"
+                : "Start Griffin Analysis"
+            }
             onClick={handleStart}
           >
-            <Play size={16} />
+            {uploading ? (
+              <LoaderCircle size={16} className="animate-spin" />
+            ) : (
+              <Play size={16} />
+            )}
 
             <span>
               {uploading
