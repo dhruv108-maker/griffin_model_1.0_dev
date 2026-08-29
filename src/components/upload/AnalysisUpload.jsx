@@ -275,6 +275,15 @@ export default function AnalysisUpload({
     !uploading &&
     !disabled;
 
+  const getStartButtonHint = () => {
+    if (uploading) return "Analysis is currently preparing…";
+    if (!curriculum && reports.length === 0)
+      return "Please upload a curriculum PDF and at least one report PDF to start.";
+    if (!curriculum) return "Please upload a curriculum PDF to start.";
+    if (reports.length === 0) return "Please upload at least one report PDF to start.";
+    return "Start Griffin Analysis";
+  };
+
   const handleStart = async () => {
     if (!canStart) return;
 
@@ -421,11 +430,18 @@ export default function AnalysisUpload({
         </div>
 
         <div className="griffin-upload-actions">
+          {!canStart && (
+            <span className="text-xs text-zinc-400 mr-2" id="start-analysis-hint">
+              {getStartButtonHint()}
+            </span>
+          )}
           <button
             type="button"
             className="griffin-primary-button"
             disabled={!canStart}
             onClick={handleStart}
+            title={getStartButtonHint()}
+            aria-describedby={!canStart ? "start-analysis-hint" : undefined}
           >
             <Play size={16} />
 
