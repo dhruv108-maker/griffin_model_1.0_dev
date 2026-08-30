@@ -275,6 +275,16 @@ export default function AnalysisUpload({
     !uploading &&
     !disabled;
 
+  const getDisabledReason = () => {
+    if (uploading) return "Analysis setup is currently in progress";
+    if (disabled) return "Upload is currently disabled";
+    if (!curriculum && reports.length === 0)
+      return "Upload a curriculum PDF and at least one report PDF to start analysis";
+    if (!curriculum) return "Upload a curriculum PDF to start analysis";
+    if (reports.length === 0) return "Upload at least one report PDF to start analysis";
+    return undefined;
+  };
+
   const handleStart = async () => {
     if (!canStart) return;
 
@@ -426,6 +436,12 @@ export default function AnalysisUpload({
             className="griffin-primary-button"
             disabled={!canStart}
             onClick={handleStart}
+            title={getDisabledReason()}
+            aria-label={
+              !canStart && getDisabledReason()
+                ? `Start Griffin Analysis (${getDisabledReason()})`
+                : "Start Griffin Analysis"
+            }
           >
             <Play size={16} />
 
